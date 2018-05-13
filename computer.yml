@@ -19,61 +19,48 @@
       - homebrew/services
       - caskroom/fonts
     homebrew_formula:
-      - rsync
-      - trash
-      - hr
-      - mackup
+      - ansible
       - bash-completion
+      - composer
       - git
       - git-flow
-      - wget
-      - ansible
-      - composer
-      - phpunit
+      - hr
+      - mackup
       - php-code-sniffer
+      - phpunit
+      - rsync
+      - trash
+      - wget
     homebrew_casks:
+      - a-better-finder-attributes
+      - a-better-finder-rename
       - alfred
-      - google-chrome
-      - firefox
-      - airfile
-      - dropbox
-      - google-drive
-      - insync
+      - bartender
+      - big-mean-folder-machine
+      - calibre
+      - cheatsheet
       - clamxav
+      - cleanmymac
+      - dash
+      - diffmerge
+      - dropzone
+      - firefox
+      - flux
+      - font-source-code-pro
       - deeper
+      - dropbox
+      - google-chrome
+      - insync
+      - iterm2
       - omnidisksweeper
       - onyx
       - owncloud
-      - setapp
-      - superduper
-      - iterm2
-      - cheatsheet
-      - cleanmymac
-      - a-better-finder-attributes
-      - a-better-finder-rename
-      - bartender
-      - big-mean-folder-machine
-      - dash
-      - dropzone
       - postbox
-      - flux
-      - skitch
-      - virtualbox
-      - transmit
-      - tower
-      - vagrant
-      - diffmerge
       - sequel-pro
-      - font-source-code-pro
-      # Hackintosh
-      # - kext-utility
-      # - kext-wizard
-      # Media
-      # - adapter
-      # - all2mp3
-      # - id3-editor
-      # - vlc
-      # - filebot
-      # - handbrake
-      # - musicbrainz-picard
-      # - calibre
+      - setapp
+      - skitch
+      - superduper
+      - tower
+      - transmit
+      - vagrant
+      - virtualbox
