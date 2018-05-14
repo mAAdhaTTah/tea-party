@@ -10,6 +10,7 @@
     - atom
     - bash
     - mysql
+    - node
     - php
 
   vars:
@@ -22,36 +23,51 @@
       - ansible
       - bash-completion
       - composer
+      - curl
+      - fasd
       - git
       - git-flow
+      - gnu-tar
+      - go
       - hr
+      - TomAnthony/brews/itermocil
+      - karn
       - mackup
       - php-code-sniffer
+      - php-cs-fixer
       - phpunit
       - rsync
       - trash
       - wget
+      - whois
+      - wp-cli
+      - yarn
     homebrew_casks:
       - a-better-finder-attributes
       - a-better-finder-rename
       - alfred
+      - android-file-transfer
       - bartender
       - big-mean-folder-machine
       - calibre
       - cheatsheet
       - clamxav
       - cleanmymac
-      - dash
+      - dash2
+      - deeper
+      - devonthink-pro-office
       - diffmerge
+      - dropbox
       - dropzone
       - firefox
+      - firefoxdeveloperedition
       - flux
       - font-source-code-pro
-      - deeper
-      - dropbox
       - google-chrome
+      - hazel
       - insync
       - iterm2
+      - malwarebytes-anti-malware
       - omnidisksweeper
       - onyx
       - owncloud
@@ -59,6 +75,9 @@
       - sequel-pro
       - setapp
       - skitch
+      - slack
+      - spectacle
+      - spillo
       - superduper
       - tower
       - transmit

@@ -1,0 +1,7 @@
+---
+- name: install atom
+  homebrew:
+    name: node
+    state: present
+
+# @todo add node configuration, nvm, global installs, etc.
