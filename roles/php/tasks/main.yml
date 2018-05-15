@@ -1,5 +1,5 @@
 ---
-- name: install atom
+- name: install php72
   homebrew:
     name: php72
     state: present

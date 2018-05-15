@@ -1,5 +1,5 @@
 ---
-- name: install atom
+- name: install mysql
   homebrew:
     name: mysql
     state: present
