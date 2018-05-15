@@ -24,6 +24,7 @@
     homebrew_formula:
       - ansible
       - bash-completion
+      - bat
       - composer
       - curl
       - fasd
