@@ -1,0 +1,4 @@
+---
+- name: hnakamur.atom-packages
+  src: hnakamur.atom-packages
+  version: c2ac94d

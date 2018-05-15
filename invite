@@ -87,5 +87,8 @@ if ! exists ansible; then
     sudo pip install -q ansible
 fi
 
+setStatusMessage "Get all the required roles"
+ansible-galaxy install -f -r requirements.yml -p vendor/roles
+
 setStatusMessage "Running the ansible playbook"
 ansible-playbook -i "localhost," computer.yml

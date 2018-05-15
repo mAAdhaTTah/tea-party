@@ -16,6 +16,8 @@
   vars:
     osx_defaults:
       -
+    atom_packages_packages:
+      - elmjutsu
     homebrew_taps:
       - homebrew/services
       - caskroom/fonts

@@ -4,4 +4,11 @@
     name: atom
     state: present
 
-# @todo install apm packages
+- name: copy atom config
+  copy:
+    src: files/config.cson
+    dest: "{{ ansible_env.HOME }}/config.cson"
+
+- name: install atom packages
+  include_role:
+      name: hnakamur.atom-packages
