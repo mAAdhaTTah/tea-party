@@ -21,6 +21,7 @@
     homebrew_taps:
       - homebrew/services
       - caskroom/fonts
+      - caskroom/versions
     homebrew_formula:
       - ansible
       - bash-completion
