@@ -18,6 +18,7 @@
       -
     atom_packages_packages:
       - elmjutsu
+      - editorconfig
     homebrew_taps:
       - homebrew/services
       - caskroom/fonts

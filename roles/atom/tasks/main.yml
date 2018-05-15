@@ -6,8 +6,10 @@
 
 - name: copy atom config
   copy:
-    src: files/config.cson
-    dest: "{{ ansible_env.HOME }}/config.cson"
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.atom/config.cson"
+  with_items:
+    - config.cson
 
 - name: install atom packages
   include_role:
