@@ -7,6 +7,7 @@
     #- osx
     - homebrew
     - homebrew-cask
+    - bash-it
     - atom
     - bash
     - mysql
@@ -88,3 +89,18 @@
       - transmit
       - vagrant
       - virtualbox
+    bash_it_plugins:
+      - dirs
+      - osx
+    bash_it_aliases:
+      - ansible
+      - atom
+      - curl
+      - general
+      - git
+      - homebrew-cask
+      - homebrew
+      - npm
+      - osx
+      - vagrant
+      - yarn

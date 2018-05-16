@@ -1,0 +1,50 @@
+---
+- name: install bash-it
+  become: yes
+  git:
+    repo: "https://github.com/Bash-it/bash-it.git"
+    depth: 1
+    dest: "{{ bash_it_install_path }}"
+
+- name: give bash-it ownership to user
+  become: yes
+  file:
+    dest: "{{ bash_it_install_path }}"
+    owner: "{{ lookup('env', 'USER') }}"
+    group: admin
+    mode: u=rwX,g=rwX,o=rX
+    recurse: yes
+
+- name: initialize bash_it directories for {{ user }}
+  file:
+    path: "{{ bash_it_install_path }}/{{ item }}/enabled"
+    state: directory
+    owner: "{{ lookup('env', 'USER') }}"
+  with_items:
+    - plugins
+    - aliases
+    - completion
+
+- name: install bash-it plugins
+  file:
+    src: "{{ bash_it_install_path }}/plugins/available/{{ item }}.plugin.bash"
+    dest: "{{ bash_it_install_path }}/plugins/enabled/{{ item }}.plugin.bash"
+    state: link
+    owner: "{{ lookup('env', 'USER') }}"
+  with_items: "{{ bash_it_plugins }}"
+
+- name: install bash-it aliases
+  file:
+    src: "{{ bash_it_install_path }}/aliases/available/{{ item }}.aliases.bash"
+    dest: "{{ bash_it_install_path }}/aliases/enabled/{{ item }}.aliases.bash"
+    state: link
+    owner: "{{ lookup('env', 'USER') }}"
+  with_items: "{{ bash_it_aliases }}"
+
+- name: install bash-it completions
+  file:
+    src: "{{ bash_it_install_path }}/completion/available/{{ item }}.completion.bash"
+    dest: "{{ bash_it_install_path }}/completion/enabled/{{ item }}.completion.bash"
+    state: link
+    owner: "{{ lookup('env', 'USER') }}"
+  with_items: "{{ bash_it_completions }}"
