@@ -15,7 +15,7 @@
     mode: u=rwX,g=rwX,o=rX
     recurse: yes
 
-- name: initialize bash_it directories for {{ user }}
+- name: initialize bash_it directories
   file:
     path: "{{ bash_it_install_path }}/{{ item }}/enabled"
     state: directory
