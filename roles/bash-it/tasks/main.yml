@@ -20,6 +20,7 @@
     path: "{{ bash_it_install_path }}/{{ item }}/enabled"
     state: directory
     owner: "{{ lookup('env', 'USER') }}"
+    group: admin
   with_items:
     - plugins
     - aliases
@@ -31,6 +32,7 @@
     dest: "{{ bash_it_install_path }}/plugins/enabled/{{ item }}.plugin.bash"
     state: link
     owner: "{{ lookup('env', 'USER') }}"
+    group: admin
   with_items: "{{ bash_it_plugins }}"
 
 - name: install bash-it aliases
@@ -39,6 +41,7 @@
     dest: "{{ bash_it_install_path }}/aliases/enabled/{{ item }}.aliases.bash"
     state: link
     owner: "{{ lookup('env', 'USER') }}"
+    group: admin
   with_items: "{{ bash_it_aliases }}"
 
 - name: install bash-it completions
@@ -47,4 +50,5 @@
     dest: "{{ bash_it_install_path }}/completion/enabled/{{ item }}.completion.bash"
     state: link
     owner: "{{ lookup('env', 'USER') }}"
+    group: admin
   with_items: "{{ bash_it_completions }}"
