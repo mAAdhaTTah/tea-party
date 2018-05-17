@@ -18,8 +18,42 @@
     osx_defaults:
       -
     atom_packages_packages:
-      - elmjutsu
+      - atom-handlebars
+      - atomic-chrome
+      - auto-update-packages
+      - autocomplete-modules
+      - config-import-export
+      - docblockr
+      - eclectic-syntax
       - editorconfig
+      - elmjutsu
+      - emmet
+      - file-icons
+      - firewatch-syntax
+      - go-debug
+      - go-plus
+      - go-rename
+      - go-signature-statusbar
+      - highlight-selected
+      - hyperclick
+      - imdone-atom
+      - language-ansible
+      - language-api-blueprint
+      - language-elm
+      - language-gitignore
+      - language-haskell
+      - linter
+      - linter-alex
+      - linter-api-blueprint
+      - linter-just-say-no
+      - linter-write-good
+      - markdown-writer
+      - marked
+      - merge-conflicts
+      - minimap
+      - oblique-strategies
+      - pigments
+      - react
     homebrew_taps:
       - homebrew/services
       - caskroom/fonts
