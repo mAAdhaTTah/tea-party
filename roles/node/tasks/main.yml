@@ -4,4 +4,4 @@
     name: node
     state: present
 
-# @todo add node configuration, nvm, global installs, etc.
+# @todo add node configuration, nvm / nodenv, global installs, etc.
