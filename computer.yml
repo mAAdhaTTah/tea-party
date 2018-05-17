@@ -141,7 +141,6 @@
       - osx
       - projects
       - ssh
-      - sshagent
     bash_it_aliases:
       - ansible
       - atom
