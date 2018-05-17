@@ -72,12 +72,14 @@
       - hr
       - TomAnthony/brews/itermocil
       - karn
+      - legit
       - mackup
       - php-code-sniffer
       - php-cs-fixer
       - phpunit
       - rsync
       - trash
+      - travis
       - wget
       - whois
       - wp-cli
@@ -124,8 +126,22 @@
       - vagrant
       - virtualbox
     bash_it_plugins:
+      - alias-completion
+      - base
+      - battery
+      - browser
       - dirs
+      - explain
+      - extract
+      - fasd
+      - gif
+      - git
+      - go
+      - history
       - osx
+      - projects
+      - ssh
+      - sshagent
     bash_it_aliases:
       - ansible
       - atom
@@ -138,3 +154,22 @@
       - osx
       - vagrant
       - yarn
+    bash_it_completions:
+      - apm
+      - bash-it
+      - brew
+      - composer
+      - defaults
+      - dirs
+      - export
+      - git
+      - go
+      - gulp
+      - makefile
+      - npm
+      - projects
+      - ssh
+      - system
+      - travis
+      - vagrant
+      - virtualbox
