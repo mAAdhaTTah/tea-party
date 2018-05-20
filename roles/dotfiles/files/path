@@ -1,0 +1,9 @@
+# Add homebrew’s installs to PATH
+
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/go/bin:$PATH"
+
+if [ -d "$HOME/.bin" ] ; then
+    export PATH="$HOME/.bin:$HOME/.composer/vendor/bin:$PATH"
+fi
+
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"

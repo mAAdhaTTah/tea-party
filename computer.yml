@@ -8,6 +8,7 @@
     - homebrew
     - homebrew-cask
     - bash-it
+    - dotfiles
     - atom
     - bash
     - karn

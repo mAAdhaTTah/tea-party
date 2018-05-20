@@ -1,0 +1,53 @@
+# Make sure homebrew-casks’s default install folder is /Applications
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# Larger bash history (allow 32³ entries; default is 500)
+# Source: simonowendesign/dotfiles
+export HISTSIZE=32768
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoredups
+# Make some commands not show up in history
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+# Make sure we're installing gems in the right place
+export GEM_HOME=/usr/local
+
+# Ansible configurations
+export ANSIBLE_FORCE_COLOR=true
+export ANSIBLE_HOST_KEY_CHECKING=false
+
+# Add rvm gems and nginx to the path
+export PATH=$PATH:~/.gem/ruby/1.8/bin:/opt/nginx/sbin
+
+# Set editor and git editor
+export EDITOR="atom"
+export GIT_EDITOR="atom --wait"
+
+# Set the path nginx
+export NGINX_PATH='/opt/nginx'
+
+# Don't check mail when opening terminal.
+unset MAILCHECK
+
+# no ._ files in archives please
+export COPYFILE_DISABLE=true
+
+export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
+# Prefer US English and use UTF-8
+export LANG="en_US"
+export LC_ALL="en_US.UTF-8"
+
+# Highlight section titles in manual pages
+export LESS_TERMCAP_md="$ORANGE"
+
+# Don’t clear the screen after quitting a manual page
+export MANPAGER="less -X"
+
+# Always enable colored `grep` output
+export GREP_OPTIONS="--color=auto"
+
+# Set go path
+export GOPATH=/usr/local/go
+
+# Load project directories
+export PROJECT_PATHS=~/Code/Infra:~/Code/JavaScript:~/Code/Kitchenplan:~/Code/PHP:~/Code/Projects:~/Code/Wordpress:~/Code/Wordpress/plugins:~/Code/Wordpress/sites:~/Code/Wordpress/themes:~/Code/Work

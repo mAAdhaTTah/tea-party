@@ -1,0 +1,16 @@
+# Path to the bash it configuration
+export BASH_IT="/usr/local/bash-it"
+
+# Lock and Load a custom theme file
+export BASH_IT_THEME="envy"
+
+# Make Bash-it create alias reload.
+export BASH_IT_RELOAD_LEGACY=1
+
+# Load Bash It
+source $BASH_IT/bash_it.sh
+
+# Automatically check for identity updates before running a git command
+if which karn > /dev/null; then eval "$(karn init)"; fi
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

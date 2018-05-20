@@ -1,0 +1,15 @@
+---
+- name: copy dotfiles
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.{{ item }}"
+  with_items:
+    - aliases
+    - apps
+    - bash_profile
+    - exports
+    - functions
+    - gitconfig
+    - gitignore_global
+    - itermocil/
+    - path
