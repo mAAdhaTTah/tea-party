@@ -10,6 +10,7 @@
     - bash-it
     - atom
     - bash
+    - karn
     - mysql
     - node
     - php
@@ -74,7 +75,6 @@
       - go
       - hr
       - TomAnthony/brews/itermocil
-      - karn
       - legit
       - mackup
       - php-code-sniffer

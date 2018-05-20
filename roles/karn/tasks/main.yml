@@ -1,0 +1,10 @@
+---
+- name: install karn
+  homebrew:
+    name: karn
+    state: present
+
+- name: copy karn.yml
+  copy:
+    src: "karn.yml"
+    dest: "{{ ansible_env.HOME }}/.karn.yml"
