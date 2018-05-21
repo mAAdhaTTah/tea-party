@@ -1,0 +1,10 @@
+---
+- name: install mackup
+  homebrew:
+    name: mackup
+    state: present
+
+- name: copy mackup.cfg
+  copy:
+    src: "mackup.cfg"
+    dest: "{{ ansible_env.HOME }}/.mackup.cfg"
