@@ -91,6 +91,7 @@
       - oblique-strategies
       - pigments
       - react
+      - todo
     homebrew_taps:
       - homebrew/services
       - caskroom/fonts
