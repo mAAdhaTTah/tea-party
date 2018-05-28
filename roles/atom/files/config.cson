@@ -46,19 +46,18 @@
   "language-elm":
     autocompleteEnabled: false
   linter: {}
-  "linter-ui-default":
-    panelHeight: 69
+  "linter-ui-default": {}
   "linter-write-good": {}
   marked: {}
-  minimap:
-    displayMinimapOnLeft: true
+  minimap: {}
   "oblique-strategies":
     showAfterInactivitySeconds: 120
   react: {}
   "sync-settings":
     _analyticsUserId: "76070c43-fe1a-4429-b518-9e9fa9fd7bce"
-  "tree-view":
-    hideVcsIgnoredFiles: false
+  todo:
+    a_pattern: "@todo.+"
+  "tree-view": {}
   welcome:
     showOnStartup: false
 ".json":

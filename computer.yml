@@ -9,7 +9,7 @@
     - homebrew-cask
     - bash-it
     - dotfiles
-    # - atom
+    - atom
     - bash
     - karn
     - mackup
@@ -75,9 +75,11 @@
       - intentions
       - language-ansible
       - language-api-blueprint
+      - language-cshtml
       - language-elm
       - language-gitignore
       - language-haskell
+      - language-vue
       - linter
       - linter-alex
       - linter-api-blueprint
