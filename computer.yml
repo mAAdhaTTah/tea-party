@@ -96,8 +96,8 @@
       - todo
     homebrew_taps:
       - homebrew/services
-      - caskroom/fonts
-      - caskroom/versions
+      - homebrew/cask-fonts
+      - homebrew/cask-versions
     homebrew_formula:
       - ansible
       - bash-completion

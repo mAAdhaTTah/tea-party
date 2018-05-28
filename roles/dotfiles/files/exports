@@ -50,4 +50,4 @@ export GREP_OPTIONS="--color=auto"
 export GOPATH=/usr/local/go
 
 # Load project directories
-export PROJECT_PATHS=~/Code/Infra:~/Code/JavaScript:~/Code/Kitchenplan:~/Code/PHP:~/Code/Projects:~/Code/Wordpress:~/Code/Wordpress/plugins:~/Code/Wordpress/sites:~/Code/Wordpress/themes:~/Code/Work
+export PROJECT_PATHS=~/Code/Infra:~/Code/JavaScript:~/Code/Kitchenplan:~/Code/PHP:~/Code/Projects:~/Code/Wordpress:~/Code/Wordpress/plugins:~/Code/Wordpress/sites:~/Code/Wordpress/themes:~/Code/Valtech:~/Code/Intraxia
