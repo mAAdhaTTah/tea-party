@@ -53,6 +53,7 @@
         name: "PDFGenius (4.8)"
     atom_packages_packages:
       - atom-handlebars
+      - atom-ide-ui
       - atomic-chrome
       - auto-update-packages
       - autocomplete-modules
@@ -65,31 +66,35 @@
       - emmet
       - file-icons
       - firewatch-syntax
+      - git-blame
       - go-debug
       - go-plus
       - go-rename
       - go-signature-statusbar
       - highlight-selected
       - hyperclick
+      - ide-css
+      - ide-flowtype
+      - ide-php
       - imdone-atom
       - intentions
       - language-ansible
       - language-api-blueprint
       - language-cshtml
       - language-elm
+      - language-gherkin
       - language-gitignore
       - language-haskell
       - language-vue
-      - linter
-      - linter-alex
       - linter-api-blueprint
-      - linter-just-say-no
+      - linter-eslint
       - linter-ui-default
       - linter-write-good
       - markdown-writer
       - marked
       - merge-conflicts
       - minimap
+      - multi-cursor
       - oblique-strategies
       - pigments
       - react
