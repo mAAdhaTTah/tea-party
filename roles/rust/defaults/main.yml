@@ -1,0 +1,2 @@
+---
+rustup_completions: "{{ bash_it_install_path }}/completions/enabled/rustup.bash"

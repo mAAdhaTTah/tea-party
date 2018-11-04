@@ -16,6 +16,7 @@
     - mysql
     - node
     - php
+    - rust
     - geerlingguy.mas
 
   vars:
@@ -76,6 +77,7 @@
       - ide-css
       - ide-flowtype
       - ide-php
+      - ide-rust
       - imdone-atom
       - intentions
       - language-ansible
@@ -85,6 +87,7 @@
       - language-gherkin
       - language-gitignore
       - language-haskell
+      - language-rust
       - language-vue
       - linter-api-blueprint
       - linter-eslint
@@ -216,3 +219,5 @@
       - travis
       - vagrant
       - virtualbox
+    crates:
+      - rustfmt

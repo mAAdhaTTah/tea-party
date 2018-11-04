@@ -1,0 +1,21 @@
+---
+- name: install rustup
+  shell: curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
+  args:
+    creates: ~/.cargo/bin/rustup
+
+- name: create rust completions file
+  file:
+    path: "{{ rustup_completions }}"
+    state: touch
+
+- name: create rust bash completions
+  shell: "~/.cargo/bin/rustup completions bash > {{ rustup_completions }}"
+  args:
+    creates: /etc/bash_completion.d/rustup.bash-completion
+
+- name: install rust crates
+  # Use --force until we get --update
+  # https://github.com/rust-lang/cargo/issues/2082
+  shell: "~/.cargo/bin/rustup run stable cargo install --force {{ item }}"
+  with_items: "{{ crates }}"
