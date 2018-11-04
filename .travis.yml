@@ -4,7 +4,29 @@ language: objective-c
 os:
   - osx
 
-osx_image: xcode7
+before_install:
+  # Uninstall existing brew installation.
+  - curl -sLO https://raw.githubusercontent.com/Homebrew/install/master/uninstall
+  - chmod +x ./uninstall
+  - ./uninstall --force
+  - sudo rm -rf /usr/local/Homebrew
+  - sudo rm -rf /usr/local/Caskroom
+  - sudo rm -rf /usr/local/bin/brew
+  - rm uninstall
+
+install:
+  # Install pip.
+  - sudo easy_install pip
+
+  # Install Ansible.
+  - sudo pip install ansible
+
+  # Add a hosts file.
+  - sudo mkdir -p /etc/ansible
+  - sudo touch /etc/ansible/hosts
+  - "echo -e '[local]\nlocalhost ansible_connection=local' | sudo tee -a /etc/ansible/hosts > /dev/null"
 
 script:
-  - ./invite
+  - ansible-galaxy install -f -r requirements.yml -p vendor/roles
+  - ansible-playbook computer.yml --syntax-check
+  - ansible-playbook computer.yml
