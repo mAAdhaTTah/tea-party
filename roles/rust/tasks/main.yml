@@ -5,14 +5,15 @@
     creates: ~/.cargo/bin/rustup
 
 - name: create rust completions file
-  file:
-    path: "{{ rustup_completions }}"
-    state: touch
+  copy:
+    content: ""
+    dest: "{{ rustup_completions }}"
+    force: no
 
 - name: create rust bash completions
   shell: "~/.cargo/bin/rustup completions bash > {{ rustup_completions }}"
   args:
-    creates: /etc/bash_completion.d/rustup.bash-completion
+    creates: "{{ rustup_completions }}"
 
 - name: install rust crates
   # Use --force until we get --update
