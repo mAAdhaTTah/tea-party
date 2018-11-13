@@ -68,7 +68,8 @@
     _analyticsUserId: "76070c43-fe1a-4429-b518-9e9fa9fd7bce"
   todo:
     a_pattern: "@todo.+"
-  "tree-view": {}
+  "tree-view":
+    hideVcsIgnoredFiles: false
   welcome:
     showOnStartup: false
 ".json":
