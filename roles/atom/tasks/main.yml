@@ -8,6 +8,7 @@
   copy:
     src: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/.atom/{{ item }}"
+    backup: yes
   with_items:
     - config.cson
     - init.coffee
