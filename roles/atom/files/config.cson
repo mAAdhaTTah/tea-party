@@ -17,6 +17,11 @@
       "atom-ide-signature-help": "default"
       "atom-ide-terminal": "default"
       hyperclick: "default"
+  "atom-package-deps":
+    ignored: [
+      "linter-eslint"
+      "prettier-atom"
+    ]
   core:
     audioBeep: false
     disabledPackages: [
@@ -38,11 +43,12 @@
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true
-    tabLength: 4
   elmjutsu:
     cacheDirectory: "/var/folders/_x/gjdwyj412034mwd57y0vcb7r0000gn/T/elmjutsu20723gyztHDllUL2H"
   "exception-reporting":
     userId: "c8c2579c-8443-3ee4-825b-f6672e1e48ae"
+  "ide-rust":
+    rlsToolchain: "stable"
   "language-elm":
     autocompleteEnabled: false
   linter: {}
@@ -52,6 +58,11 @@
   minimap: {}
   "oblique-strategies":
     showAfterInactivitySeconds: 120
+  "prettier-atom":
+    formatOnSaveOptions:
+      enabled: true
+      isDisabledIfNoConfigFile: true
+      isDisabledIfNotInPackageJson: true
   react: {}
   "sync-settings":
     _analyticsUserId: "76070c43-fe1a-4429-b518-9e9fa9fd7bce"
