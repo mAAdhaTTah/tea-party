@@ -3,6 +3,7 @@
   copy:
     src: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/.{{ item }}"
+    backup: yes
   with_items:
     - aliases
     - apps
