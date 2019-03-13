@@ -4,4 +4,19 @@
     name: node
     state: present
 
-# @todo add node configuration, nvm / nodenv, global installs, etc.
+- name: install nvm
+  become: yes
+  git:
+    repo: https://github.com/creationix/nvm.git
+    dest: "{{ nvm_install_path }}"
+    depth: 1
+    version: "v0.34.0"
+
+- name: give nvm ownership to user
+  become: yes
+  file:
+    dest: "{{ nvm_install_path }}"
+    owner: "{{ lookup('env', 'USER') }}"
+    group: admin
+    mode: u=rwX,g=rwX,o=rX
+    recurse: yes
