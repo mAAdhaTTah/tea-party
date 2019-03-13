@@ -20,3 +20,9 @@
     group: admin
     mode: u=rwX,g=rwX,o=rX
     recurse: yes
+
+- name: make system default
+  copy:
+    src: default
+    dest: "{{ nvm_install_path }}/alias/default"
+    backup: yes
