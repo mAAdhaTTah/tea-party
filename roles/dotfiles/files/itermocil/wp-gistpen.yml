@@ -1,23 +1,21 @@
 windows:
     - name: "wp-gistpen"
       root: "~/Code"
-      layout: double-main-horizontal
+      layout: double-main-vertical
       panes:
         - commands:
-            - pj jamesdigioia.com
-            - cd server
-            - vup
-        - commands:
-            - pj jamesdigioia.com
-            - cd site
-            - tail -f web/app/debug.log
-        - commands:
-            - pj jamesdigioia.com
-            - cd site
+            - pj wp-gistpen
+            - docker-compose up --build
         - commands:
             - pj wp-gistpen
-            - npm i
+            - nvm use 10
             - npm run dev:app
+        - commands:
+            - pj wp-gistpen
+            - nvm use 10
+            - npm run dev:storybook
+        - commands:
+            - pj wp-gistpen
         - commands:
             - pj wp-gistpen
             - bash bin/install-wp-tests.sh wordpress_test root password
