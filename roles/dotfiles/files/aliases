@@ -40,8 +40,8 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias badge="tput bel"
 
 # Sync Sites up or down
-alias syncup="rsync -zva --delete --exclude '.vagrant*/' ~/Code/ dreedle@pianosa:/srv/sync/code"
-alias syncdown="rsync -zva --delete --exclude '.vagrant*/' dreedle@pianosa:/srv/sync/code/ ~/Code"
+alias syncup="rsync -zva --delete --exclude '.vagrant*/' ~/Code/ dreedle@192.168.1.54:/srv/sync/code"
+alias syncdown="rsync -zva --delete --exclude '.vagrant*/' dreedle@192.168.1.54:/srv/sync/code/ ~/Code"
 
 # Backup my images
 alias backuproma="rsync -zva --delete --exclude=.* /Volumes/Roma\ Image/ dreedle@pianosa:/srv/backups/Roma"
