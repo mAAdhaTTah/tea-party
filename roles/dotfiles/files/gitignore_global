@@ -28,6 +28,9 @@ Temporary Items
 # ItelliJ IDEs
 .idea
 
+# vscode
+.vscode
+
 # SublimeText3 files
 # @source https://github.com/github/gitignore/blob/master/Global/SublimeText.gitignore
 
