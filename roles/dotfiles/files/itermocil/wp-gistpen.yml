@@ -5,7 +5,7 @@ windows:
       panes:
         - commands:
             - pj wp-gistpen
-            - npm run env:connect
+            - npm run env connect
         - commands:
             - pj wp-gistpen
             - npm run dev:app
