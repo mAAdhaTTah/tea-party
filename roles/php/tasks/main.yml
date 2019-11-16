@@ -1,7 +1,7 @@
 ---
-- name: install php72
+- name: install php
   homebrew:
-    name: php72
+    name: php
     state: present
 
-# @todo add php configuration
+# @todo add phpbrew

@@ -27,3 +27,5 @@ source $HOME/.cargo/env
 if [[ -z "$VIRTUAL_ENV" ]] && command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
+
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
