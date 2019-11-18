@@ -32,16 +32,6 @@
         default = simple
 [credential]
         helper = osxkeychain
-[alias]
-        branches = !legit branches
-        graft = !legit graft
-        harvest = !legit harvest
-        publish = !legit publish
-        unpublish = !legit unpublish
-        sprout = !legit sprout
-        sync = !legit sync
-        switch = !legit switch
-        resync = !legit resync
 [merge "npm-merge-driver"]
         name = automatically merge npm lockfiles
         driver = npx npm-merge-driver merge %A %O %B %P

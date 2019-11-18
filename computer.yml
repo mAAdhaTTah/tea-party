@@ -516,7 +516,6 @@
       - language-haskell
       - language-rust
       - language-vue
-      - linter-api-blueprint
       - linter-eslint
       - linter-ui-default
       - linter-write-good
@@ -548,7 +547,6 @@
       - hr
       - kryptco/tap/kr
       - TomAnthony/brews/itermocil
-      - legit
       - mackup
       - php-code-sniffer
       - php-cs-fixer
