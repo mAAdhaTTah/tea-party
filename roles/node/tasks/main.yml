@@ -10,7 +10,7 @@
     repo: https://github.com/creationix/nvm.git
     dest: "{{ nvm_install_path }}"
     depth: 1
-    version: "v0.34.0"
+    version: "v0.35.1"
 
 - name: give nvm ownership to user
   become: yes
