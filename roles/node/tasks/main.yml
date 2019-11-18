@@ -21,6 +21,11 @@
     mode: u=rwX,g=rwX,o=rX
     recurse: yes
 
+- name: make sure alias directory exists
+  file:
+    path: "{{ nvm_install_path }}/alias"
+    state: directory
+
 - name: make system default
   copy:
     src: default
