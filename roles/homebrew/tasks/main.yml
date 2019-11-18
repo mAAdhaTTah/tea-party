@@ -17,6 +17,5 @@
 
 - name: install homebrew formula
   homebrew:
-    name: "{{ item }}"
+    name: "{{ homebrew_formula }}"
     state: present
-  with_items: "{{ homebrew_formula }}"
