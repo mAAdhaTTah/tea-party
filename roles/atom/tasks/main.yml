@@ -4,6 +4,11 @@
     name: atom
     state: present
 
+- name: create atom config dir
+  file:
+    path: "{{ ansible_env.HOME }}/.atom"
+    state: directory
+
 - name: copy atom config
   copy:
     src: "{{ item }}"
