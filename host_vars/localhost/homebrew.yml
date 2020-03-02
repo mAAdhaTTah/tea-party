@@ -1,0 +1,31 @@
+---
+homebrew_taps:
+  - homebrew/services
+  - homebrew/cask-fonts
+  - homebrew/cask-versions
+homebrew_formula:
+  - ansible
+  - bash-completion
+  - bat
+  - composer
+  - curl
+  - fasd
+  - git
+  - git-flow
+  - gnu-tar
+  - go
+  - hr
+  - kryptco/tap/kr
+  - TomAnthony/brews/itermocil
+  - mackup
+  - php-code-sniffer
+  - php-cs-fixer
+  - phpunit
+  - pyenv
+  - rsync
+  - trash
+  - travis
+  - wget
+  - whois
+  - wp-cli
+  - yarn

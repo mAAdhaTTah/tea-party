@@ -1,0 +1,48 @@
+---
+bash_it_plugins:
+  - alias-completion
+  - base
+  - battery
+  - browser
+  - dirs
+  - explain
+  - extract
+  - fasd
+  - gif
+  - git
+  - go
+  - history
+  - osx
+  - projects
+  - ssh
+bash_it_aliases:
+  - ansible
+  - atom
+  - curl
+  - general
+  - git
+  - homebrew-cask
+  - homebrew
+  - npm
+  - osx
+  - vagrant
+  - yarn
+bash_it_completions:
+  - apm
+  - bash-it
+  - brew
+  - composer
+  - defaults
+  - dirs
+  - export
+  - git
+  - go
+  - gulp
+  - makefile
+  - npm
+  - projects
+  - ssh
+  - system
+  - travis
+  - vagrant
+  - virtualbox
