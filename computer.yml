@@ -4,10 +4,10 @@
 
   roles:
     #- { role: osx, tags: ["osx"] }
+    - { role: dotfiles, tags: ["dotfiles"] }
     - { role: homebrew, tags: ["homebrew"] }
     - { role: homebrew-cask, tags: ["cask"] }
     - { role: bash-it, tags: ["bash-it"] }
-    - { role: dotfiles, tags: ["dotfiles"] }
     - { role: atom, tags: ["atom"] }
     - { role: bash, tags: ["bash"] }
     - { role: karn, tags: ["karn"] }

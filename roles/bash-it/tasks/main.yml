@@ -3,8 +3,9 @@
   become: yes
   git:
     repo: "https://github.com/Bash-it/bash-it.git"
-    depth: 1
     dest: "{{ bash_it_install_path }}"
+    version: "fbeb6344fa5b9a0551b1cf73b88444f917b23cce"
+  register: bash_it_checkout
 
 - name: give bash-it ownership to user
   become: yes
@@ -12,43 +13,34 @@
     dest: "{{ bash_it_install_path }}"
     owner: "{{ lookup('env', 'USER') }}"
     group: admin
-    mode: u=rwX,g=rwX,o=rX
     recurse: yes
+  when: bash_it_checkout.before != bash_it_checkout.after
 
-- name: initialize bash_it directories
-  file:
-    path: "{{ bash_it_install_path }}/{{ item }}/enabled"
-    state: directory
-    owner: "{{ lookup('env', 'USER') }}"
-    group: admin
+- name: migrate bash-it to latest versions
+  become: yes
+  command: '/bin/bash -l -c "bash-it migrate"'
+  when: bash_it_checkout.before != None and bash_it_checkout.before != bash_it_checkout.after
+
+- name: add bash-it to dotfiles
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.managed"
+    create: yes
+    marker: "### {mark} ANSIBLE MANAGED BASH-IT CONFIG ###"
+    block: |
+      # Path to the bash it configuration
+      export BASH_IT="{{ bash_it_install_path }}"
+
+      # Lock and Load a custom theme file
+      export BASH_IT_THEME="{{ bash_it_theme }}"
+
+      # Load Bash It
+      source $BASH_IT/bash_it.sh
+
+- name: install bash-it aliases, completions, and plugins
+  command: '/bin/bash -l -c "bash-it enable {{ item.to_enable }} {{ item.list | join('' '') }}"'
+  register: result
+  changed_when: "result.stdout_lines | reject('match', '.* is already enabled.') | list | length"
   with_items:
-    - plugins
-    - aliases
-    - completion
-
-- name: install bash-it plugins
-  file:
-    src: "{{ bash_it_install_path }}/plugins/available/{{ item }}.plugin.bash"
-    dest: "{{ bash_it_install_path }}/plugins/enabled/{{ item }}.plugin.bash"
-    state: link
-    owner: "{{ lookup('env', 'USER') }}"
-    group: admin
-  with_items: "{{ bash_it_plugins }}"
-
-- name: install bash-it aliases
-  file:
-    src: "{{ bash_it_install_path }}/aliases/available/{{ item }}.aliases.bash"
-    dest: "{{ bash_it_install_path }}/aliases/enabled/{{ item }}.aliases.bash"
-    state: link
-    owner: "{{ lookup('env', 'USER') }}"
-    group: admin
-  with_items: "{{ bash_it_aliases }}"
-
-- name: install bash-it completions
-  file:
-    src: "{{ bash_it_install_path }}/completion/available/{{ item }}.completion.bash"
-    dest: "{{ bash_it_install_path }}/completion/enabled/{{ item }}.completion.bash"
-    state: link
-    owner: "{{ lookup('env', 'USER') }}"
-    group: admin
-  with_items: "{{ bash_it_completions }}"
+    - { to_enable: alias, list: "{{ bash_it_aliases }}" }
+    - { to_enable: completion, list: "{{ bash_it_completions }}" }
+    - { to_enable: plugin, list: "{{ bash_it_plugins }}" }

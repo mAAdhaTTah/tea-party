@@ -1,20 +1,5 @@
 ---
-bash_it_plugins:
-  - alias-completion
-  - base
-  - battery
-  - browser
-  - dirs
-  - explain
-  - extract
-  - fasd
-  - gif
-  - git
-  - go
-  - history
-  - osx
-  - projects
-  - ssh
+bash_it_theme: envy
 bash_it_aliases:
   - ansible
   - atom
@@ -46,3 +31,19 @@ bash_it_completions:
   - travis
   - vagrant
   - virtualbox
+bash_it_plugins:
+  - alias-completion
+  - base
+  - battery
+  - browser
+  - dirs
+  - explain
+  - extract
+  - gif
+  - git
+  - go
+  - history
+  - jump
+  - osx
+  - projects
+  - ssh

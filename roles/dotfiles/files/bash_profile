@@ -3,7 +3,7 @@
 # Load the shell dotfiles, and then some:
 # * ~/.extra can be used for other settings you don’t want to commit.
 # Source: simonowndesign/dotfiles
-for file in ~/.{path,exports,aliases,functions,apps,extra}; do
+for file in ~/.{path,exports,aliases,functions,apps,extra,managed}; do
 	[ -r "$file" ] && source "$file"
 done
 unset file
