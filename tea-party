@@ -1,11 +1,17 @@
 #!/bin/bash
 
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
 BGreen='\e[1;32m'       # Green
 BRed='\e[1;31m'         # Red
 Color_Off='\e[0m'       # Text Reset
 
 function setStatusMessage {
     printf "${IRed} --> ${BGreen}$1${Color_Off}\n" 1>&2
+}
+
+function setSuccessMessage {
+    printf "${BGreen}$1${Color_Off}\n" 1>&2
 }
 
 function triggerError {
@@ -59,36 +65,81 @@ function install_clt {
     fi
 }
 
+function get_sudo {
+    setStatusMessage "Checking if we need to ask for a sudo password"
+    sudo -v
+    setStatusMessage "Keep-alive: update existing sudo time stamp until we are finished"
+    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+}
+
+function install_roles {
+    setStatusMessage "Get all the required roles"
+    ansible-galaxy install -f -r requirements.yml -p vendor/roles
+}
+
 printf "${BGreen} ╔╦╗┌─┐┌─┐  ╔═╗┌─┐┬─┐┌┬┐┬ ┬ ${Color_Off}\n";
 printf "${BGreen}  ║ ├┤ ├─┤  ╠═╝├─┤├┬┘ │ └┬┘ ${Color_Off}\n";
 printf "${BGreen}  ╩ └─┘┴ ┴  ╩  ┴ ┴┴└─ ┴  ┴  ${Color_Off}\n\n";
 
-setStatusMessage "Checking if we need to ask for a sudo password"
+function sub_help {
+    echo "Usage: ./tea-party <subcommand> [options]"
+    echo "Subcommands:"
+    echo "    prepare                Setup the local environment with required dependencies (get ready for the party)."
+    echo "           [--reinstall]   Reinstall the galaxy roles"
+    echo "    throw                  Install the suggested dependencies (throw the party)."
+    echo "           [...invitees]   Ansible tags to run. If none provided, all tags are run."
+    echo ""
+}
 
-sudo -v
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+function sub_prepare {
+    if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
+        setStatusMessage "Installing the CLT"
+        install_clt
+    fi
 
-setStatusMessage "Keep-alive: update existing sudo time stamp until we are finished"
+    if ! exists pip; then
+        setStatusMessage "Installing PIP"
+        sudo easy_install --quiet pip
+    fi
 
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+    if ! exists ansible; then
+        setStatusMessage "Installing Ansible"
+        pip install --upgrade setuptools --user python
+        sudo pip install -q ansible
+    fi
 
-if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
-    setStatusMessage "Installing the CLT"
-    install_clt
+    while test $# -gt 0; do
+        case "$1" in
+            "--reinstall")
+                shift
+                install_roles
+                ;;
+            *)
+                triggerError "Unknown option $1"
+                ;;
+        esac
+    done
+
+
+    if [[ ! -d "$PWD/vendor" ]]; then
+        install_roles
+    fi
+
+    setSuccessMessage "Prepared environment to install"
+    setStatusMessage  "Run './tea-party throw' with optional tags to set up the computer"
+}
+
+function sub_throw {
+    setStatusMessage "Running the ansible playbook"
+    ansible-playbook -i "localhost," computer.yml
+}
+
+subcommand="${1:-help}"
+
+shift
+sub_${subcommand} $@
+if [ $? = 127 ]; then
+    echo "Error: '$subcommand' is not a known subcommand." >&2
+    echo "       Run './tea-party' for a list of known subcommands." >&2
+    exit 1
 fi
-
-if ! exists pip; then
-    setStatusMessage "Installing PIP"
-    sudo easy_install --quiet pip
-fi
-if ! exists ansible; then
-    setStatusMessage "Installing Ansible"
-    pip install --upgrade setuptools --user python
-    sudo pip install -q ansible
-fi
-
-setStatusMessage "Get all the required roles"
-ansible-galaxy install -f -r requirements.yml -p vendor/roles
-
-setStatusMessage "Running the ansible playbook"
-ansible-playbook -i "localhost," computer.yml
