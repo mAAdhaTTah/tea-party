@@ -130,8 +130,20 @@ function sub_prepare {
 }
 
 function sub_throw {
+    TAGS=""
+
+    while test $# -gt 0; do
+        if [[ $TAGS == "" ]]; then
+            TAGS="--tags $1"
+        else
+            TAGS="$TAGS,$1"
+        fi
+        shift
+    done
+
+    get_sudo
     setStatusMessage "Running the ansible playbook"
-    ansible-playbook -i "localhost," computer.yml
+    ansible-playbook -i "localhost," computer.yml $TAGS
 }
 
 subcommand="${1:-help}"
