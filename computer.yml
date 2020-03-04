@@ -12,7 +12,6 @@
     - { role: bash, tags: ["bash"] }
     - { role: karn, tags: ["karn"] }
     - { role: mackup, tags: ["mackup"] }
-    - { role: mysql, tags: ["mysql"] }
     - { role: node, tags: ["node"] }
     - { role: php, tags: ["php"] }
     - { role: rust, tags: ["rust"] }
