@@ -3,9 +3,6 @@ if which karn > /dev/null; then eval "$(karn init)"; fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-export NVM_DIR="/usr/local/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
 source $HOME/.cargo/env
 
 if [[ -z "$VIRTUAL_ENV" ]] && command -v pyenv 1>/dev/null 2>&1; then

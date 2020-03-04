@@ -24,4 +24,3 @@ homebrew_formula:
   - wget
   - whois
   - wp-cli
-  - yarn

@@ -4,6 +4,11 @@
     name: node
     state: present
 
+- name: install yarn
+  homebrew:
+    name: yarn
+    state: present
+
 - name: install nvm
   become: yes
   git:
@@ -31,3 +36,12 @@
     src: default
     dest: "{{ nvm_install_path }}/alias/default"
     backup: yes
+
+- name: add nvm to dotfiles
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.managed"
+    create: yes
+    marker: "### {mark} ANSIBLE MANAGED NVM CONFIG ###"
+    block: |
+      export NVM_DIR="{{ nvm_install_path }}"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
