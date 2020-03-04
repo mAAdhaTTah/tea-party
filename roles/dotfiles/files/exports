@@ -19,10 +19,6 @@ export ANSIBLE_HOST_KEY_CHECKING=false
 # Add rvm gems and nginx to the path
 export PATH=$PATH:~/.gem/ruby/1.8/bin:/opt/nginx/sbin
 
-# Set editor and git editor
-export EDITOR="atom"
-export GIT_EDITOR="atom --wait"
-
 # Set the path nginx
 export NGINX_PATH='/opt/nginx'
 

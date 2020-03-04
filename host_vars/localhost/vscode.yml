@@ -1,0 +1,24 @@
+---
+vscode_users:
+  - username: "{{ lookup('env', 'USER') }}"
+    visual_studio_code_extensions:
+      - dbaeumer.vscode-eslint
+      - eamodio.gitlens
+      - orta.vscode-jest
+      - attilabuti.vscode-mjml
+      - esbenp.prettier-vscode
+      - ms-python.python
+      - nicoespeon.abracadabra
+    visual_studio_code_settings:
+      {
+        "editor.fontSize": 16,
+        "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
+        "editor.tabSize": 2,
+        "editor.renderWhitespace": "all",
+        "telemetry.enableTelemetry": false,
+        "editor.formatOnSave": true,
+        "javascript.implicitProjectConfig.checkJs": true,
+        "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+      }

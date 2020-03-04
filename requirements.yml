@@ -1,8 +1,8 @@
 ---
-- name: hnakamur.atom-packages
-  src: hnakamur.atom-packages
-  version: c2ac94d
-
 - name: geerlingguy.mas
   src: geerlingguy.mas
   version: 1.2.0
+
+- name: gantsign.visual-studio-code
+  src: gantsign.visual-studio-code
+  version: 6.5.0

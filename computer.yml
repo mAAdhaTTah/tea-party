@@ -8,7 +8,7 @@
     - { role: homebrew, tags: ["homebrew"] }
     - { role: homebrew-cask, tags: ["cask"] }
     - { role: bash-it, tags: ["bash-it"] }
-    - { role: atom, tags: ["atom"] }
+    - { role: editor, tags: ["editor"] }
     - { role: bash, tags: ["bash"] }
     - { role: karn, tags: ["karn"] }
     - { role: mackup, tags: ["mackup"] }
