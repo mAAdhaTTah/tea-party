@@ -4,4 +4,45 @@
     name: php
     state: present
 
-# @todo add phpbrew
+- name: install php formula
+  homebrew:
+    name: "{{ php_formula }}"
+    state: present
+
+- name: install phpenv
+  become: yes
+  git:
+    repo: "https://github.com/phpenv/phpenv.git"
+    dest: "{{ phpenv_install_path }}"
+    version: "9b7e4e1c0083c46be69f4c6d063f78c18654aad1"
+  register: phpenv_checkout
+
+- name: install php-build
+  become: yes
+  git:
+    repo: "https://github.com/php-build/php-build.git"
+    dest: "{{ phpenv_install_path }}/plugins/php-build"
+    version: "7e98a58aaa20af80eb8fd6648b0d9d1601a8747b"
+  register: phpbuild_checkout
+
+- name: give phpenv ownership to user
+  become: yes
+  file:
+    dest: "{{ phpbuild_install_path }}"
+    owner: "{{ lookup('env', 'USER') }}"
+    group: admin
+    recurse: yes
+  when: phpenv_checkout.before != phpenv_checkout.after or phpbuild_checkout.before != phpbuild_checkout.after
+
+- name: add phpenv to dotfiles
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.managed"
+    create: yes
+    marker: "### {mark} ANSIBLE MANAGED PHPENV CONFIG ###"
+    block: |
+      # Add phpenv to path
+      export PHPENV_ROOT="{{ phpenv_install_path }}"
+      export PATH="{{ phpenv_install_path }}/bin:$PATH"
+
+      # Initialize app
+      eval "$(phpenv init -)"
