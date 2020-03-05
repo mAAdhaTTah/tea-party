@@ -13,6 +13,7 @@ homebrew_formula:
   - git-flow
   - gnu-tar
   - go
+  - jump
   - kryptco/tap/kr
   - TomAnthony/brews/itermocil
   - php-code-sniffer
