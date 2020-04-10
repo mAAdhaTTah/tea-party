@@ -28,7 +28,7 @@
 - name: give phpenv ownership to user
   become: yes
   file:
-    dest: "{{ phpbuild_install_path }}"
+    dest: "{{ phpenv_install_path }}"
     owner: "{{ lookup('env', 'USER') }}"
     group: admin
     recurse: yes
