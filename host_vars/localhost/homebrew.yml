@@ -9,7 +9,6 @@ homebrew_formula:
   - bat
   - curl
   - git
-  - git-flow
   - gnu-tar
   - go
   - jump
