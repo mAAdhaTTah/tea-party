@@ -1,6 +1,3 @@
-# Automatically check for identity updates before running a git command
-if which karn > /dev/null; then eval "$(karn init)"; fi
-
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 if [[ -z "$VIRTUAL_ENV" ]] && command -v pyenv 1>/dev/null 2>&1; then
