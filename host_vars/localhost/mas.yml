@@ -5,27 +5,13 @@ mas_upgrade_all_apps: yes
 mas_installed_apps:
   - id: 523620159
     name: "CleanMyDrive 2 (2.1.11)"
-  - id: 678464954
-    name: "NetSpot Wi-Fi Reporter (2.1.475)"
-  - id: 670592452
-    name: "Tyme (2.5.5)"
-  - id: 412448059
-    name: "ForkLift (2.6.6)"
   - id: 423081863
     name: "AppShelf (2.3.4)"
-  - id: 514951692
-    name: "NetSpot (1.3.418)"
   - id: 866773894
     name: "Quiver (3.1.3)"
   - id: 1160131071
     name: "Sluggard (2.1.1)"
-  - id: 890031187
-    name: "Marked 2 (2.5.14)"
   - id: 568494494
     name: "Pocket (1.7.8)"
-  - id: 410628904
-    name: "Wunderlist (3.4.8)"
-  - id: 457622435
-    name: "Yoink (3.4.2)"
   - id: 522090209
     name: "PDFGenius (4.8)"
