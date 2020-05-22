@@ -1,24 +1,20 @@
 ---
 homebrew_casks:
   - alfred3
-  - bartender
   - calibre
-  - clamxav
   - dash2
+  - devonthink
+  - discord
   - docker
-  - dropbox
   - firefox
   - firefox-developer-edition
   - flux
   - font-source-code-pro
   - google-chrome
   - hazel
-  - insync
   - iterm2
   - keybase
-  - malwarebytes
-  - omnidisksweeper
-  - owncloud
+  - osxfuse
   - setapp
   - slack
   - spectacle
