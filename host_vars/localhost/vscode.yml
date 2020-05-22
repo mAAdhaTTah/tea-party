@@ -10,6 +10,7 @@ vscode_users:
       - ms-python.python
       - nicoespeon.abracadabra
       - ms-azuretools.vscode-docker
+      - silvenon.mdx
     visual_studio_code_settings:
       {
         "editor.fontSize": 12,
