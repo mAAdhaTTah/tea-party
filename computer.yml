@@ -10,7 +10,6 @@
     - { role: bash-it, tags: ["bash-it"] }
     - { role: editor, tags: ["editor"] }
     - { role: bash, tags: ["bash"] }
-    - { role: mackup, tags: ["mackup"] }
     - { role: node, tags: ["node"] }
     - { role: php, tags: ["php"] }
     - { role: rust, tags: ["rust"] }
