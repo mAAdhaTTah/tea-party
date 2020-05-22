@@ -12,7 +12,7 @@ vscode_users:
       - ms-azuretools.vscode-docker
     visual_studio_code_settings:
       {
-        "editor.fontSize": 16,
+        "editor.fontSize": 12,
         "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
         "editor.tabSize": 2,
         "editor.renderWhitespace": "all",
