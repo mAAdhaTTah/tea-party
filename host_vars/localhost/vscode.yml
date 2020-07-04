@@ -11,16 +11,48 @@ vscode_users:
       - nicoespeon.abracadabra
       - ms-azuretools.vscode-docker
       - silvenon.mdx
+      - bbenoist.vagrant
+      - jpoissonnier.vscode-styled-components
+      - wmaurer.change-case
+      - thedavej.night-owl-black
+      - tombonnike.vscode-status-bar-format-toggle
+      - github.vscode-pull-request-github
+      - coenraads.bracket-pair-colorizer-2
+      - pflannery.vscode-versionlens
+      - msjsdiag.debugger-for-chrome
+      - fmoronzirfas.open-in-marked
+      - burkeholland.simple-react-snippets
+      - ms-vscode-remote.remote-ssh-edit
+      - ms-vscode-remote.remote-containers
+      - ms-vscode-remote.remote-ssh
     visual_studio_code_settings:
       {
-        "editor.fontSize": 12,
-        "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
-        "editor.tabSize": 2,
-        "editor.renderWhitespace": "all",
-        "telemetry.enableTelemetry": false,
-        "editor.formatOnSave": true,
-        "javascript.implicitProjectConfig.checkJs": true,
         "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
         "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
         "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[typescriptreact]":
+          { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "editor.cursorBlinking": "expand",
+        "editor.cursorSmoothCaretAnimation": true,
+        "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
+        "editor.fontSize": 12,
+        "editor.formatOnSave": true,
+        "editor.minimap.enabled": false,
+        "editor.renderWhitespace": "all",
+        "editor.tabSize": 2,
+        "eslint.alwaysShowStatus": true,
+        "eslint.format.enable": true,
+        "eslint.lintTask.enable": true,
+        "eslint.run": "onSave",
+        "explorer.openEditors.visible": 0,
+        "javascript.implicitProjectConfig.checkJs": true,
+        "javascript.suggest.completeFunctionCalls": true,
+        "npm.enableScriptExplorer": true,
+        "telemetry.enableTelemetry": false,
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "window.titleBarStyle": "native",
+        "workbench.colorTheme": "Night Owl Black",
+        "workbench.settings.editor": "json",
+        "workbench.sideBar.location": "right",
       }
