@@ -55,4 +55,5 @@ vscode_users:
         "workbench.colorTheme": "Night Owl Black",
         "workbench.settings.editor": "json",
         "workbench.sideBar.location": "right",
+        "openinmarked.apppath": "/Applications/Setapp/Marked 2.app",
       }
