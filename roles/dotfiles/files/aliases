@@ -40,5 +40,5 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias badge="tput bel"
 
 # Sync Sites up or down
-alias syncup="rsync -zva --delete --exclude '.vagrant*/' --exclude 'node_modules' ~/Code/ dreedle@192.168.1.54:/var/lib/pianosa/media/code"
-alias syncdown="rsync -zva --delete --exclude '.vagrant*/' --exclude 'node_modules' dreedle@192.168.1.54:/var/lib/pianosa/media/code/ ~/Code"
+alias syncup="rsync -zva --delete --exclude-from=$HOME/Code/.rsync_exclude --delete-excluded $HOME/Code/ dreedle@192.168.1.54:/var/lib/pianosa/media/code"
+alias syncdown="rsync -zva --delete --exclude-from=$HOME/Code/.rsync_exclude dreedle@192.168.1.54:/var/lib/pianosa/media/code/ $HOME/Code"
