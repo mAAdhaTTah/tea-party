@@ -26,6 +26,13 @@ vscode_users:
       - ms-vscode-remote.remote-containers
       - ms-vscode-remote.remote-ssh
       - ms-vsliveshare.vsliveshare
+      - editorconfig.editorconfig
+      - wix.vscode-import-cost
+      - felixfbecker.php-intellisense
+      - ms-python.vscode-pylance
+      - ms-python.python
+      - timonwong.shellcheck
+      - stylelint.vscode-stylelint
     visual_studio_code_settings:
       {
         "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
@@ -47,9 +54,8 @@ vscode_users:
         "eslint.lintTask.enable": true,
         "eslint.run": "onSave",
         "explorer.openEditors.visible": 0,
-        "javascript.implicitProjectConfig.checkJs": true,
+        "js/ts.implicitProjectConfig.checkJs": true,
         "javascript.suggest.completeFunctionCalls": true,
-        "npm.enableScriptExplorer": true,
         "telemetry.enableTelemetry": false,
         "typescript.updateImportsOnFileMove.enabled": "always",
         "window.titleBarStyle": "native",
@@ -57,4 +63,8 @@ vscode_users:
         "workbench.settings.editor": "json",
         "workbench.sideBar.location": "right",
         "openinmarked.apppath": "/Applications/Setapp/Marked 2.app",
+        "python.linting.mypyEnabled": true,
+        "python.linting.flake8Enabled": true,
+        "python.languageServer": "Pylance",
+        "python.formatting.provider": "black",
       }
