@@ -15,6 +15,7 @@ homebrew_formula:
   - kryptco/tap/kr
   - TomAnthony/brews/itermocil
   - pyenv
+  - pyenv-virtualenv
   - rsync
   - trash
   - wget
