@@ -6,8 +6,6 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export HISTSIZE=32768
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups
-# Make some commands not show up in history
-export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
 # Make sure we're installing gems in the right place
 export GEM_HOME=/usr/local
@@ -38,9 +36,6 @@ export LESS_TERMCAP_md="$ORANGE"
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
-
-# Always enable colored `grep` output
-export GREP_OPTIONS="--color=auto"
 
 # Set go path
 export GOPATH=/usr/local/go

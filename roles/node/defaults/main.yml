@@ -1,2 +1,3 @@
 ---
-nvm_install_path: "/usr/local/nvm"
+node_system_version: "16.x"
+nvm_install_path: "$HOME/.nvm"

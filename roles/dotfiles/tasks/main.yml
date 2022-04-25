@@ -1,6 +1,6 @@
 ---
 - name: copy dotfiles
-  copy:
+  template:
     src: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/.{{ item }}"
     backup: yes
@@ -8,9 +8,11 @@
     - aliases
     - apps
     - bash_profile
+    - bashrc
     - exports
     - functions
     - gitconfig
     - gitignore_global
-    - itermocil/
+    - itermocil/domain.yml
+    - itermocil/wp-gistpen.yml
     - path

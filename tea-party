@@ -92,20 +92,25 @@ function sub_help {
 }
 
 function sub_prepare {
-    if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
-        setStatusMessage "Installing the CLT"
-        install_clt
-    fi
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
+            setStatusMessage "Installing the CLT"
+            install_clt
+        fi
 
-    if ! exists pip; then
-        setStatusMessage "Installing PIP"
-        sudo easy_install --quiet pip
-    fi
+        if ! exists pip; then
+            setStatusMessage "Installing PIP"
+            sudo easy_install --quiet pip
+        fi
 
-    if ! exists ansible; then
+        if ! exists ansible; then
+            setStatusMessage "Installing Ansible"
+            pip install --upgrade setuptools --user python
+            sudo pip install -q ansible
+        fi
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         setStatusMessage "Installing Ansible"
-        pip install --upgrade setuptools --user python
-        sudo pip install -q ansible
+        sudo apt-get install -y ansible
     fi
 
     while test $# -gt 0; do

@@ -12,14 +12,12 @@ vscode_users:
       - ms-azuretools.vscode-docker
       - silvenon.mdx
       - bbenoist.vagrant
-      - jpoissonnier.vscode-styled-components
+      - styled-components.vscode-styled-components
       - wmaurer.change-case
       - thedavej.night-owl-black
       - tombonnike.vscode-status-bar-format-toggle
       - github.vscode-pull-request-github
-      - coenraads.bracket-pair-colorizer-2
       - pflannery.vscode-versionlens
-      - msjsdiag.debugger-for-chrome
       - fmoronzirfas.open-in-marked
       - burkeholland.simple-react-snippets
       - ms-vscode-remote.remote-ssh-edit
@@ -28,7 +26,6 @@ vscode_users:
       - ms-vsliveshare.vsliveshare
       - editorconfig.editorconfig
       - wix.vscode-import-cost
-      - felixfbecker.php-intellisense
       - ms-python.vscode-pylance
       - ms-python.python
       - timonwong.shellcheck

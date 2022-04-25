@@ -1,0 +1,10 @@
+---
+- name: install node
+  homebrew:
+    name: "node@{{ node_system_version }}"
+    state: present
+
+- name: install yarn
+  homebrew:
+    name: yarn
+    state: present

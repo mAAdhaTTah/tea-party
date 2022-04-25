@@ -1,25 +1,10 @@
 ---
 - name: install bash-it
-  become: yes
   git:
     repo: "https://github.com/Bash-it/bash-it.git"
     dest: "{{ bash_it_install_path }}"
-    version: "fbeb6344fa5b9a0551b1cf73b88444f917b23cce"
+    version: "v3.0.2"
   register: bash_it_checkout
-
-- name: give bash-it ownership to user
-  become: yes
-  file:
-    dest: "{{ bash_it_install_path }}"
-    owner: "{{ lookup('env', 'USER') }}"
-    group: admin
-    recurse: yes
-  when: bash_it_checkout.before != bash_it_checkout.after
-
-- name: migrate bash-it to latest versions
-  become: yes
-  command: '/bin/bash -l -c "bash-it migrate"'
-  when: bash_it_checkout.before != None and bash_it_checkout.before != bash_it_checkout.after
 
 - name: add bash-it to dotfiles
   blockinfile:
@@ -35,6 +20,11 @@
 
       # Load Bash It
       source $BASH_IT/bash_it.sh
+
+- name: migrate bash-it to latest versions
+  become: yes
+  command: '/bin/bash -l -c "bash-it migrate"'
+  when: bash_it_checkout.before != None and bash_it_checkout.before != bash_it_checkout.after
 
 - name: install bash-it aliases, completions, and plugins
   command: '/bin/bash -l -c "bash-it enable {{ item.to_enable }} {{ item.list | join('' '') }}"'
