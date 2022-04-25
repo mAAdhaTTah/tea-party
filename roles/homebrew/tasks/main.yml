@@ -6,8 +6,8 @@
 
 - name: update and upgrade homebrew
   homebrew:
-    update_homebrew: yes
-    upgrade_all: yes
+    update_homebrew: true
+    upgrade_all: true
 
 - name: install homebrew taps
   homebrew_tap:
@@ -19,3 +19,6 @@
   homebrew:
     name: "{{ homebrew_formula }}"
     state: present
+
+- name: refresh fact after install
+  setup: filter='ansible_pkg_mgr'

@@ -10,16 +10,16 @@
     - role: homebrew
       tags: ["homebrew"]
       when: ansible_distribution == 'MacOSX'
-    - role: homebrew-cask
+    - role: homebrew_cask
       tags: ["cask"]
       when: ansible_distribution == 'MacOSX'
-    - role: geerlingguy.mas
-      tags: ["mas"]
-      when: ansible_distribution == 'MacOSX'
+    # - role: geerlingguy.mas # TODO(James) this fails in tests
+    #   tags: ["mas"]
+    #   when: ansible_distribution == 'MacOSX'
     - role: bash
       tags: ["bash"]
       when: ansible_distribution == 'MacOSX'
-    - { role: bash-it, tags: ["bash-it"] }
+    - { role: bash_it, tags: ["bash-it"] }
     - { role: editor, tags: ["editor"] }
     - { role: node, tags: ["never", "node"] }
     - { role: php, tags: ["never", "php"] }

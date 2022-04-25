@@ -1,7 +1,7 @@
 ---
 - name: update and upgrade homebrew cask
   homebrew:
-    upgrade_all: yes
+    upgrade_all: true
 
 - name: install homebrew casks
   homebrew_cask:

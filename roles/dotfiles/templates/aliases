@@ -48,5 +48,5 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 {%- endif %}
 
 # Sync Sites up or down
-alias syncup="rsync -zva --delete --exclude-from=$HOME/Code/.rsync_exclude --delete-excluded $HOME/Code/ dreedle@192.168.1.54:/var/lib/pianosa/media/code"
-alias syncdown="rsync -zva --delete --exclude-from=$HOME/Code/.rsync_exclude dreedle@192.168.1.54:/var/lib/pianosa/media/code/ $HOME/Code"
+alias syncup="rsync -zva --delete --exclude-from=$HOME/Code/.rsync_exclude --delete-excluded $HOME/Code/ dreedle@192.168.2.128:/var/lib/pianosa/media/code"
+alias syncdown="rsync -zva --delete --exclude-from=$HOME/Code/.rsync_exclude dreedle@192.168.2.128:/var/lib/pianosa/media/code/ $HOME/Code"

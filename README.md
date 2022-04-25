@@ -2,7 +2,7 @@
 
 **Everyone's Invited!**
 
-[![Build Status](https://travis-ci.org/mAAdhaTTah/tea-party.svg?branch=master)](https://travis-ci.org/mAAdhaTTah/tea-party)
+[![CI](https://github.com/mAAdhaTTah/tea-party/actions/workflows/ci.yml/badge.svg)](https://github.com/mAAdhaTTah/tea-party/actions/workflows/ci.yml)
 
 ---
 
@@ -12,7 +12,7 @@ A small bash script around provisioning your new Mac with ansible. To use, clone
 
 ## Prior Art
 
-* [Kitchenplan](https://github.com/kitchenplan/kitchenplan)
-* [SuperLumic](https://github.com/superlumic/superlumic)
-* [ansible-playbooks](https://github.com/ideasonpurpose/ansible-playbooks)
-* [provision-ansible-mac](https://github.com/reecefowell/provision-ansible-mac)
+- [Kitchenplan](https://github.com/kitchenplan/kitchenplan)
+- [SuperLumic](https://github.com/superlumic/superlumic)
+- [ansible-playbooks](https://github.com/ideasonpurpose/ansible-playbooks)
+- [provision-ansible-mac](https://github.com/reecefowell/provision-ansible-mac)

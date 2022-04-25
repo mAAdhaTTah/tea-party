@@ -10,7 +10,7 @@
     state: present
 
 - name: install phpenv
-  become: yes
+  become: true
   git:
     repo: "https://github.com/phpenv/phpenv.git"
     dest: "{{ phpenv_install_path }}"
@@ -18,7 +18,7 @@
   register: phpenv_checkout
 
 - name: install php-build
-  become: yes
+  become: true
   git:
     repo: "https://github.com/php-build/php-build.git"
     dest: "{{ phpenv_install_path }}/plugins/php-build"
@@ -26,18 +26,18 @@
   register: phpbuild_checkout
 
 - name: give phpenv ownership to user
-  become: yes
+  become: true
   file:
     dest: "{{ phpenv_install_path }}"
     owner: "{{ lookup('env', 'USER') }}"
     group: admin
-    recurse: yes
+    recurse: true
   when: phpenv_checkout.before != phpenv_checkout.after or phpbuild_checkout.before != phpbuild_checkout.after
 
 - name: add phpenv to dotfiles
   blockinfile:
     path: "{{ ansible_env.HOME }}/.managed"
-    create: yes
+    create: true
     marker: "### {mark} ANSIBLE MANAGED PHPENV CONFIG ###"
     block: |
       # Add phpenv to path

@@ -1,19 +1,20 @@
+---
 windows:
-    - name: "wp-gistpen"
-      root: "~/Code"
-      layout: double-main-vertical
-      panes:
-        - commands:
-            - pj wp-gistpen
-            - npm run env connect
-        - commands:
-            - pj wp-gistpen
-            - npm run dev:app
-        - commands:
-            - pj wp-gistpen
-            - npm run dev:storybook
-        - commands:
-            - pj wp-gistpen
-        - commands:
-            - pj wp-gistpen
-            - bash bin/install-wp-tests.sh wordpress_test root password
+  - name: "wp-gistpen"
+    root: "~/Code"
+    layout: double-main-vertical
+    panes:
+      - commands:
+          - pj wp-gistpen
+          - npm run env connect
+      - commands:
+          - pj wp-gistpen
+          - npm run dev:app
+      - commands:
+          - pj wp-gistpen
+          - npm run dev:storybook
+      - commands:
+          - pj wp-gistpen
+      - commands:
+          - pj wp-gistpen
+          - bash bin/install-wp-tests.sh wordpress_test root password

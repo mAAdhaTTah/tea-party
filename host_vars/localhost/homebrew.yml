@@ -17,6 +17,7 @@ homebrew_formula:
   - pyenv
   - pyenv-virtualenv
   - rsync
+  - svn
   - trash
   - wget
   - whois
