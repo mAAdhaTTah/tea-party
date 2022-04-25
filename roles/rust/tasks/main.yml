@@ -3,12 +3,13 @@
   shell: curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
   args:
     creates: ~/.cargo/bin/rustup
+  tags: ["skip_ansible_lint"]
 
 - name: create rust completions file
   copy:
     content: ""
     dest: "{{ rustup_completions }}"
-    force: no
+    force: false
 
 - name: create rust bash completions
   shell: "~/.cargo/bin/rustup completions bash > {{ rustup_completions }}"
@@ -18,13 +19,14 @@
 - name: install rust crates
   # Use --force until we get --update
   # https://github.com/rust-lang/cargo/issues/2082
-  shell: "~/.cargo/bin/rustup run stable cargo install --force {{ item }}"
+  command: "~/.cargo/bin/rustup run stable cargo install --force {{ item }}"
   with_items: "{{ crates }}"
+  tags: ["skip_ansible_lint"]
 
 - name: add rust to dotfiles
   blockinfile:
     path: "{{ ansible_env.HOME }}/.managed"
-    create: yes
+    create: true
     marker: "### {mark} ANSIBLE MANAGED RUST CONFIG ###"
     block: |
       source $HOME/.cargo/env

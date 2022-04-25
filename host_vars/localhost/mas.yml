@@ -1,7 +1,7 @@
 ---
 mas_email: "jamesorodig@gmail.com"
-mas_signin_dialog: yes
-mas_upgrade_all_apps: yes
+mas_signin_dialog: true
+mas_upgrade_all_apps: true
 mas_installed_apps:
   - id: 523620159
     name: "CleanMyDrive 2 (2.1.11)"

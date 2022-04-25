@@ -1,17 +1,18 @@
+---
 windows:
-    - name: "domain"
-      root: "~/Code/Infra/domain"
-      layout: double-main-vertical
-      panes:
-        - commands:
-            - cd frontend
-            - npm ci
-            - npm run develop
-        - commands:
-            - make start
-        - commands:
-            - cd reads
-        - commands:
-            - cd backend
-        - commands:
-            - cd server
+  - name: "domain"
+    root: "~/Code/Infra/domain"
+    layout: double-main-vertical
+    panes:
+      - commands:
+          - cd frontend
+          - npm ci
+          - npm run develop
+      - commands:
+          - make start
+      - commands:
+          - cd reads
+      - commands:
+          - cd backend
+      - commands:
+          - cd server

@@ -1,3 +1,4 @@
+---
 - name: install vscode, extensions, & settings
   include_role:
     name: gantsign.visual-studio-code
@@ -7,7 +8,7 @@
 - name: add editor to dotfiles
   blockinfile:
     path: "{{ ansible_env.HOME }}/.managed"
-    create: yes
+    create: true
     marker: "### {mark} ANSIBLE MANAGED EDITOR CONFIG ###"
     block: |
       # Set editor and git editor

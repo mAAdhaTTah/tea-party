@@ -1,6 +1,6 @@
 ---
-
-- osx_defaults:
+- name: "Set OSX defaults"
+  osx_defaults:
     domain: "{{ item.domain }}"
     key: "{{ item.key }}"
     type: "{{ item.type }}"

@@ -1,9 +1,13 @@
 ---
+- name: Ensures itermocil dir exists
+  file:
+    path: "{{ ansible_env.HOME }}/.itermocil"
+    state: directory
 - name: copy dotfiles
   template:
     src: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/.{{ item }}"
-    backup: yes
+    backup: true
   with_items:
     - aliases
     - apps

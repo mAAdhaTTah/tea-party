@@ -23,12 +23,12 @@
   copy:
     src: default
     dest: "{{ nvm_install_path }}/alias/default"
-    backup: yes
+    backup: true
 
 - name: add nvm to dotfiles
   blockinfile:
     path: "{{ ansible_env.HOME }}/.managed"
-    create: yes
+    create: true
     marker: "### {mark} ANSIBLE MANAGED NVM CONFIG ###"
     block: |
       export NVM_DIR="{{ nvm_install_path }}"
