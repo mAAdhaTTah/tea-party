@@ -3,24 +3,24 @@
   connection: local
 
   roles:
-    - { role: dotfiles, tags: ["dotfiles"] }
+    - { role: dotfiles, tags: ["dotfiles", "all"] }
     - role: osx
-      tags: ["osx"]
+      tags: ["osx", "all"]
       when: ansible_distribution == 'MacOSX'
     - role: homebrew
-      tags: ["homebrew"]
+      tags: ["homebrew", "all"]
       when: ansible_distribution == 'MacOSX'
     - role: homebrew_cask
-      tags: ["cask"]
+      tags: ["cask", "all"]
       when: ansible_distribution == 'MacOSX'
     # - role: geerlingguy.mas # TODO(James) this fails in tests
-    #   tags: ["mas"]
+    #   tags: ["mas", "all"]
     #   when: ansible_distribution == 'MacOSX'
     - role: bash
-      tags: ["bash"]
+      tags: ["bash", "all"]
       when: ansible_distribution == 'MacOSX'
-    - { role: bash_it, tags: ["bash-it"] }
-    - { role: editor, tags: ["editor"] }
-    - { role: node, tags: ["never", "node"] }
-    - { role: php, tags: ["never", "php"] }
-    - { role: rust, tags: ["never", "rust"] }
+    - { role: bash_it, tags: ["bash-it", "all"] }
+    - { role: editor, tags: ["editor", "all"] }
+    - { role: node, tags: ["node", "all", "never"] }
+    - { role: php, tags: ["php", "all", "never"] }
+    - { role: rust, tags: ["rust", "never"] }

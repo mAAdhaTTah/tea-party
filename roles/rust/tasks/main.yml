@@ -16,13 +16,6 @@
   args:
     creates: "{{ rustup_completions }}"
 
-- name: install rust crates
-  # Use --force until we get --update
-  # https://github.com/rust-lang/cargo/issues/2082
-  command: "~/.cargo/bin/rustup run stable cargo install --force {{ item }}"
-  with_items: "{{ crates }}"
-  tags: ["skip_ansible_lint"]
-
 - name: add rust to dotfiles
   blockinfile:
     path: "{{ ansible_env.HOME }}/.managed"
@@ -30,3 +23,10 @@
     marker: "### {mark} ANSIBLE MANAGED RUST CONFIG ###"
     block: |
       source $HOME/.cargo/env
+
+- name: install rust crates
+  # Use --force until we get --update
+  # https://github.com/rust-lang/cargo/issues/2082
+  command: '/usr/bin/env bash -l -c "rustup run stable cargo install --force {{ item }}"'
+  with_items: "{{ crates }}"
+  tags: ["skip_ansible_lint"]
