@@ -13,6 +13,7 @@ bash_it_aliases:
   - vagrant
   - yarn
 bash_it_completions:
+  - aliases
   - apm
   - bash-it
   - brew
@@ -32,7 +33,6 @@ bash_it_completions:
   - vagrant
   - virtualbox
 bash_it_plugins:
-  - alias-completion
   - base
   - battery
   - browser
