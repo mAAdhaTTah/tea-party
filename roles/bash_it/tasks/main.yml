@@ -23,11 +23,11 @@
 
 - name: migrate bash-it to latest versions
   become: true
-  command: '/bin/bash -l -c "bash-it migrate"'
+  command: '/usr/bin/env bash -l -c "bash-it migrate"'
   when: bash_it_checkout.before != None and bash_it_checkout.before != bash_it_checkout.after
 
 - name: install bash-it aliases, completions, and plugins
-  command: '/bin/bash -l -c "bash-it enable {{ item.to_enable }} {{ item.list | join('' '') }}"'
+  command: '/usr/bin/env bash -l -c "bash-it enable {{ item.to_enable }} {{ item.list | join('' '') }}"'
   register: result
   changed_when: "result.stdout_lines | reject('match', '.* is already enabled.') | list | length"
   with_items:
