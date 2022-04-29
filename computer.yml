@@ -18,6 +18,7 @@
       when: ansible_distribution == 'MacOSX'
     - { role: bash_it, tags: ["bash-it", "all"] }
     - { role: editor, tags: ["editor", "all"] }
+    - { role: docker, tags: ["docker", "all", "never"] }
     - { role: node, tags: ["node", "all", "never"] }
     - { role: php, tags: ["php", "all", "never"] }
     - { role: rust, tags: ["rust", "never"] }
