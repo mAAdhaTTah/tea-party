@@ -1,0 +1,23 @@
+---
+- name: ensure itermocil dir exists
+  file:
+    path: "{{ ansible_env.HOME }}/.itermocil"
+    state: directory
+
+- name: copy itermocil config
+  template:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.{{ item }}"
+    backup: true
+  with_items:
+    - itermocil/domain.yml
+    - itermocil/wp-gistpen.yml
+
+- name: set OSX defaults
+  osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items: "{{ osx_defaults }}"

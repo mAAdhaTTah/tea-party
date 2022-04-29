@@ -1,8 +1,4 @@
 ---
-- name: Ensures itermocil dir exists
-  file:
-    path: "{{ ansible_env.HOME }}/.itermocil"
-    state: directory
 - name: copy dotfiles
   template:
     src: "{{ item }}"
@@ -17,6 +13,12 @@
     - functions
     - gitconfig
     - gitignore_global
-    - itermocil/domain.yml
-    - itermocil/wp-gistpen.yml
     - path
+
+- name: configure osx
+  include_tasks: config-osx.yml
+  when: ansible_distribution == 'MacOSX'
+
+- name: configure ubuntu
+  include_tasks: config-ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'

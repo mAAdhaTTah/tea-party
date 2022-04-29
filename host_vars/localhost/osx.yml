@@ -128,7 +128,7 @@ osx_defaults:
   - domain: "NSGlobalDomain"
     key: "KeyRepeat"
     type: int
-    value: 1
+    value: 3
   - domain: "NSGlobalDomain"
     key: "InitialKeyRepeat"
     type: int
@@ -360,7 +360,7 @@ osx_defaults:
   - domain: "com.apple.dock"
     key: "wvous-tl-corner"
     type: int
-    value: 10
+    value: 0
   - domain: "com.apple.dock"
     key: "wvous-tl-modifier"
     type: int
@@ -378,7 +378,7 @@ osx_defaults:
   - domain: "com.apple.dock"
     key: "wvous-br-corner"
     type: int
-    value: 4
+    value: 0
   - domain: "com.apple.dock"
     key: "wvous-br-modifier"
     type: int
@@ -387,7 +387,7 @@ osx_defaults:
   - domain: "com.apple.dock"
     key: "wvous-bl-corner"
     type: int
-    value: 2
+    value: 0
   - domain: "com.apple.dock"
     key: "wvous-bl-modifier"
     type: int
@@ -403,10 +403,10 @@ osx_defaults:
     type: bool
     value: true
   # Set the icon size of Dock items to 36 pixels
-  - domain: "com.apple.dock"
+  - domain: "c"
     key: "tilesize"
     type: float
-    value: 36
+    value: 70
   # Change minimize/maximize window effect
   - domain: "com.apple.dock"
     key: "mineffect"
