@@ -5,7 +5,6 @@ homebrew_casks:
   - dash2
   - devonthink
   - discord
-  - docker
   - firefox
   - firefox-developer-edition
   - flux
