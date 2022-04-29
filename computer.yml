@@ -3,10 +3,7 @@
   connection: local
 
   roles:
-    - { role: dotfiles, tags: ["dotfiles", "all"] }
-    - role: osx
-      tags: ["osx", "all"]
-      when: ansible_distribution == 'MacOSX'
+    - { role: config, tags: ["config", "all"] }
     - role: homebrew
       tags: ["homebrew", "all"]
       when: ansible_distribution == 'MacOSX'
