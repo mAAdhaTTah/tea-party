@@ -43,6 +43,7 @@ bash_it_plugins:
   - git
   - go
   - history
+  - history-search
   - jump
   - osx
   - projects
