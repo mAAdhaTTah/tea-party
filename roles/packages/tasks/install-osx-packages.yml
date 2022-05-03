@@ -1,10 +1,34 @@
 ---
-- name: install bash4
+- name: install homebrew via the curl oneliner
+  shell: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  args:
+    creates: /usr/local/bin/brew
+
+- name: update and upgrade homebrew
+  homebrew:
+    update_homebrew: true
+    upgrade_all: true
+
+- name: install homebrew taps
+  homebrew_tap:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ homebrew_taps }}"
+
+- name: install homebrew formula
+  homebrew:
+    name: "{{ homebrew_formula }}"
+    state: present
+
+- name: refresh fact after install
+  setup: filter='ansible_pkg_mgr'
+
+- name: install bash
   homebrew:
     name: bash
     state: present
 
-- name: add bash4 to the allowed shells
+- name: add bash to the allowed shells
   become: true
   lineinfile: >
     dest=/etc/shells
