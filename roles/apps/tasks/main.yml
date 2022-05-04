@@ -1,0 +1,8 @@
+---
+- name: install osx apps
+  include_tasks: install-osx-apps.yml
+  when: ansible_distribution == 'MacOSX'
+
+- name: install ubuntu apps
+  include_tasks: install-ubuntu-apps.yml
+  when: ansible_distribution == 'Ubuntu'
