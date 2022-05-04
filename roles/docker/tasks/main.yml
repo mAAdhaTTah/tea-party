@@ -10,4 +10,4 @@
   homebrew_cask:
     name: docker
     state: present
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == 'MacOSX'

@@ -1,2 +1,3 @@
 ---
-phpenv_install_path: "/usr/local/phpenv"
+phpenv_install_path: "$HOME/.phpenv"
+php_formula: []

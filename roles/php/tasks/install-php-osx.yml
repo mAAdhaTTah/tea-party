@@ -1,0 +1,10 @@
+---
+- name: install php
+  homebrew:
+    name: php
+    state: present
+
+- name: install php formula
+  homebrew:
+    name: "{{ php_formula }}"
+    state: present
