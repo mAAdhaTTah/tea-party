@@ -1,38 +1,23 @@
 ---
-- name: install php
-  homebrew:
-    name: php
-    state: present
+- name: install php on osx
+  include_tasks: install-php-osx.yml
+  when: ansible_distribution == 'MacOSX'
 
-- name: install php formula
-  homebrew:
-    name: "{{ php_formula }}"
-    state: present
+- name: install php on ubuntu
+  include_tasks: install-php-ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
 
 - name: install phpenv
-  become: true
   git:
     repo: "https://github.com/phpenv/phpenv.git"
     dest: "{{ phpenv_install_path }}"
     version: "9b7e4e1c0083c46be69f4c6d063f78c18654aad1"
-  register: phpenv_checkout
 
 - name: install php-build
-  become: true
   git:
     repo: "https://github.com/php-build/php-build.git"
     dest: "{{ phpenv_install_path }}/plugins/php-build"
     version: "7e98a58aaa20af80eb8fd6648b0d9d1601a8747b"
-  register: phpbuild_checkout
-
-- name: give phpenv ownership to user
-  become: true
-  file:
-    dest: "{{ phpenv_install_path }}"
-    owner: "{{ lookup('env', 'USER') }}"
-    group: admin
-    recurse: true
-  when: phpenv_checkout.before != phpenv_checkout.after or phpbuild_checkout.before != phpbuild_checkout.after
 
 - name: add phpenv to dotfiles
   blockinfile:
