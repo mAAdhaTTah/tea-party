@@ -5,12 +5,7 @@
   roles:
     - { role: config, tags: ["config", "all"] }
     - { role: packages, tags: ["packages", "all"] }
-    - role: homebrew_cask
-      tags: ["cask", "all"]
-      when: ansible_distribution == 'MacOSX'
-    # - role: geerlingguy.mas # TODO(James) this fails in tests
-    #   tags: ["mas", "all"]
-    #   when: ansible_distribution == 'MacOSX'
+    - { role: apps, tags: ["apps", "all"] }
     - { role: bash_it, tags: ["bash-it", "all"] }
     - { role: editor, tags: ["editor", "all"] }
     - { role: docker, tags: ["docker", "all", "never"] }
