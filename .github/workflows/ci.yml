@@ -35,32 +35,29 @@ jobs:
       matrix:
         os:
           - macos-10.15
+          - macos-12
+          - ubuntu-20.04
 
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
-
       - name: Uninstall GitHub Actions' built-in Homebrew.
+        if: runner.os == 'macOS'
         run: tests/uninstall-homebrew.sh
-
       - name: Uninstall GitHub Actions' built-in browser installs.
+        if: runner.os == 'macOS'
         run: |
           sudo rm -rf /Applications/Firefox.app
           sudo rm -rf /Applications/Google\ Chrome.app
       - name: Install test dependencies.
-        run: sudo pip3 install ansible
-
-      - name: Set up the test environment.
         run: |
-          ansible-galaxy install -r requirements.yml
+          ./tea-party prepare
       - name: Test the playbook's syntax.
         run: ansible-playbook computer.yml --syntax-check
-
       - name: Test the playbook.
-        run: ansible-playbook computer.yml -t all
+        run: ./tea-party throw all
         env:
           ANSIBLE_FORCE_COLOR: "1"
-
       - name: Idempotence check.
         run: |
           idempotence=$(mktemp)

@@ -98,15 +98,10 @@ function sub_prepare {
             install_clt
         fi
 
-        if ! exists pip; then
-            setStatusMessage "Installing PIP"
-            sudo easy_install --quiet pip
-        fi
-
         if ! exists ansible; then
             setStatusMessage "Installing Ansible"
-            pip install --upgrade setuptools --user python
-            sudo pip install -q ansible
+            pip3 install --upgrade setuptools --user python
+            pip3 install -q ansible
         fi
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         setStatusMessage "Installing Ansible"
