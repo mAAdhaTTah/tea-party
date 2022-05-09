@@ -132,7 +132,7 @@ osx_defaults:
   - domain: "NSGlobalDomain"
     key: "InitialKeyRepeat"
     type: int
-    value: 5
+    value: 15
   # Set language and text formats
   - domain: "NSGlobalDomain"
     key: "AppleLanguages"
