@@ -11,11 +11,13 @@ homebrew_formula:
   - git
   - gnu-tar
   - go
+  - jq
   - jump
   - kryptco/tap/kr
   - TomAnthony/brews/itermocil
   - pyenv
   - pyenv-virtualenv
+  - ripgrep
   - rsync
   - svn
   - trash
