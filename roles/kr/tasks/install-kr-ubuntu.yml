@@ -1,0 +1,35 @@
+---
+- name: ensure dependencies are present
+  become: true
+  apt:
+    name:
+      - software-properties-common
+      - dirmngr
+      - apt-transport-https
+    state: present
+
+- name: add Krypton apt key
+  become: true
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: "C4A05888A1C4FA02E1566F859F2A29A569653940"
+    state: present
+
+- name: add repository for Krypton
+  become: true
+  apt_repository:
+    repo: "deb http://kryptco.github.io/deb kryptco main"
+    state: present
+  register: kr_repo
+
+- name: update apt cache if repo was added
+  become: true
+  apt: update_cache=yes
+  when: kr_repo.changed
+  tags: ["skip_ansible_lint"]
+
+- name: ensure Krypton is installed
+  become: true
+  apt:
+    name: "kr"
+    state: present

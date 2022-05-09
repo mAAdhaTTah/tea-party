@@ -13,7 +13,6 @@ homebrew_formula:
   - go
   - jq
   - jump
-  - kryptco/tap/kr
   - TomAnthony/brews/itermocil
   - pyenv
   - pyenv-virtualenv
