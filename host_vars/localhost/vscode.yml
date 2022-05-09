@@ -74,7 +74,6 @@ vscode_users:
         "workbench.colorTheme": "Night Owl Black",
         "workbench.settings.editor": "json",
         "workbench.sideBar.location": "right",
-        "python.pythonPath": "/usr/bin/python3",
         "python.linting.enabled": true,
         "python.linting.mypyEnabled": true,
         "python.linting.flake8Enabled": true,
