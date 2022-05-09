@@ -1,0 +1,17 @@
+---
+- name: install kr on osx
+  include_tasks: install-kr-osx.yml
+  when: ansible_distribution == 'MacOSX'
+
+- name: install kr on ubuntu
+  include_tasks: install-kr-ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: add kr to dotfiles
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.managed"
+    create: true
+    marker: "### {mark} ANSIBLE MANAGED PHPENV CONFIG ###"
+    block: |
+      # Added by Krypton
+      export GPG_TTY=$(tty)

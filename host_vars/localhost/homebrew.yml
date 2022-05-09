@@ -12,7 +12,6 @@ homebrew_formula:
   - gnu-tar
   - go
   - jump
-  - kryptco/tap/kr
   - TomAnthony/brews/itermocil
   - pyenv
   - pyenv-virtualenv

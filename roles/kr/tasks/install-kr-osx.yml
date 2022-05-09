@@ -1,0 +1,5 @@
+---
+- name: install kr with homebrew
+  homebrew:
+    name: kryptco/tap/kr
+    state: present

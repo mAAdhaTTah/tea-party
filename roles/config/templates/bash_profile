@@ -85,6 +85,3 @@ if ! shopt -oq posix; then
   fi
 fi
 {%- endif %}
-
-# Added by Krypton
-export GPG_TTY=$(tty)

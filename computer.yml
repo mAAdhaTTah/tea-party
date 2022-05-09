@@ -8,6 +8,7 @@
     - { role: apps, tags: ["apps", "all"] }
     - { role: bash_it, tags: ["bash-it", "all"] }
     - { role: editor, tags: ["editor", "all"] }
+    - { role: kr, tags: ["kr", "all"] }
     - { role: docker, tags: ["docker", "all", "never"] }
     - { role: node, tags: ["node", "all", "never"] }
     - { role: php, tags: ["php", "all", "never"] }
