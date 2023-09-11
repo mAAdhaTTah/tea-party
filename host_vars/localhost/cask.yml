@@ -1,10 +1,11 @@
 ---
 homebrew_casks:
+  - 1password
+  - 1password-cli
   - alfred
   - devonthink
   - discord
   - element
-  - firefox
   - firefox-developer-edition
   - flux
   - font-cutive-mono
@@ -18,7 +19,9 @@ homebrew_casks:
   - signal
   - slack
   - spectacle
+  - spotify
   - syncthing
+  - todoist
   - tower2
   - transmit4
   - whatsapp
