@@ -11,4 +11,7 @@
     - { role: docker, tags: ["docker", "all", "never"] }
     - { role: node, tags: ["node", "all", "never"] }
     - { role: php, tags: ["php", "all", "never"] }
-    - { role: rust, tags: ["rust", "never"] }
+    - { role: rust, tags: ["rust", "all", "never"] }
+    # TODO add roles
+    # - { role: python, tags: ["python", "all", "never"] }
+    # - { role: go, tags: ["go", "all", "never"] }
