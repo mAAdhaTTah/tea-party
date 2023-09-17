@@ -28,6 +28,7 @@
 [user]
         name = mAAdhaTTah
         email = jamesorodig@gmail.com
+        signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEBACFG1D3WTj81IMUTdQwBa6LbcY7zGXCau2PYRUfDM
 [push]
         default = simple
 [credential]
@@ -37,8 +38,9 @@
         name = automatically merge npm lockfiles
         driver = npx npm-merge-driver merge %A %O %B %P
 [gpg]
-        program = {% if ansible_distribution == 'MacOSX' %}/usr/local/bin/krgpg{% elif ansible_distribution == 'Ubuntu' %}/usr/bin/krgpg{% endif %}
-
+        format = ssh
+[gpg "ssh"]
+        program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [commit]
         gpgSign = true
 [tag]
