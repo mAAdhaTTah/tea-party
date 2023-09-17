@@ -29,42 +29,6 @@ function exists {
   fi
 }
 
-# credits https://github.com/boxcutter/osx/blob/master/script/xcode-cli-tools.sh
-function install_clt {
-    # Get and install Xcode CLI tools
-    OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $2}')
-
-    # on 10.9+, we can leverage SUS to get the latest CLI tools
-    if [ "$OSX_VERS" -ge 9 ]; then
-        # create the placeholder file that's checked by CLI updates' .dist code
-        # in Apple's SUS catalog
-        touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-        # find the CLI Tools update
-        PROD=$(softwareupdate -l | grep "\*.*Command Line" | head -n 1 | awk -F"*" '{print $2}' | sed -e 's/^ *//' | tr -d '\n')
-        # install it
-        softwareupdate -i "$PROD" --verbose
-        rm /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-
-    # on 10.7/10.8, we instead download from public download URLs, which can be found in
-    # the dvtdownloadableindex:
-    # https://devimages.apple.com.edgekey.net/downloads/xcode/simulators/index-3905972D-B609-49CE-8D06-51ADC78E07BC.dvtdownloadableindex
-    else
-        [ "$OSX_VERS" -eq 7 ] && DMGURL=http://devimages.apple.com.edgekey.net/downloads/xcode/command_line_tools_for_xcode_os_x_lion_april_2013.dmg
-        [ "$OSX_VERS" -eq 7 ] && ALLOW_UNTRUSTED=-allowUntrusted
-        [ "$OSX_VERS" -eq 8 ] && DMGURL=http://devimages.apple.com.edgekey.net/downloads/xcode/command_line_tools_for_osx_mountain_lion_april_2014.dmg
-
-        TOOLS=clitools.dmg
-        curl "$DMGURL" -o "$TOOLS"
-        TMPMOUNT=`/usr/bin/mktemp -d /tmp/clitools.XXXX`
-        hdiutil attach "$TOOLS" -mountpoint "$TMPMOUNT"
-        installer $ALLOW_UNTRUSTED -pkg "$(find $TMPMOUNT -name '*.mpkg')" -target /
-        hdiutil detach "$TMPMOUNT"
-        rm -rf "$TMPMOUNT"
-        rm "$TOOLS"
-        exit
-    fi
-}
-
 function get_sudo {
     setStatusMessage "Checking if we need to ask for a sudo password"
     sudo -v
@@ -72,9 +36,18 @@ function get_sudo {
     while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 }
 
+function with_ansible {
+    ./tea +ansible@2.15.3 $@
+}
+
 function install_roles {
     setStatusMessage "Get all the required roles"
-    ansible-galaxy install -f -r requirements.yml -p vendor/roles
+    with_ansible ansible-galaxy install -f -r requirements.yml -p vendor/roles
+}
+
+function install_tea {
+    curl -o tea --compressed -f --proto '=https' https://tea.xyz/$(uname)/$(uname -m)
+    chmod +x ./tea
 }
 
 printf "${BGreen} ╔╦╗┌─┐┌─┐  ╔═╗┌─┐┬─┐┌┬┐┬ ┬ ${Color_Off}\n";
@@ -92,27 +65,6 @@ function sub_help {
 }
 
 function sub_prepare {
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
-            setStatusMessage "Installing the CLT"
-            install_clt
-        fi
-
-        if ! exists pip; then
-            setStatusMessage "Installing PIP"
-            sudo easy_install --quiet pip
-        fi
-
-        if ! exists ansible; then
-            setStatusMessage "Installing Ansible"
-            pip install --upgrade setuptools --user python
-            sudo pip install -q ansible
-        fi
-    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        setStatusMessage "Installing Ansible"
-        sudo apt-get install -y ansible
-    fi
-
     while test $# -gt 0; do
         case "$1" in
             "--reinstall")
@@ -125,6 +77,9 @@ function sub_prepare {
         esac
     done
 
+    if [[ ! -f "$PWD/tea" ]]; then
+        install_tea
+    fi
 
     if [[ ! -d "$PWD/vendor" ]]; then
         install_roles
@@ -148,7 +103,7 @@ function sub_throw {
 
     get_sudo
     setStatusMessage "Running the ansible playbook"
-    ansible-playbook -i "localhost," computer.yml $TAGS
+    with_ansible ansible-playbook -i "localhost," computer.yml $TAGS
 }
 
 subcommand="${1:-help}"

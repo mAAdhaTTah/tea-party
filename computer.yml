@@ -3,6 +3,7 @@
   connection: local
 
   roles:
+    - { role: elliotweiser.osx-command-line-tools, tags: ["clt", "all"] }
     - { role: config, tags: ["config", "all"] }
     - { role: packages, tags: ["packages", "all"] }
     - { role: apps, tags: ["apps", "all"] }
