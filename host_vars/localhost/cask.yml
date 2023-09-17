@@ -15,10 +15,10 @@ homebrew_casks:
   - iterm2
   - keybase
   - obsidian
+  - rectangle
   - setapp
   - signal
   - slack
-  - spectacle
   - spotify
   - syncthing
   - todoist
