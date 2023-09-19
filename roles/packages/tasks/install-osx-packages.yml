@@ -1,65 +1,67 @@
 ---
-- name: install homebrew via the curl oneliner
+- name: Install homebrew via the curl oneliner
   shell: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   args:
     creates: /usr/local/bin/brew
 
-- name: update and upgrade homebrew
-  homebrew:
+- name: Update and upgrade homebrew
+  community.general.homebrew:
     update_homebrew: true
     upgrade_all: true
 
-- name: install homebrew taps
-  homebrew_tap:
+- name: Install homebrew taps
+  community.general.homebrew_tap:
     name: "{{ item }}"
     state: present
   with_items: "{{ homebrew_taps }}"
 
-- name: install homebrew formula
-  homebrew:
+- name: Install homebrew formula
+  community.general.homebrew:
     name: "{{ homebrew_formula }}"
     state: present
 
-- name: refresh fact after install
-  setup: filter='ansible_pkg_mgr'
+- name: Refresh fact after install
+  setup:
+    filter: ansible_pkg_mgr
 
-- name: install bash
-  homebrew:
+- name: Install bash
+  community.general.homebrew:
     name: bash
     state: present
 
-- name: add bash to the allowed shells
+- name: Add bash to the allowed shells
   become: true
-  lineinfile: >
-    dest=/etc/shells
-    regexp="{{ item.regexp }}"
-    line="{{ item.line }}"
-    state=present
-    create=true
+  lineinfile:
+    dest: /etc/shells
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    create: true
+    mode: "0644"
   with_items:
     - { regexp: "^/usr/local/bin/bash", line: "/usr/local/bin/bash" }
 
-- name: register the current shell
+- name: Register the current shell
   shell: echo $SHELL
   register: current_shell_result
   changed_when: false
-  tags: ["skip_ansible_lint"]
+  tags: [skip_ansible_lint]
 
-- name: change shell for the current user
+- name: Change shell for the current user
   become: true
   shell: chsh -s /usr/local/bin/bash {{ lookup('env','USER') }}
   when: current_shell_result.stdout != "/usr/local/bin/bash"
-  tags: ["skip_ansible_lint"]
+  tags: [skip_ansible_lint]
 
-- name: register the current root shell
+- name: Register the current root shell
   shell: dscl . -read /Users/root UserShell
   register: current_root_shell_result
   changed_when: false
-  tags: ["skip_ansible_lint"]
+  tags: [skip_ansible_lint]
 
-- name: set the root user shell to bash
+- name: Set the root user shell to bash
   become: true
   shell: dscl . -create /Users/root UserShell /usr/local/bin/bash
   when: |
     current_root_shell_result.stdout != "UserShell: /usr/local/bin/bash"
-  tags: ["skip_ansible_lint"]
+  tags: [skip_ansible_lint]

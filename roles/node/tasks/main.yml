@@ -1,34 +1,37 @@
 ---
-- name: install node with brew
+- name: Install node with brew
   include_tasks: install-brew.yml
   when: ansible_distribution == 'MacOSX'
 
-- name: install node with apt
+- name: Install node with apt
   include_tasks: install-apt.yml
   when: ansible_distribution == 'Ubuntu'
 
-- name: install nvm
+- name: Install nvm
   git:
     repo: https://github.com/creationix/nvm.git
     dest: "{{ nvm_install_path }}"
     depth: 1
-    version: "v0.39.1"
+    version: v0.39.1
 
-- name: make sure alias directory exists
+- name: Make sure alias directory exists
   file:
     path: "{{ nvm_install_path }}/alias"
     state: directory
+    mode: "0755"
 
-- name: make system default
+- name: Make system default
   copy:
     src: default
     dest: "{{ nvm_install_path }}/alias/default"
     backup: true
+    mode: "0644"
 
-- name: add nvm to dotfiles
+- name: Add nvm to dotfiles
   blockinfile:
     path: "{{ ansible_env.HOME }}/.managed"
     create: true
+    mode: "0644"
     marker: "### {mark} ANSIBLE MANAGED NVM CONFIG ###"
     block: |
       export NVM_DIR="{{ nvm_install_path }}"

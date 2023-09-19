@@ -1,9 +1,10 @@
 ---
-- name: copy dotfiles
+- name: Copy dotfiles
   template:
     src: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/.{{ item }}"
     backup: true
+    mode: "0644"
   with_items:
     - aliases
     - apps
@@ -15,10 +16,10 @@
     - gitignore_global
     - path
 
-- name: configure osx
+- name: Configure osx
   include_tasks: config-osx.yml
   when: ansible_distribution == 'MacOSX'
 
-- name: configure ubuntu
+- name: Configure ubuntu
   include_tasks: config-ubuntu.yml
   when: ansible_distribution == 'Ubuntu'

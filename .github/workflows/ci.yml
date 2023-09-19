@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
-          python-version: "3.x"
+          python-version: 3.x
 
       - name: Install test dependencies.
         run: pip3 install yamllint ansible ansible-lint
@@ -64,4 +64,4 @@ jobs:
           tail ${idempotence} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
         env:
           ANSIBLE_FORCE_COLOR: "1"
-        continue-on-error: true # TODO(mAAdhaTTah) fix idempotence
+        continue-on-error: true  # TODO(mAAdhaTTah) fix idempotence

@@ -1,6 +1,6 @@
 ---
 - name: Install snap packages
   become: true
-  snap:
+  community.general.snap:
     name: "{{ item }}"
   with_items: "{{ snap_apps }}"

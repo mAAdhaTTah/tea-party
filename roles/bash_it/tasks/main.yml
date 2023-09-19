@@ -1,16 +1,17 @@
 ---
-- name: install bash-it
+- name: Install bash-it
   git:
-    repo: "https://github.com/Bash-it/bash-it.git"
+    repo: https://github.com/Bash-it/bash-it.git
     dest: "{{ bash_it_install_path }}"
-    version: "v3.0.3"
+    version: v3.0.3
   register: bash_it_checkout
 
-- name: add bash-it to dotfiles
+- name: Add bash-it to dotfiles
   blockinfile:
     path: "{{ ansible_env.HOME }}/.managed"
     create: true
     marker: "### {mark} ANSIBLE MANAGED BASH-IT CONFIG ###"
+    mode: "0644"
     block: |
       # Path to the bash it configuration
       export BASH_IT="{{ bash_it_install_path }}"
@@ -21,15 +22,17 @@
       # Load Bash It
       source $BASH_IT/bash_it.sh
 
-- name: migrate bash-it to latest versions
-  command: '/usr/bin/env bash -l -c "bash-it migrate"'
+- name: Migrate bash-it to latest versions
+  command: /usr/bin/env bash -l -c "bash-it migrate"
   when: bash_it_checkout.before != None and bash_it_checkout.before != bash_it_checkout.after
+  tags: [skip_ansible_lint]
 
-- name: install bash-it aliases, completions, and plugins
-  command: '/usr/bin/env bash -l -c "bash-it enable {{ item.to_enable }} {{ item.list | join('' '') }}"'
+- name: Install bash-it aliases, completions, and plugins
+  command: /usr/bin/env bash -l -c "bash-it enable {{ item.to_enable }} {{ item.list | join(' ') }}"
   register: result
-  changed_when: "result.stdout_lines | reject('match', '.* is already enabled.') | list | length"
+  changed_when: result.stdout_lines | reject('match', '.* is already enabled.') | list | length
   with_items:
     - { to_enable: plugin, list: "{{ bash_it_plugins }}" }
     - { to_enable: completion, list: "{{ bash_it_completions }}" }
     - { to_enable: alias, list: "{{ bash_it_aliases }}" }
+  tags: [skip_ansible_lint]

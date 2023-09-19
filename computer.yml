@@ -1,15 +1,16 @@
 ---
 - hosts: localhost
   connection: local
+  name: Personal computer playbook
 
   roles:
-    - { role: elliotweiser.osx-command-line-tools, tags: ["clt", "all"] }
-    - { role: config, tags: ["config", "all"] }
-    - { role: packages, tags: ["packages", "all"] }
-    - { role: apps, tags: ["apps", "all"] }
-    - { role: bash_it, tags: ["bash-it", "all"] }
-    - { role: editor, tags: ["editor", "all"] }
-    - { role: docker, tags: ["docker", "never"] }
-    - { role: node, tags: ["node", "never"] }
-    - { role: php, tags: ["php", "never"] }
-    - { role: rust, tags: ["rust", "never"] }
+    - { role: elliotweiser.osx-command-line-tools, tags: [clt, all] }
+    - { role: config, tags: [config, all] }
+    - { role: packages, tags: [packages, all] }
+    - { role: apps, tags: [apps, all] }
+    - { role: bash_it, tags: [bash-it, all] }
+    - { role: editor, tags: [editor, all] }
+    - { role: docker, tags: [docker, never] }
+    - { role: node, tags: [node, never] }
+    - { role: php, tags: [php, never] }
+    - { role: rust, tags: [rust, never] }
