@@ -1,24 +1,7 @@
 ---
-- name: Install homebrew via the curl oneliner
-  shell: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  args:
-    creates: /usr/local/bin/brew
-
-- name: Update and upgrade homebrew
-  community.general.homebrew:
-    update_homebrew: true
-    upgrade_all: true
-
-- name: Install homebrew taps
-  community.general.homebrew_tap:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ homebrew_taps }}"
-
-- name: Install homebrew formula
-  community.general.homebrew:
-    name: "{{ homebrew_formula }}"
-    state: present
+- name: Install homebrew with geerlingguy.mac.homebrew
+  include_role:
+    name: geerlingguy.mac.homebrew
 
 - name: Refresh fact after install
   setup:
@@ -39,7 +22,7 @@
     create: true
     mode: "0644"
   with_items:
-    - { regexp: "^/usr/local/bin/bash", line: "/usr/local/bin/bash" }
+    - { regexp: "^{{ homebrew_prefix }}/bin/bash", line: "{{ homebrew_prefix }}/bin/bash" }
 
 - name: Register the current shell
   shell: echo $SHELL
@@ -49,8 +32,8 @@
 
 - name: Change shell for the current user
   become: true
-  shell: chsh -s /usr/local/bin/bash {{ lookup('env','USER') }}
-  when: current_shell_result.stdout != "/usr/local/bin/bash"
+  shell: chsh -s {{ homebrew_prefix }}/bin/bash {{ lookup('env','USER') }}
+  when: current_shell_result.stdout != "{{ homebrew_prefix }}/bin/bash"
   tags: [skip_ansible_lint]
 
 - name: Register the current root shell
@@ -61,7 +44,7 @@
 
 - name: Set the root user shell to bash
   become: true
-  shell: dscl . -create /Users/root UserShell /usr/local/bin/bash
+  shell: dscl . -create /Users/root UserShell {{ homebrew_prefix }}/bin/bash
   when: |
-    current_root_shell_result.stdout != "UserShell: /usr/local/bin/bash"
+    current_root_shell_result.stdout != "UserShell: {{ homebrew_prefix }}/bin/bash"
   tags: [skip_ansible_lint]
