@@ -5,7 +5,6 @@ vscode_users:
     visual_studio_code_extensions:
       - atlassian.atlascode
       - attilabuti.vscode-mjml
-      - bbenoist.vagrant
       - burkeholland.simple-react-snippets
       - dbaeumer.vscode-eslint
       - dhoeric.ansible-vault
@@ -13,8 +12,13 @@ vscode_users:
       - esbenp.prettier-vscode
       - github.remotehub
       - github.vscode-pull-request-github
+      - golang.go
+      - GraphQL.vscode-graphql
+      - GraphQL.vscode-graphql-syntax
       - jakebecker.elixir-ls
+      - janisdd.vscode-edit-csv
       - ms-azuretools.vscode-docker
+      - ms-python.isort
       - ms-python.python
       - ms-python.vscode-pylance
       - ms-vscode-remote.remote-containers
@@ -28,6 +32,7 @@ vscode_users:
       - pflannery.vscode-versionlens
       - phoenixframework.phoenix
       - redhat.vscode-yaml
+      - rust-lang.rust-analyzer
       - silvenon.mdx
       - streetsidesoftware.code-spell-checker
       - styled-components.vscode-styled-components
@@ -35,9 +40,12 @@ vscode_users:
       - thedavej.night-owl-black
       - timonwong.shellcheck
       - tombonnike.vscode-status-bar-format-toggle
+      - unifiedjs.vscode-mdx
+      - usernamehw.errorlens
       - wix.vscode-import-cost
       - wix.glean
       - wmaurer.change-case
+      - zachgawlik.convert-object-to-jsx
     visual_studio_code_settings:
       {
         "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
