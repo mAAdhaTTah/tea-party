@@ -1,10 +1,10 @@
 ---
-- name: install node
-  homebrew:
-    name: "node@{{ node_system_version|regex_replace('.x', '') }}"
+- name: Install node
+  community.general.homebrew:
+    name: node@{{ node_system_version | regex_replace('.x', '') }}
     state: present
 
-- name: install yarn
-  homebrew:
+- name: Install yarn
+  community.general.homebrew:
     name: yarn
     state: present

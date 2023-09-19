@@ -1,28 +1,29 @@
 ---
-- name: install php on osx
+- name: Install php on osx
   include_tasks: install-php-osx.yml
   when: ansible_distribution == 'MacOSX'
 
-- name: install php on ubuntu
+- name: Install php on ubuntu
   include_tasks: install-php-ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
 
-- name: install phpenv
+- name: Install phpenv
   git:
-    repo: "https://github.com/phpenv/phpenv.git"
+    repo: https://github.com/phpenv/phpenv.git
     dest: "{{ phpenv_install_path }}"
-    version: "9b7e4e1c0083c46be69f4c6d063f78c18654aad1"
+    version: 9b7e4e1c0083c46be69f4c6d063f78c18654aad1
 
-- name: install php-build
+- name: Install php-build
   git:
-    repo: "https://github.com/php-build/php-build.git"
+    repo: https://github.com/php-build/php-build.git
     dest: "{{ phpenv_install_path }}/plugins/php-build"
-    version: "7e98a58aaa20af80eb8fd6648b0d9d1601a8747b"
+    version: 7e98a58aaa20af80eb8fd6648b0d9d1601a8747b
 
-- name: add phpenv to dotfiles
+- name: Add phpenv to dotfiles
   blockinfile:
     path: "{{ ansible_env.HOME }}/.managed"
     create: true
+    mode: "0644"
     marker: "### {mark} ANSIBLE MANAGED PHPENV CONFIG ###"
     block: |
       # Add phpenv to path

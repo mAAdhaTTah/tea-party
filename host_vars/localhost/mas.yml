@@ -1,17 +1,17 @@
 ---
-mas_email: "jamesorodig@gmail.com"
+mas_email: jamesorodig@gmail.com
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
   - id: 523620159
-    name: "CleanMyDrive 2 (2.1.11)"
+    name: CleanMyDrive 2 (2.1.11)
   - id: 423081863
-    name: "AppShelf (2.3.4)"
+    name: AppShelf (2.3.4)
   - id: 866773894
-    name: "Quiver (3.1.3)"
+    name: Quiver (3.1.3)
   - id: 1160131071
-    name: "Sluggard (2.1.1)"
+    name: Sluggard (2.1.1)
   - id: 568494494
-    name: "Pocket (1.7.8)"
+    name: Pocket (1.7.8)
   - id: 522090209
-    name: "PDFGenius (4.8)"
+    name: PDFGenius (4.8)

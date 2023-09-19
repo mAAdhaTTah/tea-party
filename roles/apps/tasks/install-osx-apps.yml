@@ -1,10 +1,10 @@
 ---
-- name: update and upgrade homebrew cask
-  homebrew:
+- name: Update and upgrade homebrew cask
+  community.general.homebrew:
     upgrade_all: true
 
-- name: install homebrew casks
-  homebrew_cask:
+- name: Install homebrew casks
+  community.general.homebrew_cask:
     name: "{{ item }}"
     state: present
   with_items: "{{ homebrew_casks }}"

@@ -1,8 +1,8 @@
 ---
-- name: install osx packages
+- name: Install osx packages
   include_tasks: install-osx-packages.yml
   when: ansible_distribution == 'MacOSX'
 
-- name: install ubuntu packages
+- name: Install ubuntu packages
   include_tasks: install-ubuntu-packages.yml
   when: ansible_distribution == 'Ubuntu'
