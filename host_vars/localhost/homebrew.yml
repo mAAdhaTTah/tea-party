@@ -1,9 +1,11 @@
 ---
+# Copied from https://github.com/geerlingguy/ansible-collection-mac/tree/master/roles/homebrew#role-variables
+homebrew_prefix: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"
 homebrew_taps:
   - homebrew/services
   - homebrew/cask-fonts
   - homebrew/cask-versions
-homebrew_formula:
+homebrew_installed_packages:
   - bash-completion
   - curl
   - git
@@ -15,3 +17,29 @@ homebrew_formula:
   - trash
   - wget
   - whois
+homebrew_cask_apps:
+  - 1password
+  - 1password-cli
+  - alfred
+  - devonthink
+  - discord
+  - element
+  - firefox-developer-edition
+  - flux
+  - font-cutive-mono
+  - font-source-code-pro
+  - google-chrome
+  - hazel
+  - iterm2
+  - keybase
+  - obsidian
+  - rectangle
+  - setapp
+  - signal
+  - slack
+  - spotify
+  - syncthing
+  - todoist
+  - tower2
+  - transmit4
+  - whatsapp

@@ -4,3 +4,9 @@
   apt:
     name: "{{ apt_packages }}"
     state: present
+
+- name: Install snap packages
+  become: true
+  community.general.snap:
+    name: "{{ item }}"
+  with_items: "{{ snap_apps }}"

@@ -7,7 +7,6 @@
     - { role: elliotweiser.osx-command-line-tools, tags: [clt, all] }
     - { role: config, tags: [config, all] }
     - { role: packages, tags: [packages, all] }
-    - { role: apps, tags: [apps, all] }
     - { role: bash_it, tags: [bash-it, all] }
     - { role: editor, tags: [editor, all] }
     - { role: docker, tags: [docker, never] }
