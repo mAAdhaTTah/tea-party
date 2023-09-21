@@ -42,7 +42,7 @@ function with_ansible {
 
 function install_roles {
     setStatusMessage "Get all the required roles"
-    with_ansible ansible-galaxy install -f -r requirements.yml -p vendor/roles
+    with_ansible ansible-galaxy install -r requirements.yml
 }
 
 function install_tea {
