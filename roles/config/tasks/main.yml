@@ -1,25 +1,9 @@
 ---
-- name: Copy dotfiles
-  template:
-    src: "{{ item }}"
-    dest: "{{ ansible_env.HOME }}/.{{ item }}"
-    backup: true
-    mode: "0644"
-  with_items:
-    - aliases
-    - apps
-    - bash_profile
-    - bashrc
-    - exports
-    - functions
-    - gitconfig
-    - gitignore_global
-    - path
-
-- name: Configure osx
-  include_tasks: config-osx.yml
-  when: ansible_distribution == 'MacOSX'
-
-- name: Configure ubuntu
-  include_tasks: config-ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+- name: Set OSX defaults
+  community.general.osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items: "{{ osx_defaults }}"

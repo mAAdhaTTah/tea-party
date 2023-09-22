@@ -23,6 +23,7 @@ homebrew_cask_apps:
   - alfred
   - devonthink
   - discord
+  - docker
   - element
   - firefox-developer-edition
   - flux

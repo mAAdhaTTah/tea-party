@@ -1,11 +1,13 @@
 ---
-- name: Install node with brew
-  include_tasks: install-brew.yml
-  when: ansible_distribution == 'MacOSX'
+- name: Install node
+  community.general.homebrew:
+    name: node@{{ node_system_version | regex_replace('.x', '') }}
+    state: present
 
-- name: Install node with apt
-  include_tasks: install-apt.yml
-  when: ansible_distribution == 'Ubuntu'
+- name: Install yarn
+  community.general.homebrew:
+    name: yarn
+    state: present
 
 - name: Install nvm
   git:
