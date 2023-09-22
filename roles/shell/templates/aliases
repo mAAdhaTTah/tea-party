@@ -33,7 +33,6 @@ alias egrep='egrep --color=auto'
 # Enable aliases to be sudo'ed
 alias sudo='sudo '
 
-{% if ansible_distribution == 'MacOSX' -%}
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
@@ -43,9 +42,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 
 # Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
 # (useful when executing time-consuming commands)
-alias badge="tput bel"{%- endif %}{% if ansible_distribution == 'Ubuntu' -%}
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-{%- endif %}
+alias badge="tput bel"
 
 # Sync Sites up or down
 alias syncup="rsync -zva --groupmap=staff:media --delete --exclude-from=$HOME/Code/.rsync_exclude --delete-excluded $HOME/Code/ dreedle@192.168.2.128:/var/local/media/code"

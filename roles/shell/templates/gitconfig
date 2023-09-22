@@ -32,7 +32,7 @@
 [push]
         default = simple
 [credential]
-        helper = {% if ansible_distribution == 'MacOSX' %}osxkeychain{% elif ansible_distribution == 'Ubuntu' %}cache{% endif %}
+        helper = osxkeychain
 
 [merge "npm-merge-driver"]
         name = automatically merge npm lockfiles
