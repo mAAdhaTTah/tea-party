@@ -5,8 +5,9 @@
 
   roles:
     - { role: elliotweiser.osx-command-line-tools, tags: [clt, all] }
-    - { role: config, tags: [config, all] }
     - { role: packages, tags: [packages, all] }
+    - { role: config, tags: [config, all] }
+    - { role: geerlingguy.mac.dock, tags: [dock, all] }
     - { role: bash_it, tags: [bash-it, all] }
     - { role: editor, tags: [editor, all] }
     - { role: docker, tags: [docker, never] }
