@@ -7,8 +7,8 @@
     - { role: elliotweiser.osx-command-line-tools, tags: [clt, all] }
     - { role: geerlingguy.mac.homebrew, tags: [homebrew, all] }
     - { role: geerlingguy.mac.dock, tags: [dock, all] }
-    - { role: shell, tags: [bash-it, all] }
-    - { role: config, tags: [config, all] }
+    - { role: shell, tags: [shell, all] }
+    - { role: os, tags: [os, all] }
     - { role: editor, tags: [editor, all] }
     - { role: node, tags: [node, never] }
     - { role: php, tags: [php, never] }
