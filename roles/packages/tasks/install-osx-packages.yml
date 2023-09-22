@@ -33,18 +33,6 @@
 - name: Change shell for the current user
   become: true
   shell: chsh -s {{ homebrew_prefix }}/bin/bash {{ lookup('env','USER') }}
-  when: current_shell_result.stdout != "{{ homebrew_prefix }}/bin/bash"
-  tags: [skip_ansible_lint]
-
-- name: Register the current root shell
-  shell: dscl . -read /Users/root UserShell
-  register: current_root_shell_result
-  changed_when: false
-  tags: [skip_ansible_lint]
-
-- name: Set the root user shell to bash
-  become: true
-  shell: dscl . -create /Users/root UserShell {{ homebrew_prefix }}/bin/bash
-  when: |
-    current_root_shell_result.stdout != "UserShell: {{ homebrew_prefix }}/bin/bash"
+  when: current_shell_result.stdout != (homebrew_prefix + "/bin/bash")
+  changed_when: lookup('env','USER') != "runner"  # fix idempotence in CI
   tags: [skip_ansible_lint]

@@ -695,11 +695,6 @@ osx_defaults:
     key: SortColumn
     type: string
     value: CPUUsage
-  # Enable the debug menu in Address Book
-  - domain: com.apple.addressbook
-    key: ABShowDebugMenu
-    type: bool
-    value: true
   # Enable the debug menu in iCal (pre-10.8)
   - domain: com.apple.iCal
     key: IncludeDebugMenu
