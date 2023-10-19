@@ -1,7 +1,7 @@
 ---
-- hosts: localhost
+- name: Personal computer playbook
+  hosts: localhost
   connection: local
-  name: Personal computer playbook
 
   roles:
     - { role: elliotweiser.osx-command-line-tools, tags: [clt, all] }
