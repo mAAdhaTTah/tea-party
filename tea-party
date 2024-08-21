@@ -37,7 +37,7 @@ function get_sudo {
 }
 
 function with_ansible {
-    ./tea +ansible@2.15.3 $@
+    pkgx +ansible@2.15.3 $@
 }
 
 function install_roles {
@@ -45,9 +45,8 @@ function install_roles {
     with_ansible ansible-galaxy install -r requirements.yml
 }
 
-function install_tea {
-    curl -o tea --compressed -f --proto '=https' https://tea.xyz/$(uname)/$(uname -m)
-    chmod +x ./tea
+function install_pkgx {
+    curl -Ssf https://pkgx.sh/$(uname)/$(uname -m).tgz | sudo tar xz -C /usr/local/bin
 }
 
 printf "${BGreen} ╔╦╗┌─┐┌─┐  ╔═╗┌─┐┬─┐┌┬┐┬ ┬ ${Color_Off}\n";
@@ -77,8 +76,8 @@ function sub_prepare {
         esac
     done
 
-    if [[ ! -f "$PWD/tea" ]]; then
-        install_tea
+    if ! exists pkgx; then
+        install_pkgx
     fi
 
     if [[ ! -d "$PWD/vendor" ]]; then
@@ -103,7 +102,7 @@ function sub_throw {
 
     get_sudo
     setStatusMessage "Running the ansible playbook"
-    with_ansible ansible-playbook -i "localhost," computer.yml $TAGS
+    with_ansible ansible-playbook -i "localhost," computer.yml $TAGS --list-tasks
 }
 
 subcommand="${1:-help}"
