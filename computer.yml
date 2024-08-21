@@ -4,12 +4,12 @@
   connection: local
 
   roles:
-    - { role: elliotweiser.osx-command-line-tools, tags: [clt, all] }
-    - { role: geerlingguy.mac.homebrew, tags: [homebrew, all] }
-    - { role: geerlingguy.mac.dock, tags: [dock, all] }
-    - { role: shell, tags: [shell, all] }
-    - { role: os, tags: [os, all] }
-    - { role: editor, tags: [editor, all] }
+    - { role: elliotweiser.osx-command-line-tools, tags: [clt] }
+    - { role: geerlingguy.mac.homebrew, tags: [homebrew] }
+    - { role: geerlingguy.mac.dock, tags: [dock] }
+    - { role: shell, tags: [shell] }
+    - { role: os, tags: [os] }
+    - { role: editor, tags: [editor] }
     - { role: node, tags: [node, never] }
     - { role: php, tags: [php, never] }
     - { role: rust, tags: [rust, never] }
