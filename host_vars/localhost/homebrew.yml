@@ -20,7 +20,7 @@ homebrew_cask_apps:
   - alfred
   - devonthink
   - discord
-  - firefox-developer-edition
+  - firefox@developer-edition
   - flux
   - font-cutive-mono
   - font-source-code-pro
