@@ -27,11 +27,11 @@ dockitems_persist:
   - name: "Todoist"
     path: "/Applications/Todoist.app/"
     pos: 2
-  - name: "Hypercal"
-    path: "/Applications/Hypercal.app/"
-    pos: 3
   - name: "Obsidian"
     path: "/Applications/Obsidian.app/"
+    pos: 3
+  - name: "Slack"
+    path: "/Applications/Slack.app/"
     pos: 4
   - name: "Visual Studio Code"
     path: "/Applications/Visual Studio Code.app/"
@@ -42,17 +42,17 @@ dockitems_persist:
   - name: "Tower"
     path: "/Applications/Tower.app/"
     pos: 7
-  - name: "Slack"
-    path: "/Applications/Slack.app/"
+  - name: "Signal"
+    path: "/Applications/Signal.app/"
     pos: 8
-  - name: "Discord"
-    path: "/Applications/Discord.app/"
+  - name: "Messages"
+    path: "~/Applications/Chrome Apps/Messages.app/"
     pos: 9
   - name: "Keybase"
     path: "/Applications/Keybase.app/"
     pos: 10
-  - name: "Signal"
-    path: "/Applications/Signal.app/"
+  - name: "Discord"
+    path: "/Applications/Discord.app/"
     pos: 11
   - name: "WhatsApp"
     path: "/Applications/WhatsApp.app/"
@@ -60,3 +60,9 @@ dockitems_persist:
   - name: "Spotify"
     path: "/Applications/Spotify.app/"
     pos: 13
+  - name: "Reader"
+    path: "/Applications/Reader.app/"
+    pos: 14
+  - name: "Messages"
+    path: "~/Applications/Chrome Apps/GTO Wizard.app/"
+    pos: 15
