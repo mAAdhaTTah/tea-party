@@ -33,7 +33,6 @@
         default = simple
 [credential]
         helper = osxkeychain
-
 [merge "npm-merge-driver"]
         name = automatically merge npm lockfiles
         driver = npx npm-merge-driver merge %A %O %B %P
@@ -47,3 +46,5 @@
         forceSignAnnotated = true
 [pull]
         rebase = false
+[init]
+	defaultBranch = main
