@@ -3,8 +3,6 @@
 homebrew_prefix: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"
 homebrew_taps:
   - homebrew/services
-  - homebrew/cask-fonts
-  - homebrew/cask-versions
 homebrew_installed_packages:
   - bash-completion
   - curl
@@ -40,6 +38,5 @@ homebrew_cask_apps:
   - syncthing
   - tailscale
   - todoist
-  - tower2
   - transmit
   - whatsapp
