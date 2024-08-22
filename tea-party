@@ -46,6 +46,7 @@ function install_roles {
 }
 
 function install_pkgx {
+    [ -d /usr/local/bin ] || sudo mkdir /usr/local/bin
     curl -Ssf https://pkgx.sh/$(uname)/$(uname -m).tgz | sudo tar xz -C /usr/local/bin
 }
 
@@ -102,7 +103,7 @@ function sub_throw {
 
     get_sudo
     setStatusMessage "Running the ansible playbook"
-    with_ansible ansible-playbook -i "localhost," computer.yml $TAGS --list-tasks
+    with_ansible ansible-playbook -i "localhost," computer.yml $TAGS
 }
 
 subcommand="${1:-help}"
