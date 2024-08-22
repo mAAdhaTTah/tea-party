@@ -40,30 +40,27 @@ dockitems_persist:
   - name: "iTerm"
     path: "/Applications/iTerm.app/"
     pos: 6
-  - name: "Tower"
-    path: "/Applications/Tower.app/"
-    pos: 7
   - name: "Signal"
     path: "/Applications/Signal.app/"
-    pos: 8
+    pos: 7
   - name: "Messages"
     path: "~/Applications/Chrome Apps/Messages.app/"
-    pos: 9
+    pos: 8
   - name: "Keybase"
     path: "/Applications/Keybase.app/"
-    pos: 10
+    pos: 9
   - name: "Discord"
     path: "/Applications/Discord.app/"
-    pos: 11
+    pos: 10
   - name: "WhatsApp"
     path: "/Applications/WhatsApp.app/"
-    pos: 12
+    pos: 11
   - name: "Spotify"
     path: "/Applications/Spotify.app/"
-    pos: 13
+    pos: 12
   - name: "Reader"
     path: "/Applications/Reader.app/"
-    pos: 14
+    pos: 13
   - name: "Messages"
     path: "~/Applications/Chrome Apps/GTO Wizard.app/"
-    pos: 15
+    pos: 14
