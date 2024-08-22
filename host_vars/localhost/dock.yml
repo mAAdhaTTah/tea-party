@@ -1,4 +1,5 @@
 ---
+dockutil_install: true
 dockitems_remove:
   - "Launchpad"
   - "Safari"
