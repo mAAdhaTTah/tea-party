@@ -16,15 +16,12 @@ homebrew_installed_packages:
   - rsync
   - trash
   - wget
-  - whois
 homebrew_cask_apps:
   - 1password
   - 1password-cli
   - alfred
   - devonthink
   - discord
-  - docker
-  - element
   - firefox-developer-edition
   - flux
   - font-cutive-mono
@@ -34,13 +31,15 @@ homebrew_cask_apps:
   - iterm2
   - keybase
   - obsidian
+  - reader
   - rectangle
   - setapp
   - signal
   - slack
   - spotify
   - syncthing
+  - tailscale
   - todoist
   - tower2
-  - transmit4
+  - transmit
   - whatsapp
