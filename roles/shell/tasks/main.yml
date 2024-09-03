@@ -45,6 +45,7 @@
     - gitconfig
     - gitignore_global
     - path
+    - ssh/config
 
 - name: Install bash-it
   git:
