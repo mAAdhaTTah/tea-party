@@ -6,6 +6,7 @@ homebrew_taps:
 homebrew_installed_packages:
   - bash-completion
   - curl
+  - flyctl
   - git
   - gnu-tar
   - jq
