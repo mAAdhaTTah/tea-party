@@ -1,40 +1,20 @@
 ---
-- name: Install node
+- name: Install fnm
   community.general.homebrew:
-    name: node@{{ node_system_version | regex_replace('.x', '') }}
+    name: fnm
     state: present
 
-- name: Install yarn
-  community.general.homebrew:
-    name: yarn
-    state: present
-
-- name: Install nvm
-  git:
-    repo: https://github.com/creationix/nvm.git
-    dest: "{{ nvm_install_path }}"
-    depth: 1
-    version: v0.39.1
-
-- name: Make sure alias directory exists
-  file:
-    path: "{{ nvm_install_path }}/alias"
-    state: directory
-    mode: "0755"
-
-- name: Make system default
-  copy:
-    src: default
-    dest: "{{ nvm_install_path }}/alias/default"
-    backup: true
-    mode: "0644"
-
-- name: Add nvm to dotfiles
+- name: Add fnm to dotfiles
   blockinfile:
     path: "{{ ansible_env.HOME }}/.managed"
     create: true
     mode: "0644"
-    marker: "### {mark} ANSIBLE MANAGED NVM CONFIG ###"
+    marker: "### {mark} ANSIBLE MANAGED VOLTA CONFIG ###"
     block: |
-      export NVM_DIR="{{ nvm_install_path }}"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+      # Hook fnm into shell
+      eval "$(fnm env \
+        --use-on-cd \
+        --version-file-strategy=recursive \
+        --corepack-enabled \
+        --resolve-engines \
+        --shell bash)"
