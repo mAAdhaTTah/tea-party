@@ -5,6 +5,7 @@ homebrew_taps:
   - homebrew/services
 homebrew_installed_packages:
   - bash-completion
+  - coreutils
   - curl
   - flyctl
   - git

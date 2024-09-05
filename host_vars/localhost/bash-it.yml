@@ -4,7 +4,6 @@ bash_it_aliases:
   - ansible
   - atom
   - curl
-  - general
   - git
   - homebrew-cask
   - homebrew
