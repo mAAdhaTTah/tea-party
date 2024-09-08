@@ -1,0 +1,14 @@
+---
+- name: Install uv
+  community.general.homebrew:
+    name: uv
+    state: present
+
+- name: Add uv to dotfiles
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.managed"
+    create: true
+    mode: "0644"
+    marker: "### {mark} ANSIBLE MANAGED UV CONFIG ###"
+    block: |
+      eval "$(uv generate-shell-completion bash)"
