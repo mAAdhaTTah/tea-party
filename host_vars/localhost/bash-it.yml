@@ -1,6 +1,6 @@
 ---
 bash_it_theme: envy
-posh_theme: https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/v$(oh-my-posh --version)/themes/night-owl.omp.json
+posh_theme: $(brew --prefix oh-my-posh)/themes/iterm2.omp.json
 bash_it_aliases:
   - ansible
   - atom
