@@ -85,7 +85,7 @@
 - name: Install bash-it aliases, completions, and plugins
   command: /usr/bin/env bash -l -c "bash-it enable {{ item.to_enable }} {{ item.list | join(' ') }}"
   register: result
-  changed_when: result.stdout_lines | reject('match', '.* is already enabled.') | list | length
+  changed_when: result.stdout_lines | reject('match', '.* is already enabled.') | list | length > 0
   with_items:
     - { to_enable: plugin, list: "{{ bash_it_plugins }}" }
     - { to_enable: completion, list: "{{ bash_it_completions }}" }
