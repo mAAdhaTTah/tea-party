@@ -1,16 +1,10 @@
 ---
 # Copied from https://github.com/geerlingguy/ansible-collection-mac/tree/master/roles/homebrew#role-variables
 homebrew_prefix: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"
-# Homebrew 7 only loads formulae and casks from third-party taps once the tap
-# is trusted, so these are tapped, trusted and installed by the
-# homebrew_trusted role after geerlingguy.mac.homebrew
-homebrew_trusted_taps:
-  - name: athevon/tokeneater
-    casks: [tokeneater]
-  - name: jandedobbeleer/oh-my-posh
-    formulae: [oh-my-posh]
-  - name: moghtech/komodo
-    formulae: [km]
+homebrew_taps:
+  - athevon/tokeneater
+  - jandedobbeleer/oh-my-posh
+  - moghtech/komodo
 homebrew_installed_packages:
   - bash-completion
   - cloudflared
@@ -26,7 +20,9 @@ homebrew_installed_packages:
   - gnu-tar
   - jq
   - jump
+  - moghtech/komodo/km
   - neonctl
+  - jandedobbeleer/oh-my-posh/oh-my-posh
   - poppler
   - ripgrep
   - rsync
@@ -60,6 +56,7 @@ homebrew_cask_apps:
   - t3-code
   - tailscale-app
   - todoist-app
+  - tokeneater
   - transmit
   - whatsapp
   - zoom
