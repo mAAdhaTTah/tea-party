@@ -71,4 +71,10 @@
 [rebase]
         autoSquash = true
         autoStash = true
-        updateRefs = true
+        updateRefs = false
+[credential "https://github.com"]
+        helper = 
+        helper = !{{ homebrew_prefix }}/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+        helper = 
+        helper = !{{ homebrew_prefix }}/bin/gh auth git-credential
