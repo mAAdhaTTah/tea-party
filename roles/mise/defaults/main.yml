@@ -1,0 +1,5 @@
+---
+mise_config_path: "{{ ansible_env.HOME }}/.config/mise/config.toml"
+mise_tools: []
+mise_idiomatic_version_file_tools: []
+rustup_completions: "{{ bash_it_install_path }}/enabled/450--rustup.completion.bash"

@@ -10,7 +10,4 @@
     - { role: shell, tags: [shell] }
     - { role: os, tags: [os] }
     - { role: editor, tags: [editor] }
-    - { role: node, tags: [node, never] }
-    - { role: php, tags: [php, never] }
-    - { role: rust, tags: [rust, never] }
-    - { role: python, tags: [python, never] }
+    - { role: mise, tags: [mise] }

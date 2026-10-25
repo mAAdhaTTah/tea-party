@@ -1,2 +1,0 @@
----
-rustup_completions: "{{ bash_it_install_path }}/enabled/450--rustup.completion.bash"
