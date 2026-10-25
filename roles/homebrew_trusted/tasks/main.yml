@@ -1,25 +1,12 @@
 ---
-- name: Tap third-party taps
+- name: Tap and trust third-party taps
   community.general.homebrew_tap:
     name: "{{ item.name }}"
+    trust: true
     state: present
   loop: "{{ homebrew_trusted_taps }}"
   loop_control:
     label: "{{ item.name }}"
-
-- name: List trusted taps
-  command: "{{ homebrew_prefix }}/bin/brew trust --json=v1"
-  register: homebrew_trust
-  changed_when: false
-  check_mode: false
-
-- name: Trust third-party taps
-  command: "{{ homebrew_prefix }}/bin/brew trust --tap {{ item.name }}"
-  loop: "{{ homebrew_trusted_taps }}"
-  loop_control:
-    label: "{{ item.name }}"
-  when: item.name not in (homebrew_trust.stdout | from_json).taps
-  changed_when: true
 
 - name: Install formulae from third-party taps
   community.general.homebrew:
