@@ -251,6 +251,16 @@ Execution decisions (2026-10-25):
   - Tasks that need local credentials are expected to fail or skip there: the claudev marketplace over SSH, the `op` tasks, and authenticated `claude` commands.
   - The `op` tasks already skip with a warning when `op` isn't signed in. Revisit anything else if CI fails.
 
+### Implementation notes (2026-10-25)
+
+Where the branch differs from the step text below:
+- **Collections:** install into `vendor/collections` (`ansible.cfg`), so the pins don't change the copies homelab uses in `~/.ansible/collections`. `inject_facts_as_vars = True` is set explicitly to silence the 2.21 deprecation warning; the `ansible_*` fact variables need moving to `ansible_facts[...]` before ansible-core 2.24.
+- **mise:** the role installs `mise` itself, like the shell role does for `bash`, so it isn't in `homebrew_installed_packages`.
+- **App configs (B13) and the Docker context (B14):** live in a new `apps` role, not the shell role. The Claude Code tasks (B12) are a `claude` role. Both run after `mise`.
+- **Rectangle:** its scalar settings are a separate `rectangle_defaults` list in `osx.yml`, so only Rectangle changes trigger its restart handler. The shortcuts are `rectangle_shortcuts`. The Downloads stack task is in the `os` role.
+- **gh config:** kept at mode `0600`, matching the live file.
+- **Lint:** `.ansible-lint` excludes `vendor/` and `roles/apps/files/`, which holds configs copied verbatim from the machine.
+
 ### B1. New `mise` role
 
 - `roles/mise/tasks/main.yml`:

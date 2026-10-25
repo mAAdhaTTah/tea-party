@@ -75,7 +75,6 @@
         source $BASH_IT/bash_it.sh
       fi
 
-
 - name: Migrate bash-it to latest versions
   command: /usr/bin/env bash -l -c "bash-it migrate"
   when: bash_it_checkout.before != None and bash_it_checkout.before != bash_it_checkout.after
