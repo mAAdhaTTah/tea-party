@@ -408,7 +408,7 @@ No change expected; confirm `EDITOR`/`GIT_EDITOR` block still matches.
 ### B13. App configs
 
 - **Ghostty:** `roles/shell/templates/ghostty/config` → `~/.config/ghostty/config` (full template; hand-edited only). Live file is the source.
-- **gh:** template `~/.config/gh/config.yml` from the live file (currently `git_protocol: https` and the `co: pr checkout` alias). Note `gh config set` / `gh alias set` write to this file, so later changes must be folded back. **Never** manage `~/.config/gh/hosts.yml` (token).
+- **gh:** template `~/.config/gh/config.yml` from the live file (`git_protocol: ssh`, switched from `https` on 2026-10-25, and the `co: pr checkout` alias). Note `gh config set` / `gh alias set` write to this file, so later changes must be folded back. **Never** manage `~/.config/gh/hosts.yml` (token).
 - **Rectangle:** manage it as macOS defaults (domain `com.knollsoft.Rectangle`), read straight from the live preferences. No export from the app is needed.
   - **Scalar keys** go in `host_vars/localhost/osx.yml` as `osx_defaults` entries:
     - `alternateDefaultShortcuts` bool true, `allowAnyShortcut` bool true, `subsequentExecutionMode` int 1, `windowSnapping` int 2, `doubleClickTitleBar` int 0, `launchOnLogin` bool true
