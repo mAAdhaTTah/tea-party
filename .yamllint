@@ -9,3 +9,8 @@ rules:
     forbid: false
     min-spaces-inside: 1
     max-spaces-inside: 1
+
+ignore: |
+  .ansible/
+  vendor/
+  roles/apps/files/
