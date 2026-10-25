@@ -52,6 +52,8 @@
     repo: https://github.com/Bash-it/bash-it.git
     dest: "{{ bash_it_install_path }}"
     version: v3.0.3
+    # Its submodules are only bash-it's own test libraries
+    recursive: false
   register: bash_it_checkout
 
 - name: Add bash-it to dotfiles
