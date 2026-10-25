@@ -2,10 +2,9 @@
         # Use custom `.gitignore` and `.gitattributes`
         excludesfile = ~/.gitignore_global
         attributesfile = ~/.gitattributes
+        fileMode = false
 [mergetool]
         keepBackup = true
-[core]
-        fileMode = false
 [color]
         # Use colors in Git commands that are capable of colored output when outputting to the terminal
         ui = auto
@@ -31,6 +30,7 @@
         signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEBACFG1D3WTj81IMUTdQwBa6LbcY7zGXCau2PYRUfDM
 [push]
         default = simple
+        autoSetupRemote = true
 [credential]
         helper = osxkeychain
 [merge "npm-merge-driver"]
@@ -42,9 +42,33 @@
         program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [commit]
         gpgSign = true
+        verbose = true
 [tag]
         forceSignAnnotated = true
+        sort = version:refname
 [pull]
         rebase = false
 [init]
-	defaultBranch = main
+        defaultBranch = main
+[column]
+        ui = auto
+[branch]
+        sort = -committerdate
+[diff]
+        algorithm = histogram
+        colorMoved = plain
+        mnemonicPrefix = true
+        renames = true
+[fetch]
+        prune = true
+        pruneTags = true
+        all = true
+[help]
+        autocorrect = prompt
+[rerere]
+        enabled = true
+        autoupdate = true
+[rebase]
+        autoSquash = true
+        autoStash = true
+        updateRefs = true
