@@ -48,7 +48,7 @@
   "editorMode": "normal",
   "autoCompactEnabled": true,
   "idleCompaction": false,
-  "remoteControlAtStartup": false,
+  "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true
 }
