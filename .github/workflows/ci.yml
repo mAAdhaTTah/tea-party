@@ -8,6 +8,12 @@ name: CI
   schedule:
     - cron: "0 5 * * 4"
 
+# One run per branch or PR: a new push cancels the run still in progress for
+# the previous commit. Runs on main aren't cancelled, so each merge is tested.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   lint:
     name: Lint
