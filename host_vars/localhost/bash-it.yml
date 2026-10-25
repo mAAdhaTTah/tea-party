@@ -1,37 +1,27 @@
 ---
-bash_it_theme: envy
+bash_it_theme: oh-my-posh
 posh_theme: $(brew --prefix oh-my-posh)/themes/iterm2.omp.json
 bash_it_aliases:
   - ansible
-  - atom
   - curl
   - git
   - homebrew-cask
   - homebrew
   - npm
   - osx
-  - vagrant
   - yarn
 bash_it_completions:
   - aliases
-  - apm
   - bash-it
   - brew
-  - composer
   - defaults
   - dirs
   - export
   - git
-  - go
-  - gulp
   - makefile
   - npm
-  - projects
   - ssh
   - system
-  - travis
-  - vagrant
-  - virtualbox
 bash_it_plugins:
   - base
   - battery
@@ -41,10 +31,8 @@ bash_it_plugins:
   - extract
   - gif
   - git
-  - go
   - history
   - history-search
   - jump
   - osx
-  - projects
   - ssh

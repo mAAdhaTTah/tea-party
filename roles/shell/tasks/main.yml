@@ -64,17 +64,20 @@
     marker: "### {mark} ANSIBLE MANAGED BASH-IT CONFIG ###"
     mode: "0644"
     block: |
-      # Path to the bash it configuration
-      export BASH_IT="{{ bash_it_install_path }}"
+      # Check if running in interactive prompt
+      if [[ $- == *i* ]]; then
+        # Path to the bash it configuration
+        export BASH_IT="{{ bash_it_install_path }}"
 
-      # Lock and Load a custom theme file
-      export BASH_IT_THEME="{{ bash_it_theme }}"
-      if [ $BASH_IT_THEME = "oh-my-posh" ]; then
-        export POSH_THEME="{{ posh_theme }}"
+        # Lock and Load a custom theme file
+        export BASH_IT_THEME="{{ bash_it_theme }}"
+        if [ $BASH_IT_THEME = "oh-my-posh" ]; then
+          export POSH_THEME="{{ posh_theme }}"
+        fi
+        # Load Bash It
+        source $BASH_IT/bash_it.sh
       fi
 
-      # Load Bash It
-      source $BASH_IT/bash_it.sh
 
 - name: Migrate bash-it to latest versions
   command: /usr/bin/env bash -l -c "bash-it migrate"

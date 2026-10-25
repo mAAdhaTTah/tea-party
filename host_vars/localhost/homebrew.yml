@@ -3,33 +3,49 @@
 homebrew_prefix: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"
 homebrew_taps:
   - homebrew/services
+  - athevon/tokeneater
+  - jandedobbeleer/oh-my-posh
+  - moghtech/komodo
 homebrew_installed_packages:
   - bash-completion
+  - cloudflared
   - coreutils
   - curl
+  - docker
+  - docker-buildx
+  - docker-compose
+  - findutils
   - flyctl
+  - gh
   - git
   - gnu-tar
   - jq
   - jump
+  - moghtech/komodo/km
+  - neonctl
+  - jandedobbeleer/oh-my-posh/oh-my-posh
+  - poppler
   - ripgrep
   - rsync
+  - tea
   - trash
   - wget
 homebrew_cask_apps:
   - 1password
   - 1password-cli
   - alfred
-  - devonthink
+  - claude-code@latest
   - discord
   - firefox@developer-edition
-  - flux
+  - flux-app
   - font-cutive-mono
+  - font-fira-code-nerd-font
   - font-source-code-pro
+  - ghostty
   - google-chrome
   - hazel
-  - iterm2
   - keybase
+  - mountain-duck
   - obsidian
   - reader
   - rectangle
@@ -37,8 +53,11 @@ homebrew_cask_apps:
   - signal
   - slack
   - spotify
-  - syncthing
-  - tailscale
-  - todoist
+  - syncthing-app
+  - t3-code
+  - tailscale-app
+  - todoist-app
+  - tokeneater
   - transmit
   - whatsapp
+  - zoom
