@@ -77,13 +77,14 @@
         source $BASH_IT/bash_it.sh
       fi
 
+# bash-it only loads in interactive shells (see the BASH-IT block), hence -i
 - name: Migrate bash-it to latest versions
-  command: /usr/bin/env bash -l -c "bash-it migrate"
+  command: /usr/bin/env bash -l -i -c "bash-it migrate"
   when: bash_it_checkout.before != None and bash_it_checkout.before != bash_it_checkout.after
   tags: [skip_ansible_lint]
 
 - name: Install bash-it aliases, completions, and plugins
-  command: /usr/bin/env bash -l -c "bash-it enable {{ item.to_enable }} {{ item.list | join(' ') }}"
+  command: /usr/bin/env bash -l -i -c "bash-it enable {{ item.to_enable }} {{ item.list | join(' ') }}"
   register: result
   changed_when: result.stdout_lines | reject('match', '.* is already enabled.') | list | length > 0
   with_items:
