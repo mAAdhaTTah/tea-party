@@ -1,7 +1,12 @@
 ---
+# The role treats any stderr from `code` as a failure, and current VS Code
+# prints a Node deprecation warning (DEP0169) on every extension install
 - name: Install vscode, extensions, & settings
   include_role:
     name: gantsign.visual-studio-code
+    apply:
+      environment:
+        NODE_NO_WARNINGS: "1"
   vars:
     users: "{{ vscode_users }}"
 
