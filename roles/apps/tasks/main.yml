@@ -70,15 +70,21 @@
     "tea-party-{{ ansible_hostname }}" --vault {{ op_service_account_vaults }} --raw
   register: op_service_account
   when: not op_token_file.stat.exists
-  changed_when: true
+  changed_when: op_service_account.rc == 0
+  failed_when: false
   no_log: true
+
+- name: Warn when the 1Password service account couldn't be created
+  debug:
+    msg: "Skipping the 1Password service-account token: creating the service account failed (is op signed in as an admin?)"
+  when: not op_token_file.stat.exists and op_service_account.rc != 0
 
 - name: Write the 1Password service-account token
   copy:
     content: "{{ op_service_account.stdout }}\n"
     dest: "{{ ansible_env.HOME }}/.config/op/service-account-token"
     mode: "0600"
-  when: not op_token_file.stat.exists
+  when: not op_token_file.stat.exists and op_service_account.rc == 0
   diff: false
   no_log: true
 

@@ -13,31 +13,55 @@
     force: false
     mode: "0644"
 
+# The add/install steps below warn rather than stop the play when they fail,
+# e.g. the claudev marketplace needs your SSH key
 - name: List Claude Code plugin marketplaces
   command: "{{ claude_bin }} plugin marketplace list --json"
   register: claude_marketplace_list
   changed_when: false
+  failed_when: false
   check_mode: false
 
 - name: Add Claude Code plugin marketplaces
   command: "{{ claude_bin }} plugin marketplace add {{ item.source }}"
   loop: "{{ claude_marketplaces }}"
-  when: item.name not in (claude_marketplace_list.stdout | from_json | map(attribute='name') | list)
-  changed_when: true
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.name not in (claude_marketplace_list.stdout | default('[]', true) | from_json | map(attribute='name') | list)
+  register: claude_marketplace_add
+  changed_when: claude_marketplace_add.rc == 0
+  failed_when: false
+
+- name: Warn about Claude Code marketplaces that couldn't be added
+  debug:
+    msg: "Couldn't add the {{ item.item.name }} marketplace: {{ item.stderr | default(item.stdout) }}"
+  loop: "{{ claude_marketplace_add.results | selectattr('rc', 'defined') | rejectattr('rc', 'equalto', 0) | list }}"
+  loop_control:
+    label: "{{ item.item.name }}"
 
 - name: List Claude Code plugins
   command: "{{ claude_bin }} plugin list --json"
   register: claude_plugin_list
   changed_when: false
+  failed_when: false
   check_mode: false
 
 - name: Install Claude Code plugins
   command: "{{ claude_bin }} plugin install {{ item }} --scope user"
   loop: "{{ claude_plugins }}"
   when: >-
-    item not in (claude_plugin_list.stdout | from_json
+    item not in (claude_plugin_list.stdout | default('[]', true) | from_json
     | selectattr('scope', 'equalto', 'user') | map(attribute='id') | list)
-  changed_when: true
+  register: claude_plugin_install
+  changed_when: claude_plugin_install.rc == 0
+  failed_when: false
+
+- name: Warn about Claude Code plugins that couldn't be installed
+  debug:
+    msg: "Couldn't install {{ item.item }}: {{ item.stderr | default(item.stdout) }}"
+  loop: "{{ claude_plugin_install.results | selectattr('rc', 'defined') | rejectattr('rc', 'equalto', 0) | list }}"
+  loop_control:
+    label: "{{ item.item }}"
 
 - name: Check Claude Code MCP servers
   command: "{{ claude_bin }} mcp get {{ item.name }}"
@@ -54,4 +78,13 @@
   loop_control:
     label: "{{ item.item.name }}"
   when: item.rc != 0
-  changed_when: true
+  register: claude_mcp_add
+  changed_when: claude_mcp_add.rc == 0
+  failed_when: false
+
+- name: Warn about Claude Code MCP servers that couldn't be added
+  debug:
+    msg: "Couldn't add the {{ item.item.item.name }} MCP server: {{ item.stderr | default(item.stdout) }}"
+  loop: "{{ claude_mcp_add.results | selectattr('rc', 'defined') | rejectattr('rc', 'equalto', 0) | list }}"
+  loop_control:
+    label: "{{ item.item.item.name }}"
