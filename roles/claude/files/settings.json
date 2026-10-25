@@ -1,0 +1,54 @@
+{
+  "skillListingBudgetFraction": 0.02,
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "todoist@doist": true,
+    "readwise@readwise-skills": true,
+    "local-agent@claudev": true,
+    "cloudflare@cloudflare": true
+  },
+  "extraKnownMarketplaces": {
+    "cloudflare": {
+      "source": {
+        "source": "github",
+        "repo": "cloudflare/skills"
+      }
+    },
+    "claudev": {
+      "source": {
+        "source": "git",
+        "url": "git@git.8p.jamesdigioia.com:mAAdhaTTah/claudev.git"
+      }
+    },
+    "doist": {
+      "source": {
+        "source": "github",
+        "repo": "doist/todoist-mcp"
+      }
+    },
+    "readwise-skills": {
+      "source": {
+        "source": "github",
+        "repo": "readwiseio/readwise-skills"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "promptSuggestionEnabled": false,
+  "awaySummaryEnabled": false,
+  "autoUpdatesChannel": "latest",
+  "minimumVersion": "2.1.81",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
+  "editorMode": "normal",
+  "autoCompactEnabled": true,
+  "idleCompaction": false,
+  "remoteControlAtStartup": false,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
+}

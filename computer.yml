@@ -11,3 +11,5 @@
     - { role: os, tags: [os] }
     - { role: editor, tags: [editor] }
     - { role: mise, tags: [mise] }
+    - { role: apps, tags: [apps] }
+    - { role: claude, tags: [claude] }

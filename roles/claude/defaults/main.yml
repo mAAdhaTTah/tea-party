@@ -1,0 +1,5 @@
+---
+claude_bin: "{{ homebrew_prefix }}/bin/claude"
+claude_marketplaces: []
+claude_plugins: []
+claude_mcp_servers: []

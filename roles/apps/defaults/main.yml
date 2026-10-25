@@ -1,0 +1,8 @@
+---
+op_bin: "{{ homebrew_prefix }}/bin/op"
+docker_bin: "{{ homebrew_prefix }}/bin/docker"
+docker_context_name: four-of-four
+docker_context_host: ssh://four-of-four
+komodo_op_item: Komodo CLI
+komodo_op_vault: Private
+op_service_account_vaults: homelab:read_items

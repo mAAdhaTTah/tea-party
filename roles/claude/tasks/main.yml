@@ -1,0 +1,54 @@
+---
+- name: Create Claude Code config directory
+  file:
+    path: "{{ ansible_env.HOME }}/.claude"
+    state: directory
+    mode: "0755"
+
+# Claude Code writes to this file itself, so only seed it on a fresh machine
+- name: Seed Claude Code settings
+  copy:
+    src: settings.json
+    dest: "{{ ansible_env.HOME }}/.claude/settings.json"
+    force: false
+    mode: "0644"
+
+- name: List Claude Code plugin marketplaces
+  command: "{{ claude_bin }} plugin marketplace list --json"
+  register: claude_marketplace_list
+  changed_when: false
+  check_mode: false
+
+- name: Add Claude Code plugin marketplaces
+  command: "{{ claude_bin }} plugin marketplace add {{ item.source }}"
+  loop: "{{ claude_marketplaces }}"
+  when: item.name not in (claude_marketplace_list.stdout | from_json | map(attribute='name') | list)
+
+- name: List Claude Code plugins
+  command: "{{ claude_bin }} plugin list --json"
+  register: claude_plugin_list
+  changed_when: false
+  check_mode: false
+
+- name: Install Claude Code plugins
+  command: "{{ claude_bin }} plugin install {{ item }} --scope user"
+  loop: "{{ claude_plugins }}"
+  when: >-
+    item not in (claude_plugin_list.stdout | from_json
+    | selectattr('scope', 'equalto', 'user') | map(attribute='id') | list)
+
+- name: Check Claude Code MCP servers
+  command: "{{ claude_bin }} mcp get {{ item.name }}"
+  loop: "{{ claude_mcp_servers }}"
+  register: claude_mcp_get
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+# Authenticating each server is a manual step (/mcp in Claude Code)
+- name: Add Claude Code MCP servers
+  command: "{{ claude_bin }} mcp add --scope user --transport http {{ item.item.name }} {{ item.item.url }}"
+  loop: "{{ claude_mcp_get.results }}"
+  loop_control:
+    label: "{{ item.item.name }}"
+  when: item.rc != 0
