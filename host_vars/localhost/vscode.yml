@@ -1,6 +1,6 @@
 ---
 vscode_users:
-  - username: '{{ lookup(''env'', ''USER'') }}'
+  - username: "{{ lookup('env', 'USER') }}"
     visual_studio_code_settings_overwrite: false
     visual_studio_code_extensions:
       - anthropic.claude-code
@@ -66,29 +66,29 @@ vscode_users:
       - wmaurer.change-case
       - zachgawlik.convert-object-to-jsx
     visual_studio_code_settings:
-      '[css]':
+      "[css]":
         editor.defaultFormatter: esbenp.prettier-vscode
-      '[html]':
+      "[html]":
         editor.defaultFormatter: esbenp.prettier-vscode
-      '[javascript]':
+      "[javascript]":
         editor.defaultFormatter: esbenp.prettier-vscode
-      '[json]':
+      "[json]":
         editor.defaultFormatter: esbenp.prettier-vscode
-      '[jsonc]':
+      "[jsonc]":
         editor.defaultFormatter: esbenp.prettier-vscode
-      '[python]':
+      "[python]":
         diffEditor.ignoreTrimWhitespace: false
         editor.codeActionsOnSave:
           source.organizeImports: explicit
         editor.formatOnType: true
-        editor.wordBasedSuggestions: 'off'
+        editor.wordBasedSuggestions: "off"
         gitlens.codeLens.symbolScopes:
-          - '!Module'
-      '[typescript]':
+          - "!Module"
+      "[typescript]":
         editor.defaultFormatter: esbenp.prettier-vscode
-      '[typescriptreact]':
+      "[typescriptreact]":
         editor.defaultFormatter: esbenp.prettier-vscode
-      '[yaml]':
+      "[yaml]":
         editor.defaultFormatter: esbenp.prettier-vscode
       atlascode.bitbucket.enabled: false
       atlascode.jira.jqlList: []
@@ -112,7 +112,7 @@ vscode_users:
         - thiserror
       editor.bracketPairColorization.enabled: true
       editor.cursorBlinking: expand
-      editor.cursorSmoothCaretAnimation: 'on'
+      editor.cursorSmoothCaretAnimation: "on"
       editor.fontFamily: Source Code Pro, Cutive Mono, Menlo, Monaco, Courier New, monospace
       editor.fontSize: 14
       editor.formatOnPaste: true
@@ -138,7 +138,7 @@ vscode_users:
       prettier.trailingComma: all
       python.languageServer: Pylance
       redhat.telemetry.enabled: false
-      telemetry.telemetryLevel: 'off'
+      telemetry.telemetryLevel: "off"
       terminal.integrated.tabs.enabled: true
       terminal.integrated.fontFamily: FiraCode Nerd Font Mono
       typescript.updateImportsOnFileMove.enabled: always
@@ -148,7 +148,7 @@ vscode_users:
       workbench.preferredLightColorTheme: Night Owl Light
       window.autoDetectColorScheme: false
       workbench.editorAssociations:
-        '*.ipynb': jupyter-notebook
+        "*.ipynb": jupyter-notebook
       workbench.settings.editor: json
       workbench.sideBar.location: right
       workbench.startupEditor: none
@@ -160,12 +160,12 @@ vscode_users:
       diffEditor.ignoreTrimWhitespace: false
       rust-analyzer.check.command: clippy
       github.copilot.enable:
-        '*': false
+        "*": false
         plaintext: false
         markdown: false
         scminput: false
       docker.extension.enableComposeLanguageServer: false
-      '[dockercompose]':
+      "[dockercompose]":
         editor.insertSpaces: true
         editor.tabSize: 2
         editor.autoIndent: advanced
@@ -174,7 +174,7 @@ vscode_users:
           comments: false
           strings: true
         editor.defaultFormatter: redhat.vscode-yaml
-      '[github-actions-workflow]':
+      "[github-actions-workflow]":
         editor.defaultFormatter: redhat.vscode-yaml
       python.analysis.typeCheckingMode: basic
       claudeCode.preferredLocation: panel
@@ -189,14 +189,14 @@ vscode_users:
         https://developer.microsoft.com/json-schemas/: true
         https://docs.renovatebot.com/renovate-schema.json: true
       editor.formatOnSave: true
-      '[markdown]':
+      "[markdown]":
         editor.defaultFormatter: esbenp.prettier-vscode
       oxc.enable: true
       yaml.disableSchemaDetection:
-        - '**/.github/workflows/*.yml'
-        - '**/.github/workflows/*.yaml'
-        - '**/.gitea/workflows/*.yml'
-        - '**/.gitea/workflows/*.yaml'
-        - '**/.forgejo/workflows/*.yml'
-        - '**/.forgejo/workflows/*.yaml'
+        - "**/.github/workflows/*.yml"
+        - "**/.github/workflows/*.yaml"
+        - "**/.gitea/workflows/*.yml"
+        - "**/.gitea/workflows/*.yaml"
+        - "**/.forgejo/workflows/*.yml"
+        - "**/.forgejo/workflows/*.yaml"
       claudeCode.hideOnboarding: true
