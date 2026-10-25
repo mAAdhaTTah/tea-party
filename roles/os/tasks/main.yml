@@ -7,3 +7,45 @@
     value: "{{ item.value }}"
     state: present
   with_items: "{{ osx_defaults }}"
+
+- name: Set Rectangle defaults
+  community.general.osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items: "{{ rectangle_defaults }}"
+  notify: Restart Rectangle
+
+# osx_defaults can't write dictionaries, so the shortcuts are compared and
+# written here. Runs in check mode too, but only writes outside it.
+- name: Set Rectangle shortcuts
+  shell: |
+    current=$(defaults read com.knollsoft.Rectangle {{ item.key }} 2>/dev/null | tr -d ' \n')
+    if [ "$current" != "{keyCode={{ item.value.keyCode }};modifierFlags={{ item.value.modifierFlags }};}" ]; then
+      {% if not ansible_check_mode %}
+      defaults write com.knollsoft.Rectangle {{ item.key }} -dict keyCode -int {{ item.value.keyCode }} modifierFlags -int {{ item.value.modifierFlags }}
+      {% endif %}
+      echo changed
+    fi
+  loop: "{{ rectangle_shortcuts | dict2items }}"
+  register: rectangle_shortcut
+  changed_when: "'changed' in rectangle_shortcut.stdout"
+  check_mode: false
+  notify: Restart Rectangle
+
+# The dock role only adds apps, so the Downloads stack and its view options
+# are set here
+- name: Check for the Downloads stack in the Dock
+  command: dockutil --find Downloads
+  register: dock_downloads
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Add the Downloads stack to the Dock
+  command: >-
+    dockutil --add {{ ansible_env.HOME }}/Downloads --section others
+    --view fan --display stack --sort dateadded
+  when: dock_downloads.rc != 0

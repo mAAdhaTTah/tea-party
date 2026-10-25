@@ -3,7 +3,8 @@ dockutil_install: true
 dockitems_remove:
   - "Launchpad"
   - "Safari"
-  - "Messages"
+  # Apple Messages, by bundle ID: the Chrome Messages app below has the same label
+  - "com.apple.MobileSMS"
   - "Mail"
   - "Maps"
   - "Photos"
@@ -31,36 +32,36 @@ dockitems_persist:
   - name: "Obsidian"
     path: "/Applications/Obsidian.app/"
     pos: 3
-  - name: "Slack"
-    path: "/Applications/Slack.app/"
-    pos: 4
   - name: "Visual Studio Code"
     path: "/Applications/Visual Studio Code.app/"
+    pos: 4
+  - name: "Ghostty"
+    path: "/Applications/Ghostty.app/"
     pos: 5
-  - name: "iTerm"
-    path: "/Applications/iTerm.app/"
+  - name: "T3 Code (Beta)"
+    path: "/Applications/T3 Code (Beta).app/"
     pos: 6
+  - name: "Slack"
+    path: "/Applications/Slack.app/"
+    pos: 7
   - name: "Signal"
     path: "/Applications/Signal.app/"
-    pos: 7
-  - name: "Messages"
-    path: "~/Applications/Chrome Apps/Messages.app/"
     pos: 8
+  - name: "Messages"
+    path: "~/Applications/Chrome Apps.localized/Messages.app/"
+    pos: 9
   - name: "Keybase"
     path: "/Applications/Keybase.app/"
-    pos: 9
-  - name: "Discord"
-    path: "/Applications/Discord.app/"
     pos: 10
   - name: "WhatsApp"
     path: "/Applications/WhatsApp.app/"
     pos: 11
+  - name: "Discord"
+    path: "/Applications/Discord.app/"
+    pos: 12
   - name: "Spotify"
     path: "/Applications/Spotify.app/"
-    pos: 12
+    pos: 13
   - name: "Reader"
     path: "/Applications/Reader.app/"
-    pos: 13
-  - name: "Messages"
-    path: "~/Applications/Chrome Apps/GTO Wizard.app/"
     pos: 14

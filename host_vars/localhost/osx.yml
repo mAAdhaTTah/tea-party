@@ -1,6 +1,4 @@
 ---
-computer_name: Roma
-timezone: America/New_York
 osx_defaults:
   #################
   # General UI/UX #
@@ -82,11 +80,6 @@ osx_defaults:
     key: NSUseAnimatedFocusRing
     type: bool
     value: false
-  # Increase window resize speed for Cocoa applications
-  - domain: NSGlobalDomain
-    key: NSWindowResizeTime
-    type: float
-    value: !!float "0.001"
   # Save to disk (not to iCloud) by default
   - domain: NSGlobalDomain
     key: NSDocumentSaveNewDocumentsToCloud
@@ -101,11 +94,6 @@ osx_defaults:
   # Disable automatic termination of inactive apps
   - domain: NSGlobalDomain
     key: NSDisableAutomaticTermination
-    type: bool
-    value: true
-  # Set Help Viewer windows to non-floating mode
-  - domain: com.apple.helpviewer
-    key: DevMode
     type: bool
     value: true
 
@@ -142,7 +130,7 @@ osx_defaults:
   - domain: NSGlobalDomain
     key: AppleLocale
     type: string
-    value: en_US@currency=USD
+    value: en_US@currency=usd
   - domain: NSGlobalDomain
     key: AppleMeasurementUnits
     type: string
@@ -166,12 +154,6 @@ osx_defaults:
     key: Apple Bitpool Min (editable)
     type: int
     value: 40
-  # Enable full keyboard access for all controls
-  # (e.g. enable Tab in modal dialogs)
-  - domain: NSGlobalDomain
-    key: AppleKeyboardUIMode
-    type: int
-    value: 3
 
   ##########
   # Screen #
@@ -190,7 +172,7 @@ osx_defaults:
   - domain: com.apple.screencapture
     key: location
     type: string
-    value: ${HOME}/Desktop
+    value: "{{ ansible_env.HOME }}/Desktop"
   # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
   - domain: com.apple.screencapture
     key: type
@@ -234,11 +216,11 @@ osx_defaults:
     key: AppleShowAllExtensions
     type: bool
     value: true
-  # Finder: show status bar
+  # Finder: hide status bar
   - domain: com.apple.finder
     key: ShowStatusBar
     type: bool
-    value: true
+    value: false
   # Finder: show path bar
   - domain: com.apple.finder
     key: ShowPathbar
@@ -284,11 +266,11 @@ osx_defaults:
     key: DSDontWriteNetworkStores
     type: bool
     value: true
-  # Use column view in all Finder windows by default
+  # Use list view in all Finder windows by default
   - domain: com.apple.finder
     key: FXPreferredViewStyle
     type: string
-    value: clmv
+    value: Nlsv
   # Disable the warning before emptying the Trash
   - domain: com.apple.finder
     key: WarnOnEmptyTrash
@@ -402,11 +384,16 @@ osx_defaults:
     key: mouse-over-hilite-stack
     type: bool
     value: true
-  # Set the icon size of Dock items to 36 pixels
-  - domain: c
+  # Set the icon size of Dock items to 50 pixels
+  - domain: com.apple.dock
     key: tilesize
     type: float
-    value: 70
+    value: 50
+  # Don't show recent applications in the Dock
+  - domain: com.apple.dock
+    key: show-recents
+    type: bool
+    value: false
   # Change minimize/maximize window effect
   - domain: com.apple.dock
     key: mineffect
@@ -457,20 +444,6 @@ osx_defaults:
   # Apps #
   ########
 
-  # Use plain text mode for new TextEdit documents
-  - domain: com.apple.TextEdit
-    key: RichText
-    type: int
-    value: 0
-  # Open and save files as UTF-8 in TextEdit
-  - domain: com.apple.TextEdit
-    key: PlainTextEncoding
-    type: int
-    value: 4
-  - domain: com.apple.TextEdit
-    key: PlainTextEncodingForWrite
-    type: int
-    value: 4
   # Enable the debug menu in Disk Utility
   - domain: com.apple.DiskUtility
     key: DUDebugMenuEnabled
@@ -478,21 +451,6 @@ osx_defaults:
     value: true
   - domain: com.apple.DiskUtility
     key: advanced-image-options
-    type: bool
-    value: true
-  # Enable Debug Menu in the Mac App Store
-  - domain: com.apple.appstore
-    key: ShowDebugMenu
-    type: bool
-    value: true
-  # Enable the WebKit Developer Tools in the Mac App Store
-  - domain: com.apple.appstore
-    key: WebKitDeveloperExtras
-    type: bool
-    value: true
-  # Enable Debug Menu in the Mac App Store
-  - domain: com.apple.appstore
-    key: ShowDebugMenu
     type: bool
     value: true
   # Add a context menu item for showing the Web Inspector in web views
@@ -534,27 +492,6 @@ osx_defaults:
     key: PMPrintingExpandedStateForPrint2
     type: bool
     value: true
-
-  # Disable send and reply animations in Mail.app
-  - domain: com.apple.mail
-    key: DisableReplyAnimations
-    type: bool
-    value: true
-  # Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
-  - domain: com.apple.mail
-    key: AddressesIncludeNameOnPasteboard
-    type: bool
-    value: false
-  # Disable inline attachments (just show the icons)
-  - domain: com.apple.mail
-    key: DisableInlineAttachmentViewing
-    type: bool
-    value: true
-  # Disable automatic spell checking
-  - domain: com.apple.mail
-    key: SpellCheckingBehavior
-    type: string
-    value: NoSpellCheckingEnabled
   # See: https://security.stackexchange.com/a/47786/8918
   - domain: com.apple.terminal
     key: SecureKeyboardEntry
@@ -565,11 +502,6 @@ osx_defaults:
     key: ShowLineMarks
     type: int
     value: 0
-  # Don’t display the annoying prompt when quitting iTerm
-  - domain: com.googlecode.iterm2
-    key: PromptOnQuit
-    type: bool
-    value: false
   # Prevent Time Machine from prompting to use new hard drives as backup volume
   - domain: com.apple.TimeMachine
     key: DoNotOfferNewDisksForBackup
@@ -589,7 +521,7 @@ osx_defaults:
   - domain: com.apple.ActivityMonitor
     key: ShowCategory
     type: int
-    value: 0
+    value: 100
   # Sort Activity Monitor results by CPU usage
   - domain: com.apple.ActivityMonitor
     key: SortColumn
@@ -598,26 +530,6 @@ osx_defaults:
   # Enable the debug menu in iCal (pre-10.8)
   - domain: com.apple.iCal
     key: IncludeDebugMenu
-    type: bool
-    value: true
-  # Use plain text mode for new TextEdit documents
-  - domain: com.apple.TextEdit
-    key: RichText
-    type: int
-    value: 0
-  # Open and save files as UTF-8 in TextEdit
-  - domain: com.apple.TextEdit
-    key: PlainTextEncoding
-    type: int
-    value: 4
-  # Enable the debug menu in Disk Utility
-  - domain: com.apple.DiskUtility
-    key: DUDebugMenuEnabled
-    type: bool
-    value: true
-  # Auto-play videos when opened with QuickTime Player
-  - domain: com.apple.QuickTimePlayerX
-    key: MGPlayMovieOnOpen
     type: bool
     value: true
   # Enable the automatic update check
@@ -655,3 +567,61 @@ osx_defaults:
     key: AutoUpdateRestartRequired
     type: bool
     value: false
+
+# Rectangle: simple settings; shortcuts are dictionaries, set separately below
+rectangle_defaults:
+  - domain: com.knollsoft.Rectangle
+    key: alternateDefaultShortcuts
+    type: bool
+    value: true
+  - domain: com.knollsoft.Rectangle
+    key: allowAnyShortcut
+    type: bool
+    value: true
+  - domain: com.knollsoft.Rectangle
+    key: subsequentExecutionMode
+    type: int
+    value: 1
+  - domain: com.knollsoft.Rectangle
+    key: windowSnapping
+    type: int
+    value: 2
+  - domain: com.knollsoft.Rectangle
+    key: doubleClickTitleBar
+    type: int
+    value: 0
+  - domain: com.knollsoft.Rectangle
+    key: launchOnLogin
+    type: bool
+    value: true
+  # Todo mode: keep Todoist docked as a sidebar
+  - domain: com.knollsoft.Rectangle
+    key: todo
+    type: int
+    value: 1
+  - domain: com.knollsoft.Rectangle
+    key: todoApplication
+    type: string
+    value: com.todoist.mac.Todoist
+  - domain: com.knollsoft.Rectangle
+    key: todoMode
+    type: bool
+    value: false
+  - domain: com.knollsoft.Rectangle
+    key: todoSidebarSide
+    type: int
+    value: 2
+  - domain: com.knollsoft.Rectangle
+    key: todoSidebarWidth
+    type: float
+    value: 1000
+
+rectangle_shortcuts:
+  topLeftSixth: { keyCode: 12, modifierFlags: 1835008 }
+  topCenterSixth: { keyCode: 13, modifierFlags: 1835008 }
+  topRightSixth: { keyCode: 14, modifierFlags: 1835008 }
+  bottomLeftSixth: { keyCode: 0, modifierFlags: 1835008 }
+  bottomCenterSixth: { keyCode: 1, modifierFlags: 1835008 }
+  bottomRightSixth: { keyCode: 2, modifierFlags: 1835008 }
+  toggleTodo: { keyCode: 11, modifierFlags: 786432 }
+  reflowTodo: { keyCode: 45, modifierFlags: 786432 }

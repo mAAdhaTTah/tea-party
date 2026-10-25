@@ -1,0 +1,4 @@
+---
+- name: Restart Rectangle
+  shell: killall Rectangle; open -a Rectangle
+  changed_when: true
