@@ -22,7 +22,7 @@ jobs:
           python-version: 3.x
 
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible ansible-lint
+        run: pip3 install yamllint ansible-core==2.21.5 ansible-lint
 
       - name: Lint code.
         run: |
@@ -44,7 +44,7 @@ jobs:
           sudo rm -rf /Applications/Firefox.app
           sudo rm -rf /Applications/Google\ Chrome.app
       - name: Install test dependencies.
-        run: sudo pip3 install ansible
+        run: pip3 install ansible-core==2.21.5
 
       - name: Set up the test environment.
         run: |
