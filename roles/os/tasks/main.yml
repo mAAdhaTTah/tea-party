@@ -22,6 +22,7 @@
 # written here. Runs in check mode too, but only writes outside it.
 - name: Set Rectangle shortcuts
   shell: |
+    set -o pipefail
     current=$(defaults read com.knollsoft.Rectangle {{ item.key }} 2>/dev/null | tr -d ' \n')
     if [ "$current" != "{keyCode={{ item.value.keyCode }};modifierFlags={{ item.value.modifierFlags }};}" ]; then
       {% if not ansible_check_mode %}
@@ -49,3 +50,4 @@
     dockutil --add {{ ansible_env.HOME }}/Downloads --section others
     --view fan --display stack --sort dateadded
   when: dock_downloads.rc != 0
+  changed_when: true

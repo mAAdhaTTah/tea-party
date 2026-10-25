@@ -70,6 +70,7 @@
     "tea-party-{{ ansible_hostname }}" --vault {{ op_service_account_vaults }} --raw
   register: op_service_account
   when: not op_token_file.stat.exists
+  changed_when: true
   no_log: true
 
 - name: Write the 1Password service-account token
@@ -77,7 +78,7 @@
     content: "{{ op_service_account.stdout }}\n"
     dest: "{{ ansible_env.HOME }}/.config/op/service-account-token"
     mode: "0600"
-  when: op_service_account is changed
+  when: not op_token_file.stat.exists
   diff: false
   no_log: true
 
@@ -92,6 +93,7 @@
 - name: Create the remote Docker context
   command: "{{ docker_bin }} context create {{ docker_context_name }} --docker host={{ docker_context_host }}"
   when: docker_context.rc != 0
+  changed_when: true
 
 - name: Check the current Docker context
   command: "{{ docker_bin }} context show"
@@ -102,3 +104,4 @@
 - name: Use the remote Docker context
   command: "{{ docker_bin }} context use {{ docker_context_name }}"
   when: docker_context_current.stdout != docker_context_name
+  changed_when: true

@@ -14,10 +14,7 @@
     create: true
     mode: "0644"
   with_items:
-    - {
-        regexp: "^{{ homebrew_prefix }}/bin/bash",
-        line: "{{ homebrew_prefix }}/bin/bash",
-      }
+    - { regexp: "^{{ homebrew_prefix }}/bin/bash", line: "{{ homebrew_prefix }}/bin/bash" }
 
 - name: Register the current shell
   shell: echo $SHELL
@@ -29,7 +26,7 @@
   become: true
   shell: chsh -s {{ homebrew_prefix }}/bin/bash {{ lookup('env','USER') }}
   when: current_shell_result.stdout != (homebrew_prefix + "/bin/bash")
-  changed_when: lookup('env','USER') != "runner" # fix idempotence in CI
+  changed_when: lookup('env','USER') != "runner"  # fix idempotence in CI
   tags: [skip_ansible_lint]
 
 - name: Copy dotfiles

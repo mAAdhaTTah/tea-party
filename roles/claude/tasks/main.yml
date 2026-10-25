@@ -23,6 +23,7 @@
   command: "{{ claude_bin }} plugin marketplace add {{ item.source }}"
   loop: "{{ claude_marketplaces }}"
   when: item.name not in (claude_marketplace_list.stdout | from_json | map(attribute='name') | list)
+  changed_when: true
 
 - name: List Claude Code plugins
   command: "{{ claude_bin }} plugin list --json"
@@ -36,6 +37,7 @@
   when: >-
     item not in (claude_plugin_list.stdout | from_json
     | selectattr('scope', 'equalto', 'user') | map(attribute='id') | list)
+  changed_when: true
 
 - name: Check Claude Code MCP servers
   command: "{{ claude_bin }} mcp get {{ item.name }}"
@@ -52,3 +54,4 @@
   loop_control:
     label: "{{ item.item.name }}"
   when: item.rc != 0
+  changed_when: true
