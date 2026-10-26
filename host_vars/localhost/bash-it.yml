@@ -1,6 +1,6 @@
 ---
 bash_it_theme: oh-my-posh
-posh_theme: $(brew --prefix oh-my-posh)/themes/iterm2.omp.json
+posh_theme: $HOME/.config/oh-my-posh/config.omp.json
 bash_it_aliases:
   - ansible
   - curl

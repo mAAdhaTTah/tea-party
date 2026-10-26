@@ -56,6 +56,19 @@
     recursive: false
   register: bash_it_checkout
 
+- name: Create oh-my-posh config directory
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.config/oh-my-posh"
+    state: directory
+    mode: "0755"
+
+# copy, not template: the config is full of oh-my-posh's own {{ }} templates
+- name: Copy oh-my-posh config
+  copy:
+    src: oh-my-posh/config.omp.json
+    dest: "{{ ansible_facts.env.HOME }}/.config/oh-my-posh/config.omp.json"
+    mode: "0644"
+
 - name: Add bash-it to dotfiles
   blockinfile:
     path: "{{ ansible_facts.env.HOME }}/.managed"
