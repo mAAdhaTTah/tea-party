@@ -24,7 +24,6 @@ bash_it_completions:
   - system
 bash_it_plugins:
   - base
-  - battery
   - browser
   - dirs
   - explain

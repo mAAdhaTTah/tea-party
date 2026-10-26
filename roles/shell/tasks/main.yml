@@ -77,18 +77,29 @@
         source $BASH_IT/bash_it.sh
       fi
 
-# bash-it only loads in interactive shells (see the BASH-IT block), hence -i
-- name: Migrate bash-it to latest versions
-  command: /usr/bin/env bash -l -i -c "bash-it migrate"
-  when: bash_it_checkout.before != None and bash_it_checkout.before != bash_it_checkout.after
-  tags: [skip_ansible_lint]
+# bash-it v3.1.0 moved the battery plugin into lib/, which always loads
+- name: Uninstall the bash-it battery plugin
+  file:
+    path: "{{ bash_it_install_path }}/enabled/250---battery.plugin.bash"
+    state: absent
 
+# bash-it only loads in interactive shells (see the BASH-IT block), hence -i
 - name: Install bash-it aliases, completions, and plugins
   command: /usr/bin/env bash -l -i -c "bash-it enable {{ item.to_enable }} {{ item.list | join(' ') }}"
   register: result
   changed_when: result.stdout_lines | reject('match', '.* is already enabled.') | list | length > 0
+  # bash-it exits 0 when asked to enable a component that doesn't exist
+  failed_when: result.rc != 0 or 'does not appear to be an available' in result.stdout
   with_items:
     - { to_enable: plugin, list: "{{ bash_it_plugins }}" }
     - { to_enable: completion, list: "{{ bash_it_completions }}" }
     - { to_enable: alias, list: "{{ bash_it_aliases }}" }
   tags: [skip_ansible_lint]
+
+# Upstream removals leave dangling symlinks behind, and `bash-it migrate`
+# only handles the legacy per-type enabled directories, so prune them here
+# (after enabling, which creates the enabled directory on a fresh install)
+- name: Remove bash-it components that no longer exist
+  command: find -L {{ bash_it_install_path }}/enabled -type l -print -delete
+  register: bash_it_pruned
+  changed_when: bash_it_pruned.stdout | length > 0
