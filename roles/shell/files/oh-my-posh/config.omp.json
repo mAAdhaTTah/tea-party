@@ -1,0 +1,254 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 4,
+  "final_space": true,
+  "palettes": {
+    "template": "{{ if eq (cmd \"sh\" \"-c\" \"defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light\") \"Dark\" }}mocha{{ else }}latte{{ end }}",
+    "list": {
+      "mocha": {
+        "base": "#1e1e2e",
+        "text": "#cdd6f4",
+        "blue": "#89b4fa",
+        "green": "#a6e3a1",
+        "peach": "#fab387",
+        "teal": "#94e2d5",
+        "red": "#f38ba8",
+        "mauve": "#cba6f7",
+        "surface": "#45475a",
+        "on": "#1e1e2e",
+        "dim": "#7f849c"
+      },
+      "latte": {
+        "base": "#eff1f5",
+        "text": "#4c4f69",
+        "blue": "#1e66f5",
+        "green": "#40a02b",
+        "peach": "#fe640b",
+        "teal": "#179299",
+        "red": "#d20f39",
+        "mauve": "#8839ef",
+        "surface": "#ccd0da",
+        "on": "#eff1f5",
+        "dim": "#8c8fa1"
+      }
+    }
+  },
+  "console_title_template": "{{ if gt .Code 0 }}✕ {{ end }}{{ if contains \"/.t3/worktrees/\" .PWD }}{{ base (dir .PWD) }}{{ else }}{{ .Folder }}{{ end }}",
+  "upgrade": {
+    "notice": false,
+    "auto": false
+  },
+  "secondary_prompt": {
+    "foreground": "p:dim",
+    "background": "transparent",
+    "template": "❯ "
+  },
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "root",
+          "template": "⚡",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "background": "p:red",
+          "foreground": "p:on"
+        },
+        {
+          "type": "path",
+          "options": {
+            "style": "agnoster_short",
+            "max_depth": 2,
+            "mapped_locations_regex_expand": true,
+            "mapped_locations": {
+              "re:(.*/\\.t3/worktrees/(?P<repo>[^/]+)/[^/]+)": " ${repo}",
+              "re:(.*/Code/Rust/(?P<name>[^/]+))": " ${name}",
+              "re:(.*/Code/JavaScript/(?P<name>[^/]+))": " ${name}",
+              "re:(.*/Code/Python/(?P<name>[^/]+))": " ${name}",
+              "re:(.*/Code/Elixir/(?P<name>[^/]+))": " ${name}",
+              "re:(.*/Code/Ruby/(?P<name>[^/]+))": " ${name}",
+              "re:(.*/Code/Infra/(?P<name>[^/]+))": " ${name}",
+              "~/Code": ""
+            }
+          },
+          "template": " {{ .Path }} ",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "background": "p:blue",
+          "foreground": "p:on"
+        },
+        {
+          "type": "git",
+          "options": {
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "upstream_icons": {
+              "git.8p.jamesdigioia.com": " "
+            }
+          },
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ if gt .Ahead 0 }} ⇡{{ .Ahead }}{{ end }}{{ if gt .Behind 0 }} ⇣{{ .Behind }}{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} ",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}p:peach{{ end }}",
+            "{{ if or (gt .Ahead 0) (gt .Behind 0) }}p:teal{{ end }}"
+          ],
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "background": "p:green",
+          "foreground": "p:on"
+        },
+        {
+          "type": "status",
+          "template": " {{ .Code }}",
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "background": "p:red",
+          "foreground": "p:on"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "overflow": "hide",
+      "segments": [
+        {
+          "type": "node",
+          "template": " {{ .Full }}",
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "background": "#6CA35E",
+          "foreground": "#111111",
+          "options": {
+            "display_mode": "files"
+          },
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          }
+        },
+        {
+          "type": "pnpm",
+          "template": "󰋁 {{ .Full }}",
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "background": "#F9AD00",
+          "foreground": "#111111",
+          "options": {
+            "display_mode": "files"
+          },
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          }
+        },
+        {
+          "type": "bun",
+          "template": " {{ .Full }}",
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "background": "#FBF0DF",
+          "foreground": "#111111",
+          "options": {
+            "display_mode": "files"
+          },
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          }
+        },
+        {
+          "type": "rust",
+          "template": " {{ .Full }}",
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "background": "#DE8A5A",
+          "foreground": "#111111",
+          "options": {
+            "display_mode": "files"
+          },
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          }
+        },
+        {
+          "type": "python",
+          "template": " {{ .Full }}",
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "background": "#FFDE57",
+          "foreground": "#111111",
+          "options": {
+            "display_mode": "files"
+          },
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          }
+        },
+        {
+          "type": "ruby",
+          "template": " {{ .Full }}",
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "background": "#CC342D",
+          "foreground": "#111111",
+          "options": {
+            "display_mode": "files"
+          },
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          }
+        },
+        {
+          "type": "elixir",
+          "template": " {{ .Full }}",
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "background": "#A97BD6",
+          "foreground": "#111111",
+          "options": {
+            "display_mode": "files"
+          },
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "status",
+          "style": "plain",
+          "foreground": "p:green",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}p:red{{ end }}"
+          ],
+          "options": {
+            "always_enabled": true
+          },
+          "template": "❯"
+        }
+      ]
+    }
+  ]
+}
