@@ -16,7 +16,6 @@ bash_it_completions:
   - brew
   - defaults
   - dirs
-  - export
   - git
   - makefile
   - npm
