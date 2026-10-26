@@ -39,17 +39,10 @@
       "groupName": "ansible-core"
     },
     {
-      "description": "Runtimes: routine updates stay on the current line; majors/minors are separate PRs",
+      "description": "Runtimes: patches stay on the current line, separate from minor/major bumps",
       "matchFileNames": ["host_vars/localhost/mise.yml"],
       "matchDepNames": ["node", "python", "ruby-version", "rust-lang/rust"],
-      "groupName": "mise runtimes",
-      "separateMinorPatch": true,
-      "separateMajorMinor": true
-    },
-    {
-      "matchFileNames": ["host_vars/localhost/mise.yml"],
-      "matchDepNames": ["!node", "!python", "!ruby-version", "!rust-lang/rust"],
-      "groupName": "mise tools"
+      "separateMinorPatch": true
     }
   ]
 }
