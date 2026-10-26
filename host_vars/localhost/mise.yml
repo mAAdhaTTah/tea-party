@@ -18,8 +18,10 @@ mise_tools:
   - { name: uv, version: "0.13.5" }
   # renovate: datasource=crate depName=cargo-binstall
   - { name: cargo-binstall, version: "1.26.0" }
+  # renovate: datasource=npm depName=neonctl
+  - { name: "npm:neonctl", version: "8.11.4", comment: "global ecosystem tools (previously npm -g / cargo install / Homebrew)" }
   # renovate: datasource=crate depName=cargo-insta
-  - { name: "cargo:cargo-insta", version: "1.49.0", comment: "global ecosystem tools (previously npm -g / cargo install / Homebrew)" }
+  - { name: "cargo:cargo-insta", version: "1.49.0" }
   # renovate: datasource=crate depName=sqlx-cli
   - { name: "cargo:sqlx-cli", version: "0.8.6" }
   # renovate: datasource=crate depName=sampo
