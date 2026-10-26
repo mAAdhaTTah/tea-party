@@ -1,18 +1,40 @@
 ---
-# The role treats any stderr from `code` as a failure, and current VS Code
-# prints a Node deprecation warning (DEP0169) on every extension install
-- name: Install vscode, extensions, & settings
-  include_role:
-    name: gantsign.visual-studio-code
-    apply:
-      environment:
-        NODE_NO_WARNINGS: "1"
-  vars:
-    users: "{{ vscode_users }}"
+- name: Install VS Code
+  community.general.homebrew_cask:
+    name: visual-studio-code
+    state: present
+
+- name: List VS Code extensions
+  command: "{{ vscode_bin }} --list-extensions"
+  register: vscode_extension_list
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+# Extensions update themselves, so this only installs missing ones
+- name: Install VS Code extensions
+  command: "{{ vscode_bin }} --install-extension {{ item }}"
+  loop: "{{ vscode_extensions }}"
+  when: item | lower not in (vscode_extension_list.stdout_lines | default([]) | map('lower') | list)
+  changed_when: true
+
+- name: Create VS Code settings directory
+  file:
+    path: "{{ vscode_settings_path | dirname }}"
+    state: directory
+    mode: "0700"
+
+# VS Code writes to this file itself, so only seed it on a fresh machine
+- name: Seed VS Code settings
+  copy:
+    content: "{{ vscode_settings | to_nice_json }}\n"
+    dest: "{{ vscode_settings_path }}"
+    force: false
+    mode: "0600"
 
 - name: Add editor to dotfiles
   blockinfile:
-    path: "{{ ansible_env.HOME }}/.managed"
+    path: "{{ ansible_facts.env.HOME }}/.managed"
     create: true
     mode: "0644"
     marker: "### {mark} ANSIBLE MANAGED EDITOR CONFIG ###"

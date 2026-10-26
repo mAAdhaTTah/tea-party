@@ -47,7 +47,7 @@
 
 - name: Add the Downloads stack to the Dock
   command: >-
-    dockutil --add {{ ansible_env.HOME }}/Downloads --section others
+    dockutil --add {{ ansible_facts.env.HOME }}/Downloads --section others
     --view fan --display stack --sort dateadded
   when: dock_downloads.rc != 0
   changed_when: true

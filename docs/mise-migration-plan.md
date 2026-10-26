@@ -254,7 +254,7 @@ Execution decisions (2026-10-25):
 ### Implementation notes (2026-10-25)
 
 Where the branch differs from the step text below:
-- **Collections:** install into `vendor/collections` (`ansible.cfg`), so the pins don't change the copies homelab uses in `~/.ansible/collections`. `inject_facts_as_vars = True` is set explicitly to silence the 2.21 deprecation warning; the `ansible_*` fact variables need moving to `ansible_facts[...]` before ansible-core 2.24.
+- **Collections:** install into `vendor/collections` (`ansible.cfg`), so the pins don't change the copies homelab uses in `~/.ansible/collections`. `inject_facts_as_vars = True` is set explicitly to silence the 2.21 deprecation warning; the `ansible_*` fact variables need moving to `ansible_facts[...]` before ansible-core 2.24. (Done in #50, which sets it to `False`.)
 - **mise:** the role installs `mise` itself, like the shell role does for `bash`, so it isn't in `homebrew_installed_packages`.
 - **App configs (B13) and the Docker context (B14):** live in a new `apps` role, not the shell role. The Claude Code tasks (B12) are a `claude` role. Both run after `mise`.
 - **Rectangle:** its scalar settings are a separate `rectangle_defaults` list in `osx.yml`, so only Rectangle changes trigger its restart handler. The shortcuts are `rectangle_shortcuts`. The Downloads stack task is in the `os` role.

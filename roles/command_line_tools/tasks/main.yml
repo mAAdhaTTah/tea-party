@@ -1,0 +1,47 @@
+---
+- name: Check for the Command Line Tools
+  command: xcode-select -p
+  register: clt_path
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+# This flag file makes softwareupdate list the Command Line Tools without the
+# GUI prompt that `xcode-select --install` shows. Creating and listing it run
+# in check mode too, so a check run can report the install it would do.
+- name: Install the Command Line Tools
+  when: clt_path.rc != 0
+  block:
+    - name: Prepare to install the Command Line Tools
+      file:
+        path: /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+        state: touch
+        mode: "0644"
+      check_mode: false
+
+    - name: Find the Command Line Tools in Software Update
+      shell: >
+        set -o pipefail;
+        softwareupdate -l |
+        awk -F'*' '/^\* Label: Command Line Tools/ {print $2}' |
+        sed 's/^ Label: //' |
+        sort -V |
+        tail -n1
+      args:
+        executable: /bin/bash
+      register: clt_label
+      changed_when: false
+      check_mode: false
+      failed_when: clt_label.rc != 0 or clt_label.stdout | length == 0
+
+    - name: Install the Command Line Tools
+      command: softwareupdate -i '{{ clt_label.stdout }}'
+      register: clt_install
+      changed_when: true
+      failed_when: clt_install.rc != 0 or 'Error installing updates.' in clt_install.stdout
+
+  always:
+    - name: Clean up the install flag
+      file:
+        path: /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+        state: absent
