@@ -25,7 +25,7 @@ mise_tools:
   # renovate: datasource=crate depName=sqlx-cli
   - { name: "cargo:sqlx-cli", version: "0.8.6" }
   # renovate: datasource=crate depName=sampo
-  - { name: "cargo:sampo", version: "0.22.0" }
+  - { name: "cargo:sampo", version: "0.23.0" }
   # renovate: datasource=crate depName=wasm-pack
   - { name: "cargo:wasm-pack", version: "0.15.0" }
 
