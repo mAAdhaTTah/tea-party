@@ -1,0 +1,5 @@
+# CI's Python dependencies, kept current by Renovate. ansible-core must match
+# the `pkgx +ansible@` pin in the tea-party script.
+ansible-core==2.21.5
+ansible-lint==26.10.1
+yamllint==1.38.0

@@ -12,7 +12,7 @@
 | Topic | Decision |
 |---|---|
 | Homebrew vs mise split | Version is a property of the **project** → mise. Version is a property of the **machine** → Homebrew. mise itself is installed via Homebrew. Runtimes that Homebrew pulls in as dependencies stay; mise's PATH ordering shadows them. After A6 that's `node` (for neonctl) and `go` (a leftover dependency); the Homebrew Pythons and deno left with yt-dlp and nmap. |
-| Rust | **Option B**: mise drives rustup. `rust = "stable"` in the global mise config; mise reuses the existing `~/.rustup`/`~/.cargo` on this machine and bootstraps rustup on a fresh one. `rust-toolchain.toml` is read via the idiomatic-file setting, so the `RUSTUP_TOOLCHAIN` that mise exports matches the project pin. |
+| Rust | **Option B**: mise drives rustup. An exact pin (`rust = "1.99.1"`) in the global mise config, updated by Renovate (originally `rust = "stable"` plus a manual `rustup update`; see [Open questions](#open-questions-to-resolve-during-execution)); mise reuses the existing `~/.rustup`/`~/.cargo` on this machine and bootstraps rustup on a fresh one. `rust-toolchain.toml` is read via the idiomatic-file setting, so the `RUSTUP_TOOLCHAIN` that mise exports matches the project pin. |
 | Python | **Mirror of Option B**: mise picks and installs the interpreter (reads `.python-version`); uv is a mise tool, is pinned to mise's Python via `UV_PYTHON`, and is forbidden from downloading its own (`UV_PYTHON_DOWNLOADS=never`). uv still owns venvs/deps. `python.uv_venv_auto = "source"`. |
 | pnpm / yarn / npm | mise reads `packageManager` / `devEngines.packageManager` (opt-in via idiomatic files) and installs them itself. **Corepack off** (`node.corepack` stays default `false`). |
 | Order | **Machine first** (Track A), then encode the result in the repo (Track B). |
@@ -57,6 +57,7 @@ UV_PYTHON_DOWNLOADS = "never"
 
 Notes:
 - `python = "3.14"` as the global default. Revisit later.
+- **Superseded (#49):** every runtime and tool is now pinned exactly in `host_vars/localhost/mise.yml` (e.g. `node = "24.22.1"`, `rust = "1.99.1"`), and Renovate opens PRs to update them. The track-style versions above are what Track A ran with.
 - `npm:skills` was removed in A6, and `cargo:wasm-pack` replaced the Homebrew formula.
 - `neonctl` stays a Homebrew formula; the duplicate `npm -g` copy is dropped.
 - `.tool-versions` and `mise.toml` files are read by mise natively (no opt-in) — see post-migration notes for the Elixir and claudev cases.
@@ -543,6 +544,7 @@ Still open: nothing. Track B can start.
 - Does `mise upgrade rust` update the `stable` channel, or is `rustup update` still needed? (A2)
   - **Not conclusive yet:** stable is already current (1.99.1), and `mise outdated` doesn't list rust at all. Use the fallback (`rustup update`) and re-check when the next stable release ships.
   - **Decided fallback:** if not, keep `rust = "stable"` and run `rustup update` for toolchain updates — the one documented exception to "`mise upgrade` updates everything".
+  - **Superseded (#49):** Rust is pinned exactly (`rust = "1.99.1"`), and Renovate updates the pin from `rust-lang/rust` tags. The manual `rustup update` exception is gone: a Renovate PR plus a playbook run is the update path, as for every other runtime.
 - Where does the `cargo:` backend install binaries, and does shims mode expose `cargo` without `~/.cargo/env`? (A1/A2)
   - **Answered:** binaries go to `~/.local/share/mise/installs/cargo-<name>/<version>/bin`. Shims mode exposes `cargo`, `rustc` and the tools without `~/.cargo/env`.
   - **Decided fallback:** keep the cargo tools in mise regardless; if shims mode has a gap, fix it in the shell (e.g. add mise's shims/installs dir to `.path` for non-interactive shells) rather than moving tools back to `~/.cargo/bin`.

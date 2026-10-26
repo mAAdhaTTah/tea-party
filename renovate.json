@@ -1,0 +1,55 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "dependencyDashboard": true,
+  "labels": ["renovate"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "ansible-core in the tea-party script",
+      "managerFilePatterns": ["/^tea-party$/"],
+      "matchStrings": ["pkgx \\+ansible@(?<currentValue>[0-9.]+)"],
+      "depNameTemplate": "ansible-core",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "Global mise runtimes and tools",
+      "managerFilePatterns": ["/^host_vars/localhost/mise\\.yml$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: extractVersion=(?<extractVersion>\\S+))?\\n\\s+- \\{ name: \"?[^,]+\"?, version: \"(?<currentValue>[^\"]+)\""
+      ],
+      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^v?(?<version>.+)${{/if}}"
+    },
+    {
+      "customType": "regex",
+      "description": "bash-it git tag",
+      "managerFilePatterns": ["/^roles/shell/tasks/main\\.yml$/"],
+      "matchStrings": [
+        "repo: https://github\\.com/Bash-it/bash-it\\.git\\n\\s+dest: .*\\n\\s+version: (?<currentValue>v[0-9.]+)"
+      ],
+      "depNameTemplate": "Bash-it/bash-it",
+      "datasourceTemplate": "github-tags"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "The tea-party script and CI move together. Check that pkgx has the version before merging.",
+      "matchPackageNames": ["ansible-core"],
+      "groupName": "ansible-core"
+    },
+    {
+      "description": "Runtimes: routine updates stay on the current line; majors/minors are separate PRs",
+      "matchFileNames": ["host_vars/localhost/mise.yml"],
+      "matchDepNames": ["node", "python", "ruby-version", "rust-lang/rust"],
+      "groupName": "mise runtimes",
+      "separateMinorPatch": true,
+      "separateMajorMinor": true
+    },
+    {
+      "matchFileNames": ["host_vars/localhost/mise.yml"],
+      "matchDepNames": ["!node", "!python", "!ruby-version", "!rust-lang/rust"],
+      "groupName": "mise tools"
+    }
+  ]
+}
