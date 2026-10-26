@@ -1,4 +1,11 @@
 ---
+# Only restart a running Rectangle; otherwise it reads its settings at next
+# launch. Launching it on a fresh machine can block on macOS's first-launch
+# prompt.
 - name: Restart Rectangle
-  shell: killall Rectangle; open -a Rectangle
+  shell: |
+    if pgrep -x Rectangle >/dev/null; then
+      killall Rectangle
+      open -g -a Rectangle
+    fi
   changed_when: true
