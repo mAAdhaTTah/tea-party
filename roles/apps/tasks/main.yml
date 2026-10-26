@@ -1,7 +1,7 @@
 ---
 - name: Create app config directories
   file:
-    path: "{{ ansible_env.HOME }}/.config/{{ item.name }}"
+    path: "{{ ansible_facts.env.HOME }}/.config/{{ item.name }}"
     state: directory
     mode: "{{ item.mode }}"
   loop:
@@ -13,14 +13,14 @@
 - name: Copy Ghostty config
   copy:
     src: ghostty/config
-    dest: "{{ ansible_env.HOME }}/.config/ghostty/config"
+    dest: "{{ ansible_facts.env.HOME }}/.config/ghostty/config"
     mode: "0644"
 
 # Only config.yml: hosts.yml holds gh's token and is never managed
 - name: Copy gh config
   copy:
     src: gh/config.yml
-    dest: "{{ ansible_env.HOME }}/.config/gh/config.yml"
+    dest: "{{ ansible_facts.env.HOME }}/.config/gh/config.yml"
     mode: "0600"
 
 # Uses your own 1Password session, not OP_SERVICE_ACCOUNT_TOKEN: the homelab
@@ -51,7 +51,7 @@
       host = "{{ komodo_fields.host }}"
       cli_key = "{{ komodo_fields.cli_key }}"
       cli_secret = "{{ komodo_fields.cli_secret }}"
-    dest: "{{ ansible_env.HOME }}/.config/komodo/komodo.cli.toml"
+    dest: "{{ ansible_facts.env.HOME }}/.config/komodo/komodo.cli.toml"
     mode: "0600"
   when: komodo_op.rc == 0
   diff: false
@@ -61,13 +61,13 @@
 # admin; delete a retired machine's account in 1Password.
 - name: Check for the 1Password service-account token
   stat:
-    path: "{{ ansible_env.HOME }}/.config/op/service-account-token"
+    path: "{{ ansible_facts.env.HOME }}/.config/op/service-account-token"
   register: op_token_file
 
 - name: Create a 1Password service account for this machine
   command: >-
     env -u OP_SERVICE_ACCOUNT_TOKEN {{ op_bin }} service-account create
-    "tea-party-{{ ansible_hostname }}" --vault {{ op_service_account_vaults }} --raw
+    "tea-party-{{ ansible_facts.hostname }}" --vault {{ op_service_account_vaults }} --raw
   register: op_service_account
   when: not op_token_file.stat.exists
   changed_when: op_service_account.rc == 0
@@ -82,7 +82,7 @@
 - name: Write the 1Password service-account token
   copy:
     content: "{{ op_service_account.stdout }}\n"
-    dest: "{{ ansible_env.HOME }}/.config/op/service-account-token"
+    dest: "{{ ansible_facts.env.HOME }}/.config/op/service-account-token"
     mode: "0600"
   when: not op_token_file.stat.exists and op_service_account.rc == 0
   diff: false

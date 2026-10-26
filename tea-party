@@ -41,7 +41,7 @@ function with_ansible {
 }
 
 function install_roles {
-    setStatusMessage "Get all the required roles and collections"
+    setStatusMessage "Get all the required collections"
     with_ansible ansible-galaxy install -r requirements.yml
 }
 
@@ -81,7 +81,7 @@ function sub_prepare {
         install_pkgx
     fi
 
-    if [[ ! -d "$PWD/vendor/roles" || ! -d "$PWD/vendor/collections" ]]; then
+    if [[ ! -d "$PWD/vendor/collections" ]]; then
         install_roles
     fi
 

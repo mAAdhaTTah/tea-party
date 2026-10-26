@@ -1,6 +1,6 @@
 ---
 # Copied from https://github.com/geerlingguy/ansible-collection-mac/tree/master/roles/homebrew#role-variables
-homebrew_prefix: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"
+homebrew_prefix: "{{ (ansible_facts.machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"
 homebrew_taps:
   - athevon/tokeneater
   - jandedobbeleer/oh-my-posh

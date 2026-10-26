@@ -32,7 +32,7 @@
 - name: Copy dotfiles
   template:
     src: "{{ item }}"
-    dest: "{{ ansible_env.HOME }}/.{{ item }}"
+    dest: "{{ ansible_facts.env.HOME }}/.{{ item }}"
     backup: true
     mode: "0644"
   with_items:
@@ -58,7 +58,7 @@
 
 - name: Add bash-it to dotfiles
   blockinfile:
-    path: "{{ ansible_env.HOME }}/.managed"
+    path: "{{ ansible_facts.env.HOME }}/.managed"
     create: true
     marker: "### {mark} ANSIBLE MANAGED BASH-IT CONFIG ###"
     mode: "0644"

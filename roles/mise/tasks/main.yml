@@ -19,7 +19,7 @@
 
 - name: Add mise to dotfiles
   blockinfile:
-    path: "{{ ansible_env.HOME }}/.managed"
+    path: "{{ ansible_facts.env.HOME }}/.managed"
     create: true
     mode: "0644"
     marker: "### {mark} ANSIBLE MANAGED MISE CONFIG ###"
@@ -34,11 +34,11 @@
 - name: Install mise tools
   command: "{{ homebrew_prefix }}/bin/mise install"
   args:
-    chdir: "{{ ansible_env.HOME }}"
+    chdir: "{{ ansible_facts.env.HOME }}"
   register: mise_install
   changed_when: "'installed 0 tools' not in (mise_install.stdout + mise_install.stderr)"
 
 - name: Create rust bash completions
-  shell: "{{ ansible_env.HOME }}/.cargo/bin/rustup completions bash > {{ rustup_completions }}"
+  shell: "{{ ansible_facts.env.HOME }}/.cargo/bin/rustup completions bash > {{ rustup_completions }}"
   args:
     creates: "{{ rustup_completions }}"

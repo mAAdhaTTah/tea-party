@@ -1,2 +1,5 @@
 ---
-vscode_users: []
+vscode_bin: "{{ homebrew_prefix }}/bin/code"
+vscode_settings_path: "{{ ansible_facts.env.HOME }}/Library/Application Support/Code/User/settings.json"
+vscode_extensions: []
+vscode_settings: { }

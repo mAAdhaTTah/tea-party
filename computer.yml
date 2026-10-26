@@ -11,7 +11,7 @@
       trust: true
 
   roles:
-    - { role: elliotweiser.osx-command-line-tools, tags: [clt] }
+    - { role: command_line_tools, tags: [clt] }
     - { role: geerlingguy.mac.homebrew, tags: [homebrew] }
     - { role: geerlingguy.mac.dock, tags: [dock] }
     - { role: shell, tags: [shell] }
