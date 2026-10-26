@@ -1,2 +1,16 @@
+Host 192.168.2.35
+	HostName 192.168.2.35
+	User izzi
+
+Host 192.168.2.128
+	HostName 192.168.2.128
+	User dreedle
+
+Host four-of-four
+	User drone
+	ControlMaster auto
+	ControlPath ~/.ssh/cm-%r@%h:%p
+	ControlPersist 10m
+
 Host *
 	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"

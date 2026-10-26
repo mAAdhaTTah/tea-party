@@ -1,0 +1,60 @@
+# Fonts
+font-family = FiraCode Nerd Font Mono
+font-size = 14
+font-thicken = true
+adjust-cell-height = 2
+
+# Themes
+theme = light:iTerm2 Light Background,dark:iTerm2 Dark Background
+
+# Window
+window-theme = auto
+window-save-state = always
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+cursor-opacity = 0.8
+
+# Mouse. Hide the cursor while typing so it does not overlap Claude's
+# output stream. copy-on-select puts selected text into the clipboard
+# immediately, which matters when grabbing file paths or commands.
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+
+# Shell integration. Gives Ghostty semantic knowledge of your prompt:
+# working directory tracking across splits, better scrollback
+# navigation.
+shell-integration = bash
+shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
+
+# Performance. Claude Code generates long outputs. 100000 lines is
+# generous. Disable the resize overlay; it flickers on fast redraws.
+scrollback-limit = 100000
+resize-overlay = never
+
+# Split keybindings. SAND pattern (Split, Across, Navigate, Destroy).
+# super+d splits right. super+shift+d splits down. super+w closes a
+# pane. ctrl with vim keys navigates between panes.
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+keybind = super+w=close_surface
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+l=goto_split:right
+keybind = ctrl+k=goto_split:top
+keybind = ctrl+j=goto_split:bottom
+
+# Tab keybindings
+keybind = super+t=new_tab
+keybind = super+1=goto_tab:1
+keybind = super+2=goto_tab:2
+keybind = super+3=goto_tab:3
+keybind = super+4=goto_tab:4
+keybind = super+5=goto_tab:5
+
+# Quick terminal. Global hotkey that drops from the top of the screen
+# over whatever app is focused. 150ms animation keeps it snappy.
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+quick-terminal-position = top
+quick-terminal-screen = main
+quick-terminal-animation-duration = 0.15

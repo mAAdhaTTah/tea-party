@@ -3,6 +3,13 @@
   hosts: localhost
   connection: local
 
+  # Homebrew 7 only loads formulae and casks from third-party taps once the
+  # tap is trusted. geerlingguy.mac.homebrew doesn't pass `trust`, so set it
+  # here for every tap it adds.
+  module_defaults:
+    community.general.homebrew_tap:
+      trust: true
+
   roles:
     - { role: elliotweiser.osx-command-line-tools, tags: [clt] }
     - { role: geerlingguy.mac.homebrew, tags: [homebrew] }
@@ -10,7 +17,6 @@
     - { role: shell, tags: [shell] }
     - { role: os, tags: [os] }
     - { role: editor, tags: [editor] }
-    - { role: node, tags: [node, never] }
-    - { role: php, tags: [php, never] }
-    - { role: rust, tags: [rust, never] }
-    - { role: python, tags: [python, never] }
+    - { role: mise, tags: [mise] }
+    - { role: apps, tags: [apps] }
+    - { role: claude, tags: [claude] }

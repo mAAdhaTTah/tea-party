@@ -1,0 +1,113 @@
+---
+- name: Create app config directories
+  file:
+    path: "{{ ansible_env.HOME }}/.config/{{ item.name }}"
+    state: directory
+    mode: "{{ item.mode }}"
+  loop:
+    - { name: ghostty, mode: "0755" }
+    - { name: gh, mode: "0751" }
+    - { name: komodo, mode: "0700" }
+    - { name: op, mode: "0700" }
+
+- name: Copy Ghostty config
+  copy:
+    src: ghostty/config
+    dest: "{{ ansible_env.HOME }}/.config/ghostty/config"
+    mode: "0644"
+
+# Only config.yml: hosts.yml holds gh's token and is never managed
+- name: Copy gh config
+  copy:
+    src: gh/config.yml
+    dest: "{{ ansible_env.HOME }}/.config/gh/config.yml"
+    mode: "0600"
+
+# Uses your own 1Password session, not OP_SERVICE_ACCOUNT_TOKEN: the homelab
+# service account can't see the Private vault
+- name: Read Komodo CLI credentials from 1Password
+  command: >-
+    env -u OP_SERVICE_ACCOUNT_TOKEN {{ op_bin }} item get "{{ komodo_op_item }}"
+    --vault "{{ komodo_op_vault }}" --format json
+  register: komodo_op
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  no_log: true
+
+- name: Warn when 1Password isn't available
+  debug:
+    msg: "Skipping the Komodo CLI config: 1Password couldn't read '{{ komodo_op_item }}' (is op signed in?)"
+  when: komodo_op.rc != 0
+
+- name: Write Komodo CLI config
+  vars:
+    komodo_fields: >-
+      {{ (komodo_op.stdout | from_json).fields
+      | selectattr('label', 'in', ['host', 'cli_key', 'cli_secret'])
+      | items2dict(key_name='label', value_name='value') }}
+  copy:
+    content: |
+      host = "{{ komodo_fields.host }}"
+      cli_key = "{{ komodo_fields.cli_key }}"
+      cli_secret = "{{ komodo_fields.cli_secret }}"
+    dest: "{{ ansible_env.HOME }}/.config/komodo/komodo.cli.toml"
+    mode: "0600"
+  when: komodo_op.rc == 0
+  diff: false
+  no_log: true
+
+# Each machine gets its own service account. Needs you signed in to op as an
+# admin; delete a retired machine's account in 1Password.
+- name: Check for the 1Password service-account token
+  stat:
+    path: "{{ ansible_env.HOME }}/.config/op/service-account-token"
+  register: op_token_file
+
+- name: Create a 1Password service account for this machine
+  command: >-
+    env -u OP_SERVICE_ACCOUNT_TOKEN {{ op_bin }} service-account create
+    "tea-party-{{ ansible_hostname }}" --vault {{ op_service_account_vaults }} --raw
+  register: op_service_account
+  when: not op_token_file.stat.exists
+  changed_when: op_service_account.rc == 0
+  failed_when: false
+  no_log: true
+
+- name: Warn when the 1Password service account couldn't be created
+  debug:
+    msg: "Skipping the 1Password service-account token: creating the service account failed (is op signed in as an admin?)"
+  when: not op_token_file.stat.exists and op_service_account.rc != 0
+
+- name: Write the 1Password service-account token
+  copy:
+    content: "{{ op_service_account.stdout }}\n"
+    dest: "{{ ansible_env.HOME }}/.config/op/service-account-token"
+    mode: "0600"
+  when: not op_token_file.stat.exists and op_service_account.rc == 0
+  diff: false
+  no_log: true
+
+- name: Check for the remote Docker context
+  command: "{{ docker_bin }} context inspect {{ docker_context_name }}"
+  register: docker_context
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+# Creating a context doesn't connect, so this is safe before the host is reachable
+- name: Create the remote Docker context
+  command: "{{ docker_bin }} context create {{ docker_context_name }} --docker host={{ docker_context_host }}"
+  when: docker_context.rc != 0
+  changed_when: true
+
+- name: Check the current Docker context
+  command: "{{ docker_bin }} context show"
+  register: docker_context_current
+  changed_when: false
+  check_mode: false
+
+- name: Use the remote Docker context
+  command: "{{ docker_bin }} context use {{ docker_context_name }}"
+  when: docker_context_current.stdout != docker_context_name
+  changed_when: true

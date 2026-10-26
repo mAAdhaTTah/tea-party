@@ -3,23 +3,27 @@ vscode_users:
   - username: "{{ lookup('env', 'USER') }}"
     visual_studio_code_settings_overwrite: false
     visual_studio_code_extensions:
+      - anthropic.claude-code
       - atlassian.atlascode
       - attilabuti.vscode-mjml
       - bradlc.vscode-tailwindcss
       - burkeholland.simple-react-snippets
       - dbaeumer.vscode-eslint
       - dhoeric.ansible-vault
+      - docker.docker
       - eamodio.gitlens
       - esbenp.prettier-vscode
       - github.remotehub
+      - github.vscode-github-actions
       - github.vscode-pull-request-github
       - golang.go
-      - GraphQL.vscode-graphql
-      - GraphQL.vscode-graphql-syntax
+      - graphql.vscode-graphql
+      - graphql.vscode-graphql-syntax
       - hashicorp.terraform
       - jakebecker.elixir-ls
       - janisdd.vscode-edit-csv
-      - ms-azuretools.vscode-docker
+      - mitsuhiko.insta
+      - ms-azuretools.vscode-containers
       - ms-python.black-formatter
       - ms-python.debugpy
       - ms-python.flake8
@@ -27,60 +31,90 @@ vscode_users:
       - ms-python.mypy-type-checker
       - ms-python.python
       - ms-python.vscode-pylance
+      - ms-python.vscode-python-envs
       - ms-vscode-remote.remote-containers
       - ms-vscode-remote.remote-ssh
       - ms-vscode-remote.remote-ssh-edit
       - ms-vscode-remote.remote-wsl
       - ms-vscode-remote.vscode-remote-extensionpack
+      - ms-vscode.azure-repos
       - ms-vscode.remote-explorer
       - ms-vscode.remote-repositories
       - ms-vscode.remote-server
       - ms-vsliveshare.vsliveshare
       - nicoespeon.abracadabra
       - oderwat.indent-rainbow
+      - oxc.oxc-vscode
       - pflannery.vscode-versionlens
       - phoenixframework.phoenix
       - redhat.vscode-yaml
       - rust-lang.rust-analyzer
+      - sdras.night-owl
       - streetsidesoftware.code-spell-checker
       - styled-components.vscode-styled-components
       - stylelint.vscode-stylelint
       - tamasfe.even-better-toml
+      - tauri-apps.tauri-vscode
       - thedavej.night-owl-black
       - timonwong.shellcheck
       - tombonnike.vscode-status-bar-format-toggle
       - unifiedjs.vscode-mdx
       - usernamehw.errorlens
+      - vitest.explorer
       - wix.glean
       - wix.vscode-import-cost
       - wmaurer.change-case
       - zachgawlik.convert-object-to-jsx
     visual_studio_code_settings:
-      "[html]": { editor.defaultFormatter: esbenp.prettier-vscode }
-      "[javascript]": { editor.defaultFormatter: esbenp.prettier-vscode }
-      "[json]": { editor.defaultFormatter: esbenp.prettier-vscode }
-      "[jsonc]": { editor.defaultFormatter: esbenp.prettier-vscode }
-      "[typescriptreact]": { editor.defaultFormatter: esbenp.prettier-vscode }
-      "[typescript]": { editor.defaultFormatter: esbenp.prettier-vscode }
-      "[yaml]": { editor.defaultFormatter: esbenp.prettier-vscode }
+      "[css]":
+        editor.defaultFormatter: esbenp.prettier-vscode
+      "[html]":
+        editor.defaultFormatter: esbenp.prettier-vscode
+      "[javascript]":
+        editor.defaultFormatter: esbenp.prettier-vscode
+      "[json]":
+        editor.defaultFormatter: esbenp.prettier-vscode
+      "[jsonc]":
+        editor.defaultFormatter: esbenp.prettier-vscode
       "[python]":
-        {
-          "diffEditor.ignoreTrimWhitespace": false,
-          "gitlens.codeLens.symbolScopes": ["!Module"],
-          "editor.formatOnType": true,
-          "editor.wordBasedSuggestions": "off",
-          "editor.codeActionsOnSave": { "source.organizeImports": "explicit" },
-        }
-      isort.args: ["--profile", "black"]
+        diffEditor.ignoreTrimWhitespace: false
+        editor.codeActionsOnSave:
+          source.organizeImports: explicit
+        editor.formatOnType: true
+        editor.wordBasedSuggestions: "off"
+        gitlens.codeLens.symbolScopes:
+          - "!Module"
+      "[typescript]":
+        editor.defaultFormatter: esbenp.prettier-vscode
+      "[typescriptreact]":
+        editor.defaultFormatter: esbenp.prettier-vscode
+      "[yaml]":
+        editor.defaultFormatter: esbenp.prettier-vscode
       atlascode.bitbucket.enabled: false
       atlascode.jira.jqlList: []
-      cSpell.userWords: [financials, oembed]
+      cSpell.userWords:
+        - Btwn
+        - exploitability
+        - financials
+        - icanhazmedia
+        - izzi
+        - Komodo
+        - Lopusiewicz
+        - oembed
+        - Piotr
+        - postflop
+        - preflop
+        - rstest
+        - sonner
+        - specta
+        - sqlx
+        - tauri
+        - thiserror
       editor.bracketPairColorization.enabled: true
       editor.cursorBlinking: expand
-      editor.cursorSmoothCaretAnimation: on
-      editor.fontFamily: Cutive Mono, Source Code Pro, Menlo, Monaco, Courier New, monospace
+      editor.cursorSmoothCaretAnimation: "on"
+      editor.fontFamily: Source Code Pro, Cutive Mono, Menlo, Monaco, Courier New, monospace
       editor.fontSize: 14
-      editor.formatOnSave: true
       editor.formatOnPaste: true
       editor.formatOnType: true
       editor.minimap.enabled: false
@@ -91,22 +125,78 @@ vscode_users:
       eslint.lintTask.enable: true
       eslint.run: onSave
       explorer.openEditors.visible: 1
+      git.autofetch: false
+      githubPullRequests.pullBranch: never
+      isort.args:
+        - --profile
+        - black
       javascript.suggest.completeFunctionCalls: false
       js/ts.implicitProjectConfig.checkJs: true
       notebook.cellToolbarLocation:
-        { "default": "right", "jupyter-notebook": "left" }
+        default: right
+        jupyter-notebook: left
+      prettier.trailingComma: all
       python.languageServer: Pylance
       redhat.telemetry.enabled: false
       telemetry.telemetryLevel: "off"
       terminal.integrated.tabs.enabled: true
+      terminal.integrated.fontFamily: FiraCode Nerd Font Mono
       typescript.updateImportsOnFileMove.enabled: always
       window.titleBarStyle: native
       workbench.colorTheme: Night Owl Black
-      workbench.editorAssociations: { "*.ipynb": jupyter-notebook }
+      workbench.preferredDarkColorTheme: Night Owl Black
+      workbench.preferredLightColorTheme: Night Owl Light
+      window.autoDetectColorScheme: false
+      workbench.editorAssociations:
+        "*.ipynb": jupyter-notebook
       workbench.settings.editor: json
       workbench.sideBar.location: right
-      git.autofetch: false
-      githubPullRequests.pullBranch: never
-      "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" }
-      prettier.trailingComma: all
       workbench.startupEditor: none
+      atlascode.jira.enabled: false
+      ansibleVault.executable: pkgx +ansible ansible-vault
+      git.confirmSync: false
+      editor.unicodeHighlight.ambiguousCharacters: false
+      githubPullRequests.pushBranch: always
+      diffEditor.ignoreTrimWhitespace: false
+      rust-analyzer.check.command: clippy
+      github.copilot.enable:
+        "*": false
+        plaintext: false
+        markdown: false
+        scminput: false
+      docker.extension.enableComposeLanguageServer: false
+      "[dockercompose]":
+        editor.insertSpaces: true
+        editor.tabSize: 2
+        editor.autoIndent: advanced
+        editor.quickSuggestions:
+          other: true
+          comments: false
+          strings: true
+        editor.defaultFormatter: redhat.vscode-yaml
+      "[github-actions-workflow]":
+        editor.defaultFormatter: redhat.vscode-yaml
+      python.analysis.typeCheckingMode: basic
+      claudeCode.preferredLocation: panel
+      chat.disableAIFeatures: true
+      json.schemaDownload.trustedDomains:
+        https://schemastore.azurewebsites.net/: true
+        https://raw.githubusercontent.com/microsoft/vscode/: true
+        https://raw.githubusercontent.com/devcontainers/spec/: true
+        https://www.schemastore.org/: true
+        https://json.schemastore.org/: true
+        https://json-schema.org/: true
+        https://developer.microsoft.com/json-schemas/: true
+        https://docs.renovatebot.com/renovate-schema.json: true
+      editor.formatOnSave: true
+      "[markdown]":
+        editor.defaultFormatter: esbenp.prettier-vscode
+      oxc.enable: true
+      yaml.disableSchemaDetection:
+        - "**/.github/workflows/*.yml"
+        - "**/.github/workflows/*.yaml"
+        - "**/.gitea/workflows/*.yml"
+        - "**/.gitea/workflows/*.yaml"
+        - "**/.forgejo/workflows/*.yml"
+        - "**/.forgejo/workflows/*.yaml"
+      claudeCode.hideOnboarding: true

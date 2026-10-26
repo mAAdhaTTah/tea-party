@@ -1,0 +1,23 @@
+---
+mise_tools:
+  - { name: node, version: "24", comment: runtimes }
+  - { name: python, version: "3.14" }
+  - { name: ruby, version: "3.4" }
+  - { name: rust, version: stable }
+  - { name: bun, version: latest }
+  - { name: pnpm, version: latest, comment: package managers / runtime-adjacent tools }
+  - { name: uv, version: latest }
+  - { name: cargo-binstall, version: latest }
+  - { name: "cargo:cargo-insta", version: latest, comment: "global ecosystem tools (previously npm -g / cargo install / Homebrew)" }
+  - { name: "cargo:sqlx-cli", version: "0.8" }
+  - { name: "cargo:sampo", version: latest }
+  - { name: "cargo:wasm-pack", version: latest }
+
+mise_idiomatic_version_file_tools:
+  - node
+  - python
+  - ruby
+  - rust
+  - npm
+  - pnpm
+  - yarn

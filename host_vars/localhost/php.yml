@@ -1,7 +1,0 @@
----
-php_formula:
-  - composer
-  - php-code-sniffer
-  - php-cs-fixer
-  - phpunit
-  - wp-cli

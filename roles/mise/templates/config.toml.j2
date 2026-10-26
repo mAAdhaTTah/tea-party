@@ -1,0 +1,15 @@
+[tools]
+{% for tool in mise_tools %}
+{% if tool.comment is defined %}
+# {{ tool.comment }}
+{% endif %}
+{{ ('"' + tool.name + '"') if ':' in tool.name else tool.name }} = "{{ tool.version }}"
+{% endfor %}
+
+[settings]
+idiomatic_version_file_enable_tools = {{ mise_idiomatic_version_file_tools | to_json }}
+python.uv_venv_auto = "source"
+
+[env]
+{% raw %}UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
+{% endraw %}UV_PYTHON_DOWNLOADS = "never"

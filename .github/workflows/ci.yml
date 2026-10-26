@@ -8,21 +8,27 @@ name: CI
   schedule:
     - cron: "0 5 * * 4"
 
+# One run per branch or PR: a new push cancels the run still in progress for
+# the previous commit. Runs on main aren't cancelled, so each merge is tested.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
 
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible ansible-lint
+        run: pip3 install yamllint ansible-core==2.21.5 ansible-lint
 
       - name: Lint code.
         run: |
@@ -30,11 +36,11 @@ jobs:
           ansible-lint
   integration:
     name: Integration
-    runs-on: macos-13
+    runs-on: macos-15
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Uninstall GitHub Actions' built-in Homebrew.
         run: tests/uninstall-homebrew.sh
@@ -43,8 +49,13 @@ jobs:
         run: |
           sudo rm -rf /Applications/Firefox.app
           sudo rm -rf /Applications/Google\ Chrome.app
+      - name: Set up Python 3.
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
       - name: Install test dependencies.
-        run: sudo pip3 install ansible
+        run: pip3 install ansible-core==2.21.5
 
       - name: Set up the test environment.
         run: |

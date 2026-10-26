@@ -1,0 +1,19 @@
+---
+claude_marketplaces:
+  - { name: claude-plugins-official, source: anthropics/claude-plugins-official }
+  - { name: cloudflare, source: cloudflare/skills }
+  - { name: claudev, source: "git@git.8p.jamesdigioia.com:mAAdhaTTah/claudev.git" }
+  - { name: doist, source: doist/todoist-mcp }
+  - { name: readwise-skills, source: readwiseio/readwise-skills }
+
+claude_plugins:
+  - rust-analyzer-lsp@claude-plugins-official
+  - typescript-lsp@claude-plugins-official
+  - todoist@doist
+  - readwise@readwise-skills
+  - local-agent@claudev
+  - cloudflare@cloudflare
+
+claude_mcp_servers:
+  - { name: Neon, url: "https://mcp.neon.tech/mcp" }
+  - { name: ogham, url: "https://ogham.8p.jamesdigioia.com/mcp" }

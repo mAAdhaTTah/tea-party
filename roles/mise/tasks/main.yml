@@ -1,0 +1,44 @@
+---
+- name: Install mise
+  community.general.homebrew:
+    name: mise
+    state: present
+
+- name: Create mise config directory
+  file:
+    path: "{{ mise_config_path | dirname }}"
+    state: directory
+    mode: "0755"
+
+- name: Copy mise config
+  template:
+    src: config.toml.j2
+    dest: "{{ mise_config_path }}"
+    backup: true
+    mode: "0644"
+
+- name: Add mise to dotfiles
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.managed"
+    create: true
+    mode: "0644"
+    marker: "### {mark} ANSIBLE MANAGED MISE CONFIG ###"
+    block: |
+      if [[ $- == *i* ]]; then
+        eval "$(mise activate bash)"
+        eval "$(uv generate-shell-completion bash)"
+      else
+        eval "$(mise activate bash --shims)"
+      fi
+
+- name: Install mise tools
+  command: "{{ homebrew_prefix }}/bin/mise install"
+  args:
+    chdir: "{{ ansible_env.HOME }}"
+  register: mise_install
+  changed_when: "'installed 0 tools' not in (mise_install.stdout + mise_install.stderr)"
+
+- name: Create rust bash completions
+  shell: "{{ ansible_env.HOME }}/.cargo/bin/rustup completions bash > {{ rustup_completions }}"
+  args:
+    creates: "{{ rustup_completions }}"

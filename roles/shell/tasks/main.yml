@@ -14,10 +14,7 @@
     create: true
     mode: "0644"
   with_items:
-    - {
-        regexp: "^{{ homebrew_prefix }}/bin/bash",
-        line: "{{ homebrew_prefix }}/bin/bash",
-      }
+    - { regexp: "^{{ homebrew_prefix }}/bin/bash", line: "{{ homebrew_prefix }}/bin/bash" }
 
 - name: Register the current shell
   shell: echo $SHELL
@@ -29,7 +26,7 @@
   become: true
   shell: chsh -s {{ homebrew_prefix }}/bin/bash {{ lookup('env','USER') }}
   when: current_shell_result.stdout != (homebrew_prefix + "/bin/bash")
-  changed_when: lookup('env','USER') != "runner" # fix idempotence in CI
+  changed_when: lookup('env','USER') != "runner"  # fix idempotence in CI
   tags: [skip_ansible_lint]
 
 - name: Copy dotfiles
@@ -55,6 +52,8 @@
     repo: https://github.com/Bash-it/bash-it.git
     dest: "{{ bash_it_install_path }}"
     version: v3.0.3
+    # Its submodules are only bash-it's own test libraries
+    recursive: false
   register: bash_it_checkout
 
 - name: Add bash-it to dotfiles
@@ -64,27 +63,30 @@
     marker: "### {mark} ANSIBLE MANAGED BASH-IT CONFIG ###"
     mode: "0644"
     block: |
-      # Path to the bash it configuration
-      export BASH_IT="{{ bash_it_install_path }}"
+      # Check if running in interactive prompt
+      if [[ $- == *i* ]]; then
+        # Path to the bash it configuration
+        export BASH_IT="{{ bash_it_install_path }}"
 
-      # Lock and Load a custom theme file
-      export BASH_IT_THEME="{{ bash_it_theme }}"
-      if [ $BASH_IT_THEME = "oh-my-posh" ]; then
-        export POSH_THEME="{{ posh_theme }}"
+        # Lock and Load a custom theme file
+        export BASH_IT_THEME="{{ bash_it_theme }}"
+        if [ $BASH_IT_THEME = "oh-my-posh" ]; then
+          export POSH_THEME="{{ posh_theme }}"
+        fi
+        # Load Bash It
+        source $BASH_IT/bash_it.sh
       fi
 
-      # Load Bash It
-      source $BASH_IT/bash_it.sh
-
+# bash-it only loads in interactive shells (see the BASH-IT block), hence -i
 - name: Migrate bash-it to latest versions
-  command: /usr/bin/env bash -l -c "bash-it migrate"
+  command: /usr/bin/env bash -l -i -c "bash-it migrate"
   when: bash_it_checkout.before != None and bash_it_checkout.before != bash_it_checkout.after
   tags: [skip_ansible_lint]
 
 - name: Install bash-it aliases, completions, and plugins
-  command: /usr/bin/env bash -l -c "bash-it enable {{ item.to_enable }} {{ item.list | join(' ') }}"
+  command: /usr/bin/env bash -l -i -c "bash-it enable {{ item.to_enable }} {{ item.list | join(' ') }}"
   register: result
-  changed_when: result.stdout_lines | reject('match', '.* is already enabled.') | list | length
+  changed_when: result.stdout_lines | reject('match', '.* is already enabled.') | list | length > 0
   with_items:
     - { to_enable: plugin, list: "{{ bash_it_plugins }}" }
     - { to_enable: completion, list: "{{ bash_it_completions }}" }
