@@ -17,12 +17,33 @@
     backup: true
     mode: "0644"
 
+# mise has to activate before bash-it, whose npm completion runs npm at load.
+# blockinfile won't move an existing block, so drop one that sits after bash-it.
+- name: Read dotfiles to check mise block order
+  slurp:
+    src: "{{ ansible_facts.env.HOME }}/.managed"
+  register: managed_dotfile
+  failed_when: false
+
+- name: Remove mise block that loads after bash-it
+  blockinfile:
+    path: "{{ ansible_facts.env.HOME }}/.managed"
+    marker: "### {mark} ANSIBLE MANAGED MISE CONFIG ###"
+    state: absent
+  vars:
+    managed_content: "{{ managed_dotfile.content | default('') | b64decode }}"
+  when: >-
+    managed_content.find('### BEGIN ANSIBLE MANAGED MISE CONFIG ###')
+    > managed_content.find('### BEGIN ANSIBLE MANAGED BASH-IT CONFIG ###')
+    >= 0
+
 - name: Add mise to dotfiles
   blockinfile:
     path: "{{ ansible_facts.env.HOME }}/.managed"
     create: true
     mode: "0644"
     marker: "### {mark} ANSIBLE MANAGED MISE CONFIG ###"
+    insertbefore: "### BEGIN ANSIBLE MANAGED BASH-IT CONFIG ###"
     block: |
       if [[ $- == *i* ]]; then
         eval "$(mise activate bash)"
