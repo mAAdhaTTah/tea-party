@@ -23,7 +23,7 @@ mise_tools:
   # renovate: datasource=crate depName=cargo-insta
   - { name: "cargo:cargo-insta", version: "1.49.0" }
   # renovate: datasource=crate depName=sqlx-cli
-  - { name: "cargo:sqlx-cli", version: "0.8.6" }
+  - { name: "cargo:sqlx-cli", version: "0.9.0" }
   # renovate: datasource=crate depName=sampo
   - { name: "cargo:sampo", version: "0.23.0" }
   # renovate: datasource=crate depName=wasm-pack
