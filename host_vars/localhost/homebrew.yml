@@ -21,7 +21,6 @@ homebrew_installed_packages:
   - jq
   - jump
   - moghtech/komodo/km
-  - neonctl
   - jandedobbeleer/oh-my-posh/oh-my-posh
   - poppler
   - ripgrep
@@ -60,3 +59,7 @@ homebrew_cask_apps:
   - transmit
   - whatsapp
   - zoom
+
+homebrew_uninstalled_packages:
+  # Now installed by mise as npm:neonctl
+  - neonctl
