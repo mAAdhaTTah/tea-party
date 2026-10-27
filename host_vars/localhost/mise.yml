@@ -15,7 +15,7 @@ mise_tools:
   # renovate: datasource=npm depName=pnpm
   - { name: pnpm, version: "12.15.0", comment: package managers / runtime-adjacent tools }
   # renovate: datasource=pypi depName=uv
-  - { name: uv, version: "0.13.5" }
+  - { name: uv, version: "0.13.6" }
   # renovate: datasource=crate depName=cargo-binstall
   - { name: cargo-binstall, version: "1.26.0" }
   # renovate: datasource=npm depName=neonctl
