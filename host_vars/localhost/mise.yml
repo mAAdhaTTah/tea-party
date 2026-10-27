@@ -7,7 +7,7 @@ mise_tools:
   # renovate: datasource=python-version depName=python
   - { name: python, version: "3.14.9" }
   # renovate: datasource=ruby-version depName=ruby-version
-  - { name: ruby, version: "3.4.10" }
+  - { name: ruby, version: "3.4.12" }
   # renovate: datasource=github-tags depName=rust-lang/rust
   - { name: rust, version: "1.99.1" }
   # renovate: datasource=github-releases depName=oven-sh/bun extractVersion=^bun-v(?<version>.+)$
