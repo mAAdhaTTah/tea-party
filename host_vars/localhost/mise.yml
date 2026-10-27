@@ -11,7 +11,7 @@ mise_tools:
   # renovate: datasource=github-tags depName=rust-lang/rust
   - { name: rust, version: "1.99.1" }
   # renovate: datasource=github-releases depName=oven-sh/bun extractVersion=^bun-v(?<version>.+)$
-  - { name: bun, version: "1.4.3" }
+  - { name: bun, version: "1.4.4" }
   # renovate: datasource=npm depName=pnpm
   - { name: pnpm, version: "12.15.0", comment: package managers / runtime-adjacent tools }
   # renovate: datasource=pypi depName=uv
