@@ -5,7 +5,7 @@ mise_tools:
   # renovate: datasource=node-version depName=node
   - { name: node, version: "24.22.1", comment: runtimes }
   # renovate: datasource=python-version depName=python
-  - { name: python, version: "3.14.9" }
+  - { name: python, version: "3.14.10" }
   # renovate: datasource=ruby-version depName=ruby-version
   - { name: ruby, version: "3.4.12" }
   # renovate: datasource=github-tags depName=rust-lang/rust
