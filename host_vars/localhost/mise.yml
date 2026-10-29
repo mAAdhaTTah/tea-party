@@ -13,7 +13,7 @@ mise_tools:
   # renovate: datasource=github-releases depName=oven-sh/bun extractVersion=^bun-v(?<version>.+)$
   - { name: bun, version: "1.4.4" }
   # renovate: datasource=npm depName=pnpm
-  - { name: pnpm, version: "12.15.0", comment: package managers / runtime-adjacent tools }
+  - { name: pnpm, version: "12.16.1", comment: package managers / runtime-adjacent tools }
   # renovate: datasource=pypi depName=uv
   - { name: uv, version: "0.13.6" }
   # renovate: datasource=crate depName=cargo-binstall
