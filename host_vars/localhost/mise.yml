@@ -19,7 +19,7 @@ mise_tools:
   # renovate: datasource=crate depName=cargo-binstall
   - { name: cargo-binstall, version: "1.26.0" }
   # renovate: datasource=npm depName=neonctl
-  - { name: "npm:neonctl", version: "8.13.1", comment: "global ecosystem tools (previously npm -g / cargo install / Homebrew)" }
+  - { name: "npm:neonctl", version: "8.13.2", comment: "global ecosystem tools (previously npm -g / cargo install / Homebrew)" }
   # renovate: datasource=npm depName=vercel
   - { name: "npm:vercel", version: "65.5.0" }
   # renovate: datasource=crate depName=cargo-insta
