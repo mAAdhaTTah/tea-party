@@ -29,13 +29,6 @@ function exists {
   fi
 }
 
-function get_sudo {
-    setStatusMessage "Checking if we need to ask for a sudo password"
-    sudo -v
-    setStatusMessage "Keep-alive: update existing sudo time stamp until we are finished"
-    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-}
-
 function with_ansible {
     pkgx +ansible@2.21.5 $@
 }
@@ -101,9 +94,8 @@ function sub_throw {
         shift
     done
 
-    get_sudo
     setStatusMessage "Running the ansible playbook"
-    with_ansible ansible-playbook -K -i "localhost," computer.yml $TAGS
+    with_ansible ansible-playbook -i "localhost," computer.yml $TAGS
 }
 
 subcommand="${1:-help}"

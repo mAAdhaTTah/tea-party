@@ -3,6 +3,15 @@
   hosts: localhost
   connection: local
 
+  # Prompt for the sudo password as a variable rather than with -K: -K only
+  # feeds become, while geerlingguy.mac.homebrew passes ansible_become_password
+  # to casks that run sudo themselves. Without a TTY (CI) Ansible skips the
+  # prompt and falls back to passwordless sudo.
+  vars_prompt:
+    - name: ansible_become_password
+      prompt: BECOME password
+      private: true
+
   # Homebrew 7 only loads formulae and casks from third-party taps once the
   # tap is trusted. geerlingguy.mac.homebrew doesn't pass `trust`, so set it
   # here for every tap it adds.
