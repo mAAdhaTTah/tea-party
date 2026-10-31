@@ -21,7 +21,7 @@ mise_tools:
   # renovate: datasource=npm depName=neonctl
   - { name: "npm:neonctl", version: "8.13.2", comment: "global ecosystem tools (previously npm -g / cargo install / Homebrew)" }
   # renovate: datasource=npm depName=vercel
-  - { name: "npm:vercel", version: "65.8.0" }
+  - { name: "npm:vercel", version: "65.9.0" }
   # renovate: datasource=crate depName=cargo-insta
   - { name: "cargo:cargo-insta", version: "1.49.0" }
   # renovate: datasource=crate depName=sqlx-cli
