@@ -1,5 +1,6 @@
 {
   "skillListingBudgetFraction": 0.02,
+  "autoMemoryEnabled": false,
   "permissions": {
     "defaultMode": "auto"
   },
@@ -9,13 +10,20 @@
     "todoist@doist": true,
     "readwise@readwise-skills": true,
     "local-agent@claudev": true,
-    "cloudflare@cloudflare": true
+    "cloudflare@cloudflare": true,
+    "cognee-memory@cognee": true
   },
   "extraKnownMarketplaces": {
     "cloudflare": {
       "source": {
         "source": "github",
         "repo": "cloudflare/skills"
+      }
+    },
+    "cognee": {
+      "source": {
+        "source": "github",
+        "repo": "topoteretes/cognee-integrations"
       }
     },
     "claudev": {
