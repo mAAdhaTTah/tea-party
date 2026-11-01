@@ -3,3 +3,6 @@ claude_bin: "{{ homebrew_prefix }}/bin/claude"
 claude_marketplaces: []
 claude_plugins: []
 claude_mcp_servers: []
+cognee_env_path: "{{ ansible_facts.env.HOME }}/.cognee/.env"
+cognee_base_url: https://cognee.8p.jamesdigioia.com
+cognee_dataset: claudev
