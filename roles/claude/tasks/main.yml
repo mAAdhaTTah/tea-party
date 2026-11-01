@@ -88,3 +88,58 @@
   loop: "{{ claude_mcp_add.results | selectattr('rc', 'defined') | rejectattr('rc', 'equalto', 0) | list }}"
   loop_control:
     label: "{{ item.item.item.name }}"
+
+- name: Create Cognee config directory
+  file:
+    path: "{{ cognee_env_path | dirname }}"
+    state: directory
+    mode: "0755"
+
+- name: Read the Cognee plugin config
+  slurp:
+    src: "{{ cognee_env_path }}"
+  register: cognee_env
+  failed_when: false
+  no_log: true
+
+# Reuse this machine's key so re-runs don't mint a new one each time
+- name: Find this machine's Cognee API key
+  set_fact:
+    cognee_api_key: >-
+      {{ (cognee_env.content | default('') | b64decode
+      | regex_search('(?m)^COGNEE_API_KEY="?([^"\s]+)', '\1') or [''])[0] }}
+  no_log: true
+
+# The server sits on the tailnet, so minting a key needs no login
+- name: Mint a Cognee API key for this machine
+  uri:
+    url: "{{ cognee_base_url }}/api/v1/auth/api-keys"
+    method: POST
+    body_format: json
+    body:
+      name: "{{ ansible_facts.hostname }}"
+    status_code: [200, 201]
+  register: cognee_mint
+  when: cognee_api_key | length == 0
+  failed_when: false
+  no_log: true
+
+- name: Warn when the Cognee API key couldn't be minted
+  debug:
+    msg: "Skipping the Cognee plugin config: minting an API key failed (is Tailscale up?)"
+  when: cognee_api_key | length == 0 and (cognee_mint.json.key | default('')) | length == 0
+
+- name: Write the Cognee plugin config
+  vars:
+    cognee_key: "{{ cognee_api_key or (cognee_mint.json.key | default('')) }}"
+  copy:
+    content: |
+      COGNEE_BACKEND=cloud
+      COGNEE_BASE_URL="{{ cognee_base_url }}"
+      COGNEE_API_KEY="{{ cognee_key }}"
+      COGNEE_PLUGIN_DATASET={{ cognee_dataset }}
+    dest: "{{ cognee_env_path }}"
+    mode: "0600"
+  when: cognee_key | length > 0
+  diff: false
+  no_log: true
