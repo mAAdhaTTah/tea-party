@@ -56,6 +56,8 @@
   command: "{{ homebrew_prefix }}/bin/mise install"
   args:
     chdir: "{{ ansible_facts.env.HOME }}"
+  environment:
+    MISE_VERBOSE: "1"
   register: mise_install
   changed_when: "'installed 0 tools' not in (mise_install.stdout + mise_install.stderr)"
 
