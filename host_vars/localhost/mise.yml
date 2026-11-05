@@ -20,8 +20,10 @@ mise_tools:
   - { name: cargo-binstall, version: "1.26.0" }
   # renovate: datasource=npm depName=neonctl
   - { name: "npm:neonctl", version: "8.15.1", comment: "global ecosystem tools (previously npm -g / cargo install / Homebrew)" }
+  # Vercel publishes from a private repo since 58.5.1, so npm can't attach the
+  # provenance aube's no-downgrade check wants. See vercel/vercel#17408.
   # renovate: datasource=npm depName=vercel
-  - { name: "npm:vercel", version: "65.9.0" }
+  - { name: "npm:vercel", version: "65.9.0", trust_policy_excludes: ["vercel@>=58.5.1"] }
   # renovate: datasource=crate depName=cargo-insta
   - { name: "cargo:cargo-insta", version: "1.49.0" }
   # renovate: datasource=crate depName=sqlx-cli
