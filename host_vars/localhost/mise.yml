@@ -21,7 +21,7 @@ mise_tools:
   # renovate: datasource=npm depName=neonctl
   - { name: "npm:neonctl", version: "8.15.1", comment: "global ecosystem tools (previously npm -g / cargo install / Homebrew)" }
   # renovate: datasource=npm depName=vercel
-  - { name: "npm:vercel", version: "65.9.0" }
+  - { name: "npm:vercel", version: "65.9.0", trust_policy_excludes: "{{ mise_vercel_trust_policy_excludes }}" }
   # renovate: datasource=crate depName=cargo-insta
   - { name: "cargo:cargo-insta", version: "1.49.0" }
   # renovate: datasource=crate depName=sqlx-cli
@@ -30,6 +30,50 @@ mise_tools:
   - { name: "cargo:sampo", version: "0.23.0" }
   # renovate: datasource=crate depName=wasm-pack
   - { name: "cargo:wasm-pack", version: "0.15.0" }
+
+# Vercel publishes these from a private repo, so npm can't attach the provenance
+# aube's no-downgrade check wants (vercel/vercel#17408). Only the packages the
+# check rejects are listed, so the rest of the @vercel scope keeps it. If a
+# vercel bump fails with "failed to resolve dependencies", run
+# `mise install npm:vercel@<version>` to see which package to add.
+mise_vercel_trust_policy_excludes:
+  - "vercel@>=58.5.1"
+  - "@vercel/backends"
+  - "@vercel/build-utils"
+  - "@vercel/cervel"
+  - "@vercel/cli-auth"
+  - "@vercel/cli-config"
+  - "@vercel/cli-exec"
+  - "@vercel/container"
+  - "@vercel/detect-agent"
+  - "@vercel/elysia"
+  - "@vercel/error-utils"
+  - "@vercel/express"
+  - "@vercel/fastify"
+  - "@vercel/gatsby-plugin-vercel-analytics"
+  - "@vercel/gatsby-plugin-vercel-builder"
+  - "@vercel/go"
+  - "@vercel/h3"
+  - "@vercel/hono"
+  - "@vercel/hydrogen"
+  - "@vercel/koa"
+  - "@vercel/nestjs"
+  - "@vercel/next"
+  - "@vercel/node"
+  - "@vercel/oidc"
+  - "@vercel/python"
+  - "@vercel/python-analysis"
+  - "@vercel/redwood"
+  - "@vercel/remix-builder"
+  - "@vercel/ruby"
+  - "@vercel/rust"
+  - "@vercel/static-build"
+  - "@vercel/static-config"
+  - "@vercel/vc-native-darwin-arm64"
+  - "@vercel/vc-native-darwin-x64"
+  - "@vercel/vc-native-linux-arm64"
+  - "@vercel/vc-native-linux-x64"
+  - "@vercel/vc-native-win32-x64"
 
 mise_idiomatic_version_file_tools:
   - node

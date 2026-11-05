@@ -3,7 +3,12 @@
 {% if tool.comment is defined %}
 # {{ tool.comment }}
 {% endif %}
-{{ ('"' + tool.name + '"') if ':' in tool.name else tool.name }} = "{{ tool.version }}"
+{% set tool_key = ('"' + tool.name + '"') if ':' in tool.name else tool.name %}
+{% if tool.trust_policy_excludes is defined %}
+{{ tool_key }} = { version = "{{ tool.version }}", trust_policy_excludes = {{ tool.trust_policy_excludes | to_json }} }
+{% else %}
+{{ tool_key }} = "{{ tool.version }}"
+{% endif %}
 {% endfor %}
 
 [settings]
