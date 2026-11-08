@@ -14,7 +14,7 @@
     mode: "0644"
 
 # The add/install steps below warn rather than stop the play when they fail,
-# e.g. the claudev marketplace needs your SSH key
+# e.g. the maadclankker marketplace needs your SSH key
 - name: List Claude Code plugin marketplaces
   command: "{{ claude_bin }} plugin marketplace list --json"
   register: claude_marketplace_list
