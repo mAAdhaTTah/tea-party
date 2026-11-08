@@ -1,6 +1,11 @@
 {
   "skillListingBudgetFraction": 0.02,
   "autoMemoryEnabled": false,
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "permissions": {
     "defaultMode": "auto"
   },
@@ -9,7 +14,7 @@
     "typescript-lsp@claude-plugins-official": true,
     "todoist@doist": true,
     "readwise@readwise-skills": true,
-    "local-agent@claudev": true,
+    "local-agent@maadclankker": true,
     "cloudflare@cloudflare": true,
     "cognee-memory@cognee": true
   },
@@ -26,16 +31,16 @@
         "repo": "topoteretes/cognee-integrations"
       }
     },
-    "claudev": {
-      "source": {
-        "source": "git",
-        "url": "git@git.8p.jamesdigioia.com:mAAdhaTTah/claudev.git"
-      }
-    },
     "doist": {
       "source": {
         "source": "github",
         "repo": "doist/todoist-mcp"
+      }
+    },
+    "maadclankker": {
+      "source": {
+        "source": "git",
+        "url": "git@git.8p.jamesdigioia.com:mAAdhaTTah/mAAdclanKKer.git"
       }
     },
     "readwise-skills": {
