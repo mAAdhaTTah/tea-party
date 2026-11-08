@@ -3,6 +3,8 @@
   "extends": ["config:recommended"],
   "dependencyDashboard": true,
   "labels": ["renovate"],
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2,
   "customManagers": [
     {
       "customType": "regex",
@@ -43,6 +45,12 @@
       "matchFileNames": ["host_vars/localhost/mise.yml"],
       "matchDepNames": ["node", "python", "ruby-version", "rust-lang/rust"],
       "separateMinorPatch": true
+    },
+    {
+      "description": "GitHub Actions bumps are low risk, so one PR (and one CI run) covers them all",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
+      "groupName": "GitHub Actions"
     }
   ]
 }

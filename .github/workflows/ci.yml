@@ -9,7 +9,7 @@ name: CI
     - cron: "0 5 * * 4"
 
 # One run per branch or PR: a new push cancels the run still in progress for
-# the previous commit. Runs on main aren't cancelled, so each merge is tested.
+# the previous commit. Runs on main aren't cancelled, so each merge is linted.
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -34,8 +34,13 @@ jobs:
         run: |
           yamllint .
           ansible-lint
+  # Integration is slow and macOS runners are scarce, so it waits for Lint and
+  # skips pushes to main: the PR already ran it, and the weekly cron catches
+  # drift.
   integration:
     name: Integration
+    needs: lint
+    if: github.event_name != 'push'
     runs-on: macos-26
 
     steps:
