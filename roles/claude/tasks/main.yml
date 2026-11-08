@@ -28,6 +28,10 @@
   loop_control:
     label: "{{ item.name }}"
   when: item.name not in (claude_marketplace_list.stdout | default('[]', true) | from_json | map(attribute='name') | list)
+  # Give up quickly on an unreachable SSH host (e.g. off the tailnet, or in CI)
+  # instead of hanging until the OS gives up
+  environment:
+    GIT_SSH_COMMAND: ssh -o ConnectTimeout=10
   register: claude_marketplace_add
   changed_when: claude_marketplace_add.rc == 0
   failed_when: false
@@ -63,31 +67,39 @@
   loop_control:
     label: "{{ item.item }}"
 
-- name: Check Claude Code MCP servers
-  command: "{{ claude_bin }} mcp get {{ item.name }}"
-  loop: "{{ claude_mcp_servers }}"
-  register: claude_mcp_get
-  changed_when: false
+# User-scope MCP servers live under mcpServers in ~/.claude.json. Reading it
+# directly avoids `claude mcp get`, which health-checks each server over the
+# network
+- name: Read the Claude Code user config
+  slurp:
+    src: "{{ ansible_facts.env.HOME }}/.claude.json"
+  register: claude_user_config
   failed_when: false
-  check_mode: false
+  no_log: true
+
+- name: Find the configured Claude Code MCP servers
+  set_fact:
+    claude_mcp_configured: >-
+      {{ ((claude_user_config.content | default('') | b64decode or '{}')
+      | from_json).mcpServers | default({}) | list }}
 
 # Authenticating each server is a manual step (/mcp in Claude Code)
 - name: Add Claude Code MCP servers
-  command: "{{ claude_bin }} mcp add --scope user --transport http {{ item.item.name }} {{ item.item.url }}"
-  loop: "{{ claude_mcp_get.results }}"
+  command: "{{ claude_bin }} mcp add --scope user --transport http {{ item.name }} {{ item.url }}"
+  loop: "{{ claude_mcp_servers }}"
   loop_control:
-    label: "{{ item.item.name }}"
-  when: item.rc != 0
+    label: "{{ item.name }}"
+  when: item.name not in claude_mcp_configured
   register: claude_mcp_add
   changed_when: claude_mcp_add.rc == 0
   failed_when: false
 
 - name: Warn about Claude Code MCP servers that couldn't be added
   debug:
-    msg: "Couldn't add the {{ item.item.item.name }} MCP server: {{ item.stderr | default(item.stdout) }}"
+    msg: "Couldn't add the {{ item.item.name }} MCP server: {{ item.stderr | default(item.stdout) }}"
   loop: "{{ claude_mcp_add.results | selectattr('rc', 'defined') | rejectattr('rc', 'equalto', 0) | list }}"
   loop_control:
-    label: "{{ item.item.item.name }}"
+    label: "{{ item.item.name }}"
 
 - name: Create Cognee config directory
   file:
