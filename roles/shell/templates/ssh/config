@@ -1,11 +1,6 @@
-Host 192.168.2.35
-	HostName 192.168.2.35
-	User izzi
-
-Host 192.168.2.128
-	HostName 192.168.2.128
-	User dreedle
-
+# Docker on this Mac runs on four-of-four's daemon through the four-of-four
+# Docker context. Connection sharing means one 1Password approval per
+# 10 minutes instead of one per docker command.
 Host four-of-four
 	User drone
 	ControlMaster auto
