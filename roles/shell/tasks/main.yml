@@ -47,6 +47,19 @@
     - path
     - ssh/config
 
+- name: Create git config directory
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.config/git"
+    state: directory
+    mode: "0755"
+
+# Public keys only; lets git check SSH signatures (see gpg.ssh.allowedSignersFile)
+- name: Copy git allowed signers
+  template:
+    src: allowed_signers
+    dest: "{{ ansible_facts.env.HOME }}/.config/git/allowed_signers"
+    mode: "0644"
+
 - name: Install bash-it
   git:
     repo: https://github.com/Bash-it/bash-it.git
