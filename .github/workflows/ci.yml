@@ -1,15 +1,16 @@
 ---
 name: CI
+# CI runs only when asked, to save Actions minutes (macOS is billed at ~10x
+# Linux on private repos). Run it on a PR by adding the `ci` label (remove and
+# re-add it to re-test new pushes), or on any branch, including main, with
+# `gh workflow run CI --ref <branch>`.
 "on":
+  workflow_dispatch:
   pull_request:
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: "0 5 * * 4"
+    types: [labeled]
 
-# One run per branch or PR: a new push cancels the run still in progress for
-# the previous commit. Runs on main aren't cancelled, so each merge is linted.
+# One run per branch or PR: re-labelling a PR cancels its run still in
+# progress. Dispatched runs aren't cancelled.
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -17,6 +18,9 @@ concurrency:
 jobs:
   lint:
     name: Lint
+    # Any other label (e.g. Renovate's) starts a run that skips every job,
+    # which uses no minutes.
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'ci'
     runs-on: ubuntu-26.04
     steps:
       - name: Check out the codebase.
@@ -34,13 +38,10 @@ jobs:
         run: |
           yamllint .
           ansible-lint
-  # Integration is slow and macOS runners are scarce, so it waits for Lint and
-  # skips pushes to main: the PR already ran it, and the weekly cron catches
-  # drift.
+  # Integration is slow and macOS runners are scarce, so it waits for Lint.
   integration:
     name: Integration
     needs: lint
-    if: github.event_name != 'push'
     runs-on: macos-26
 
     steps:
