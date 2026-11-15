@@ -8,7 +8,7 @@
 
 Bring all your old friends to your new computer.
 
-A small bash script around provisioning your new Mac with ansible. To use, clone this repository, `cd` into it, then run `./tea-party prepare` followed by `./tea-party throw` (optionally with tags, e.g. `./tea-party throw shell mise`). If you want to make modifications, fork this repository and edit it directly.
+A small bash script around provisioning your new Mac with ansible. To use, clone this repository, `cd` into it, then run `./tea-party prepare` followed by `./tea-party throw` (optionally with tags, e.g. `./tea-party throw shell mise`). It asks for your sudo password only when the run includes the `homebrew` or `shell` tag, or no tags at all. If you want to make modifications, fork this repository and edit it directly.
 
 ## Manual installs
 
