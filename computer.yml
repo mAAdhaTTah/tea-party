@@ -3,21 +3,36 @@
   hosts: localhost
   connection: local
 
-  # Prompt for the sudo password as a variable rather than with -K: -K only
-  # feeds become, while geerlingguy.mac.homebrew passes ansible_become_password
-  # to casks that run sudo themselves. Without a TTY (CI) Ansible skips the
-  # prompt and falls back to passwordless sudo.
-  vars_prompt:
-    - name: ansible_become_password
-      prompt: BECOME password
-      private: true
-
   # Homebrew 7 only loads formulae and casks from third-party taps once the
   # tap is trusted. geerlingguy.mac.homebrew doesn't pass `trust`, so set it
   # here for every tap it adds.
   module_defaults:
     community.general.homebrew_tap:
       trust: true
+
+  # Ask for the sudo password only when a role that uses sudo runs: homebrew
+  # (folder ownership, and casks that run sudo themselves) and shell
+  # (/etc/shells, chsh). A role that starts using sudo must add its tag to both
+  # tasks, or its runs fail on sudo instead of prompting.
+  #
+  # It's set as a variable rather than with -K: -K only feeds become, while
+  # geerlingguy.mac.homebrew passes ansible_become_password to casks. Without
+  # a TTY (CI) the pause doesn't wait, the variable stays unset, and sudo runs
+  # passwordless.
+  pre_tasks:
+    - name: Ask for the sudo password
+      pause:
+        prompt: BECOME password
+        echo: false
+      register: become_prompt
+      tags: [homebrew, shell]
+
+    - name: Use the sudo password for become and casks
+      set_fact:
+        ansible_become_password: "{{ become_prompt.user_input }}"
+      when: (become_prompt.user_input | default('')) | length > 0
+      no_log: true
+      tags: [homebrew, shell]
 
   roles:
     - { role: command_line_tools, tags: [clt] }
