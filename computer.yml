@@ -28,4 +28,6 @@
     - { role: editor, tags: [editor] }
     - { role: mise, tags: [mise] }
     - { role: apps, tags: [apps] }
+    - { role: cognee, tags: [cognee, claude, codex] }
     - { role: claude, tags: [claude] }
+    - { role: codex, tags: [codex] }

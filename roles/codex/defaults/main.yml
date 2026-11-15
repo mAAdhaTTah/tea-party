@@ -1,0 +1,6 @@
+---
+codex_bin: "{{ homebrew_prefix }}/bin/codex"
+codex_home: "{{ ansible_facts.env.HOME }}/.codex"
+codex_marketplaces: []
+codex_plugins: []
+codex_mcp_servers: []
