@@ -1,0 +1,13 @@
+---
+# Both agents' Cognee plugins read ~/.cognee/.env, so it runs under either tag
+- name: Configure the Cognee plugins
+  import_tasks: cognee.yml
+  tags: [cognee, claude, codex]
+
+- name: Configure Claude Code
+  import_tasks: claude.yml
+  tags: [claude]
+
+- name: Configure Codex
+  import_tasks: codex.yml
+  tags: [codex]

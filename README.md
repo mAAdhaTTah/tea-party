@@ -51,9 +51,11 @@ There's no local Docker daemon or VM. The Docker CLI, Compose and buildx talk to
 
 ## Codex
 
-The `codex` role installs the same plugins and MCP servers as Claude Code
-where Codex has an equivalent. It seeds `~/.codex/config.toml` only on a fresh
-machine. Afterwards, finish these steps by hand:
+The `maadclankker` role sets up both agents, Claude Code (tag `claude`) and
+Codex (tag `codex`), and the Cognee config they share. Codex gets the same
+plugins and MCP servers as Claude Code where it has an equivalent, and
+`~/.codex/config.toml` is seeded only on a fresh machine. Afterwards, finish
+these steps by hand:
 
 1. Run `codex` and choose "Sign in with ChatGPT".
 2. Approve the plugin hooks (`local-agent`, `cognee`) in the TUI's hooks

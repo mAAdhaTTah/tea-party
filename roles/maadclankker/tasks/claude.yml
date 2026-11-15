@@ -7,8 +7,8 @@
 
 # Claude Code writes to this file itself, so only seed it on a fresh machine
 - name: Seed Claude Code settings
-  copy:
-    src: settings.json
+  template:
+    src: claude-settings.json.j2
     dest: "{{ ansible_facts.env.HOME }}/.claude/settings.json"
     force: false
     mode: "0644"

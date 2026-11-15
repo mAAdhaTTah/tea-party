@@ -8,8 +8,8 @@
 # Codex writes to this file itself (trusted projects, marketplaces, plugins,
 # MCP servers, hook approvals), so only seed it on a fresh machine
 - name: Seed Codex config
-  copy:
-    src: config.toml
+  template:
+    src: codex-config.toml.j2
     dest: "{{ codex_home }}/config.toml"
     force: false
     mode: "0644"
