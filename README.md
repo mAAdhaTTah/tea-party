@@ -49,6 +49,25 @@ There's no local Docker daemon or VM. The Docker CLI, Compose and buildx talk to
 - Bind mounts refer to four-of-four's filesystem. For live reload, add a `develop.watch` section (`action: sync` / `rebuild`) in an untracked `compose.override.yaml` and run `docker compose watch`.
 - To use a local daemon instead, run `docker context use default`.
 
+## Codex
+
+The `maadclankker` role sets up both agents, Claude Code (tag `claude`) and
+Codex (tag `codex`), and the Cognee config they share. Codex gets the same
+plugins and MCP servers as Claude Code where it has an equivalent, and
+`~/.codex/config.toml` is seeded only on a fresh machine. Afterwards, finish
+these steps by hand:
+
+1. Run `codex` and choose "Sign in with ChatGPT".
+2. Approve the plugin hooks (`local-agent`, `cognee`) in the TUI's hooks
+   review. Codex ties each approval to a hash of the plugin's contents, so
+   approve them again after every plugin update. Until you do, sessions start
+   without the workflow norms or Cognee memory, and nothing warns you.
+3. Log in to each MCP server: `codex mcp login Neon`, then `todoist` and
+   `readwise`.
+
+Codex has no commit-trailer setting, so the seeded config asks for the
+mAAdclanKKer `Co-Authored-By` trailer in `developer_instructions` instead.
+
 ## Prior Art
 
 - [Kitchenplan](https://github.com/kitchenplan/kitchenplan)

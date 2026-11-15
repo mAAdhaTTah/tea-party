@@ -28,4 +28,4 @@
     - { role: editor, tags: [editor] }
     - { role: mise, tags: [mise] }
     - { role: apps, tags: [apps] }
-    - { role: claude, tags: [claude] }
+    - { role: maadclankker, tags: [maadclankker] }

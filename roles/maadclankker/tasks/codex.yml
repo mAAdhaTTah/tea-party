@@ -1,0 +1,105 @@
+---
+- name: Create Codex config directory
+  file:
+    path: "{{ codex_home }}"
+    state: directory
+    mode: "0755"
+
+# Codex writes to this file itself (trusted projects, marketplaces, plugins,
+# MCP servers, hook approvals), so only seed it on a fresh machine
+- name: Seed Codex config
+  template:
+    src: codex-config.toml.j2
+    dest: "{{ codex_home }}/config.toml"
+    force: false
+    mode: "0644"
+
+# The add steps below warn rather than stop the play when they fail, e.g. the
+# maadclankker marketplace needs your SSH key. Approving each plugin's hooks is
+# a manual step in the Codex TUI, and has to be redone after every plugin
+# update.
+- name: List Codex plugin marketplaces
+  command: "{{ codex_bin }} plugin marketplace list --json"
+  register: codex_marketplace_list
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Add Codex plugin marketplaces
+  command: "{{ codex_bin }} plugin marketplace add {{ item.source }}"
+  loop: "{{ codex_marketplaces }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: >-
+    item.name not in (codex_marketplace_list.stdout | default('{}', true) | from_json).marketplaces
+    | default([]) | map(attribute='name') | list
+  # Give up quickly on an unreachable SSH host (e.g. off the tailnet, or in CI)
+  # instead of hanging until the OS gives up
+  environment:
+    GIT_SSH_COMMAND: ssh -o ConnectTimeout=10
+  register: codex_marketplace_add
+  changed_when: codex_marketplace_add.rc == 0
+  failed_when: false
+
+- name: Warn about Codex marketplaces that couldn't be added
+  debug:
+    msg: "Couldn't add the {{ item.item.name }} marketplace: {{ item.stderr | default(item.stdout) }}"
+  loop: "{{ codex_marketplace_add.results | selectattr('rc', 'defined') | rejectattr('rc', 'equalto', 0) | list }}"
+  loop_control:
+    label: "{{ item.item.name }}"
+
+- name: List Codex plugins
+  command: "{{ codex_bin }} plugin list --json"
+  register: codex_plugin_list
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Install Codex plugins
+  command: "{{ codex_bin }} plugin add {{ item }}"
+  loop: "{{ codex_plugins }}"
+  when: >-
+    item not in (codex_plugin_list.stdout | default('{}', true) | from_json).installed
+    | default([]) | map(attribute='pluginId') | list
+  register: codex_plugin_install
+  changed_when: codex_plugin_install.rc == 0
+  failed_when: false
+
+- name: Warn about Codex plugins that couldn't be installed
+  debug:
+    msg: "Couldn't install {{ item.item }}: {{ item.stderr | default(item.stdout) }}"
+  loop: "{{ codex_plugin_install.results | selectattr('rc', 'defined') | rejectattr('rc', 'equalto', 0) | list }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+# MCP servers live under [mcp_servers.<name>] in config.toml. Reading it
+# directly avoids `codex mcp list`, which checks each server's auth status
+- name: Read the Codex config
+  slurp:
+    src: "{{ codex_home }}/config.toml"
+  register: codex_config
+  failed_when: false
+
+- name: Find the configured Codex MCP servers
+  set_fact:
+    codex_mcp_configured: >-
+      {{ codex_config.content | default('') | b64decode
+      | regex_findall('(?m)^\[mcp_servers\."?([^".\]]+)"?\]') }}
+
+# Authenticating each server is a manual step (`codex mcp login <name>`)
+- name: Add Codex MCP servers
+  command: "{{ codex_bin }} mcp add {{ item.name }} --url {{ item.url }}"
+  loop: "{{ codex_mcp_servers }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.name not in codex_mcp_configured
+  register: codex_mcp_add
+  changed_when: codex_mcp_add.rc == 0
+  failed_when: false
+
+- name: Warn about Codex MCP servers that couldn't be added
+  debug:
+    msg: "Couldn't add the {{ item.item.name }} MCP server: {{ item.stderr | default(item.stdout) }}"
+  loop: "{{ codex_mcp_add.results | selectattr('rc', 'defined') | rejectattr('rc', 'equalto', 0) | list }}"
+  loop_control:
+    label: "{{ item.item.name }}"

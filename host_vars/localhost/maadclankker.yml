@@ -1,4 +1,5 @@
 ---
+# Claude Code
 claude_marketplaces:
   - { name: claude-plugins-official, source: anthropics/claude-plugins-official }
   - { name: cloudflare, source: cloudflare/skills }
@@ -18,3 +19,21 @@ claude_plugins:
 
 claude_mcp_servers:
   - { name: Neon, url: "https://mcp.neon.tech/mcp" }
+
+# Codex. It reads Claude-format marketplaces too, so maadclankker needs no
+# Codex-specific manifest
+codex_marketplaces:
+  - { name: cloudflare, source: cloudflare/skills }
+  - { name: cognee, source: topoteretes/cognee-integrations }
+  - { name: maadclankker, source: "git@git.8p.jamesdigioia.com:mAAdhaTTah/mAAdclanKKer.git" }
+
+codex_plugins:
+  - cloudflare@cloudflare
+  - cognee@cognee
+  - local-agent@maadclankker
+
+# Todoist and Readwise are plugins in Claude; Codex only gets their MCP servers
+codex_mcp_servers:
+  - { name: Neon, url: "https://mcp.neon.tech/mcp" }
+  - { name: todoist, url: "https://ai.todoist.net/mcp" }
+  - { name: readwise, url: "https://mcp2.readwise.io/mcp" }

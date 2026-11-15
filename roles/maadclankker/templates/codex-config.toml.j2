@@ -1,0 +1,21 @@
+model_reasoning_effort = "medium"
+
+# Ask before leaving the sandbox, and let the auto-reviewer decide those asks
+# instead of prompting every time
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+
+# Writes stay inside the workspace, but the network is open (git push, gh,
+# tea, package installs)
+sandbox_mode = "workspace-write"
+
+# Codex has no commit-trailer setting (codex_git_commit was removed), so ask
+# for it the way Claude's attribution.commit adds it
+developer_instructions = """
+End every git commit message you write with this trailer, on its own line \
+after a blank line:
+{{ maadclankker_commit_trailer }}
+"""
+
+[sandbox_workspace_write]
+network_access = true
