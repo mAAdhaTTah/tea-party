@@ -3,5 +3,6 @@ mise_config_path: "{{ ansible_facts.env.HOME }}/.config/mise/config.toml"
 mise_tools: []
 mise_idiomatic_version_file_tools: []
 rustup_completions: "{{ bash_it_install_path }}/enabled/450--rustup.completion.bash"
-mise_installs_path: "{{ ansible_facts.env.MISE_DATA_DIR | default((ansible_facts.env.XDG_DATA_HOME | default(ansible_facts.env.HOME ~ '/.local/share', true)) ~ '/mise', true) }}/installs"
-gh_extensions_path: "{{ ansible_facts.env.XDG_DATA_HOME | default(ansible_facts.env.HOME ~ '/.local/share', true) }}/gh/extensions"
+xdg_data_home: "{{ ansible_facts.env.XDG_DATA_HOME | default(ansible_facts.env.HOME ~ '/.local/share', true) }}"
+mise_installs_path: "{{ ansible_facts.env.MISE_DATA_DIR | default(xdg_data_home ~ '/mise', true) }}/installs"
+gh_extensions_path: "{{ xdg_data_home }}/gh/extensions"
