@@ -1,6 +1,10 @@
 ---
 op_bin: "{{ homebrew_prefix }}/bin/op"
 docker_bin: "{{ homebrew_prefix }}/bin/docker"
+gh_bin: "{{ homebrew_prefix }}/bin/gh"
+# renovate: datasource=github-releases depName=github/gh-stack
+gh_stack_version: v0.3.0
+gh_stack_dir: "{{ ansible_facts.env.XDG_DATA_HOME | default(ansible_facts.env.HOME ~ '/.local/share', true) }}/gh/extensions/gh-stack"
 docker_context_name: four-of-four
 docker_context_host: ssh://four-of-four
 komodo_op_item: Komodo CLI
