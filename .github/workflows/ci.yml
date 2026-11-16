@@ -50,6 +50,14 @@ jobs:
       - name: Uninstall GitHub Actions' built-in Homebrew.
         run: tests/uninstall-homebrew.sh
 
+      # On macOS runners, resolving the runner's own *.local hostname through
+      # the system resolver stalls for ~70s, even though dig answers at once.
+      # Ansible's platform facts call socket.getfqdn() on every fact gather, so
+      # each one stalled. A hostname with no hosts or DNS entry fails to
+      # resolve immediately, and getfqdn() falls back to the bare name.
+      - name: Give the runner a hostname that fails to resolve fast.
+        run: sudo scutil --set HostName tea-party-ci
+
       - name: Uninstall GitHub Actions' built-in browser installs.
         run: |
           sudo rm -rf /Applications/Firefox.app
