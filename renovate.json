@@ -25,14 +25,6 @@
     },
     {
       "customType": "regex",
-      "description": "Versions in role defaults",
-      "managerFilePatterns": ["/^roles/[^/]+/defaults/main\\.yml$/"],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n[a-z_]+: \"?(?<currentValue>[^\"\\s]+)\"?"
-      ]
-    },
-    {
-      "customType": "regex",
       "description": "bash-it git tag",
       "managerFilePatterns": ["/^roles/shell/tasks/main\\.yml$/"],
       "matchStrings": [

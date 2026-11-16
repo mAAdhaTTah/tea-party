@@ -30,6 +30,10 @@ mise_tools:
   - { name: "cargo:sampo", version: "0.24.0" }
   # renovate: datasource=crate depName=wasm-pack
   - { name: "cargo:wasm-pack", version: "0.15.0" }
+  # gh runs it through the link the mise role adds to gh's extensions dir.
+  # bin= names the binary, which mise would otherwise call `darwin`.
+  # renovate: datasource=github-releases depName=github/gh-stack
+  - { name: "github:github/gh-stack[bin=gh-stack]", version: "0.3.0", comment: gh extensions }
 
 # Vercel publishes these from a private repo, so npm can't attach the provenance
 # aube's no-downgrade check wants (vercel/vercel#17408). Only the packages the

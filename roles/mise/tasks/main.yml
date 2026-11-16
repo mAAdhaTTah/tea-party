@@ -59,6 +59,21 @@
   register: mise_install
   changed_when: "'installed 0 tools' not in (mise_install.stdout + mise_install.stderr)"
 
+# gh treats a linked dir as a local extension and runs gh-stack inside it.
+# `latest` follows the version mise installs.
+- name: Create gh extensions directory
+  file:
+    path: "{{ gh_extensions_path }}"
+    state: directory
+    mode: "0755"
+
+- name: Link gh stack extension to mise's install
+  file:
+    src: "{{ mise_installs_path }}/github-github-gh-stack/latest"
+    dest: "{{ gh_extensions_path }}/gh-stack"
+    state: link
+    force: true
+
 - name: Create rust bash completions
   shell: "{{ ansible_facts.env.HOME }}/.cargo/bin/rustup completions bash > {{ rustup_completions }}"
   args:

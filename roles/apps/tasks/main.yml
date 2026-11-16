@@ -23,33 +23,6 @@
     dest: "{{ ansible_facts.env.HOME }}/.config/gh/config.yml"
     mode: "0600"
 
-# gh's own extension dir; `gh extension list` and `remove` need a gh login,
-# `install` doesn't
-- name: Read the installed gh-stack manifest
-  slurp:
-    src: "{{ gh_stack_dir }}/manifest.yml"
-  register: gh_stack_manifest
-  tags: [gh_stack]
-  failed_when: false
-  check_mode: false
-
-# `install --force` won't move a pinned extension to another tag, so drop the
-# old one first
-- name: Remove gh-stack when it's pinned to another version
-  file:
-    path: "{{ gh_stack_dir }}"
-    state: absent
-  when:
-    - gh_stack_manifest.content is defined
-    - (gh_stack_manifest.content | b64decode | from_yaml).tag != gh_stack_version
-  register: gh_stack_removed
-  tags: [gh_stack]
-
-- name: Install the gh stack extension
-  command: "{{ gh_bin }} extension install github/gh-stack --pin {{ gh_stack_version }}"
-  when: gh_stack_manifest.content is not defined or gh_stack_removed is changed
-  tags: [gh_stack]
-
 # Uses your own 1Password session, not OP_SERVICE_ACCOUNT_TOKEN: the homelab
 # service account can't see the Private vault
 - name: Read Komodo CLI credentials from 1Password
