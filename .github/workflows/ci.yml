@@ -18,9 +18,36 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-26.04
+    outputs:
+      integration: ${{ steps.changes.outputs.integration }}
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v7
+        with:
+          # A PR checks out its merge commit. Its first parent is the base
+          # branch, so depth 2 is enough to diff what the PR changes.
+          fetch-depth: 2
+
+      # Integration takes 30+ minutes, so skip it when a PR only changes files
+      # the playbook doesn't read. Scheduled runs always run it. Integration
+      # isn't a required check, so a skipped job doesn't block merging.
+      - name: Check whether Integration needs to run.
+        id: changes
+        run: |
+          if [ "${{ github.event_name }}" != pull_request ]; then
+            echo "integration=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          changed=$(git diff --name-only HEAD^1 HEAD)
+          echo "Changed files:"
+          echo "${changed}"
+          relevant=$(grep -vE '^(docs/.*|.*\.md|renovate\.json)$' <<< "${changed}" || true)
+          if [ -n "${relevant}" ]; then
+            echo "integration=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Only docs, Markdown or renovate.json changed: skipping Integration."
+            echo "integration=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Set up Python 3.
         uses: actions/setup-python@v7
@@ -36,11 +63,11 @@ jobs:
           ansible-lint
   # Integration is slow and macOS runners are scarce, so it waits for Lint and
   # skips pushes to main: the PR already ran it, and the weekly cron catches
-  # drift.
+  # drift. It also skips PRs that only change docs (see Lint).
   integration:
     name: Integration
     needs: lint
-    if: github.event_name != 'push'
+    if: github.event_name != 'push' && needs.lint.outputs.integration == 'true'
     runs-on: macos-26
 
     steps:
