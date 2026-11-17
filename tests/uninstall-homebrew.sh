@@ -1,15 +1,29 @@
 #!/bin/bash
 #
-# Uninstalls Homebrew using the official uninstall script.
+# Removes the runner image's Homebrew so the playbook installs it from scratch.
+#
+# Homebrew's official uninstall script deletes files one at a time and takes
+# 1.5-2 minutes on a runner. On the arm64 runners it only removes the paths
+# below, so remove them directly. /opt/homebrew is moved aside rather than
+# deleted: a rename is instant, and the Homebrew role only needs the prefix to
+# be missing or empty.
+set -euo pipefail
 
-# Download and run the uninstall script.
-curl -sLO https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh
-chmod +x ./uninstall.sh
-sudo ./uninstall.sh --force
+if [ -d /opt/homebrew ]; then
+  sudo mv /opt/homebrew /opt/homebrew.removed
+fi
 
-# Clean up Homebrew directories. The uninstaller leaves bin/, etc/, lib/ and
-# var/ behind, and the Homebrew role can't clone into a non-empty prefix.
-sudo rm -rf /opt/homebrew
-sudo rm -rf /usr/local/Homebrew
-sudo rm -rf /usr/local/Caskroom
-sudo rm -rf /usr/local/bin/brew
+sudo rm -rf \
+  /etc/paths.d/homebrew \
+  "$HOME/Library/Caches/Homebrew" \
+  "$HOME/Library/Logs/Homebrew" \
+  /usr/local/Homebrew \
+  /usr/local/Caskroom \
+  /usr/local/bin/brew
+
+# Fail fast if a brew is still reachable, e.g. a new runner image installs it
+# somewhere else.
+if command -v brew >/dev/null; then
+  echo "brew still found at $(command -v brew)" >&2
+  exit 1
+fi
