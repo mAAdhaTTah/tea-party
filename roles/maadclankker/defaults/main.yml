@@ -13,6 +13,11 @@ codex_home: "{{ ansible_facts.env.HOME }}/.codex"
 codex_marketplaces: []
 codex_plugins: []
 codex_mcp_servers: []
+# Seconds `codex mcp add` may run before it's killed, or 0 for no limit. The
+# add writes the server's config entry first (OAuth discovery is capped at 5s),
+# then opens a browser and waits up to 5 minutes for the OAuth login. CI has no
+# browser, so stop it once the entry is written instead of waiting it out.
+codex_mcp_add_timeout: "{{ 30 if lookup('env', 'CI') == 'true' else 0 }}"
 
 cognee_env_path: "{{ ansible_facts.env.HOME }}/.cognee/.env"
 cognee_base_url: https://cognee.8p.jamesdigioia.com

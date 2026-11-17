@@ -86,20 +86,31 @@
       {{ codex_config.content | default('') | b64decode
       | regex_findall('(?m)^\[mcp_servers\."?([^".\]]+)"?\]') }}
 
-# Authenticating each server is a manual step (`codex mcp login <name>`)
+# `codex mcp add` writes the server to config.toml, then starts an OAuth login
+# in the browser and waits up to 5 minutes for it. A failed or skipped login
+# still leaves the server configured, so the next run skips it; finish with
+# `codex mcp login <name>` (see the README). With codex_mcp_add_timeout set (CI),
+# coreutils' timeout (installed by the homebrew role) stops the add after the
+# config is written.
 - name: Add Codex MCP servers
-  command: "{{ codex_bin }} mcp add {{ item.name }} --url {{ item.url }}"
+  command: >-
+    {{ (homebrew_prefix ~ '/bin/gtimeout ' ~ codex_mcp_add_timeout ~ ' ')
+    if codex_mcp_add_timeout | int > 0 else '' }}{{ codex_bin }} mcp add {{ item.name }} --url {{ item.url }}
   loop: "{{ codex_mcp_servers }}"
   loop_control:
     label: "{{ item.name }}"
   when: item.name not in codex_mcp_configured
   register: codex_mcp_add
-  changed_when: codex_mcp_add.rc == 0
+  changed_when: "'Added global MCP server' in codex_mcp_add.stdout"
   failed_when: false
 
-- name: Warn about Codex MCP servers that couldn't be added
+- name: Warn about Codex MCP servers that couldn't be added or logged in to
   debug:
-    msg: "Couldn't add the {{ item.item.name }} MCP server: {{ item.stderr | default(item.stdout) }}"
+    msg: >-
+      {{ item.item.name }}:
+      {{ 'added to config.toml, but not logged in' if 'Added global MCP server' in item.stdout else "couldn't add the MCP server" }}
+      (rc {{ item.rc }}). Log in with `codex mcp login {{ item.item.name }}`.
+      {{ item.stderr }}
   loop: "{{ codex_mcp_add.results | selectattr('rc', 'defined') | rejectattr('rc', 'equalto', 0) | list }}"
   loop_control:
     label: "{{ item.item.name }}"

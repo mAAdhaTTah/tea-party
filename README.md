@@ -62,8 +62,10 @@ these steps by hand:
    review. Codex ties each approval to a hash of the plugin's contents, so
    approve them again after every plugin update. Until you do, sessions start
    without the workflow norms or Cognee memory, and nothing warns you.
-3. Log in to each MCP server: `codex mcp login Neon`, then `todoist` and
-   `readwise`.
+3. Log in to each MCP server. The playbook adds each one and opens its OAuth
+   login in the browser; if you didn't finish it within 5 minutes, the playbook
+   warns, and you log in with `codex mcp login Neon` (then `todoist`,
+   `readwise`). The server stays configured either way.
 
 Codex has no commit-trailer setting, so the seeded config asks for the
 mAAdclanKKer `Co-Authored-By` trailer in `developer_instructions` instead.
