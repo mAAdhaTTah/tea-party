@@ -1,11 +1,21 @@
+{# Renders a value as TOML: mappings become inline tables, the rest JSON. #}
+{% macro toml(value) -%}
+{% if value is mapping -%}
+{ {% for key, item in value.items() %}{{ key if key is match('^[A-Za-z0-9_-]+$') else key | to_json }} = {{ toml(item) }}{{ ", " if not loop.last }}{% endfor %} }
+{%- else -%}
+{{ value | to_json }}
+{%- endif %}
+{%- endmacro %}
 [tools]
 {% for tool in mise_tools %}
 {% if tool.comment is defined %}
 # {{ tool.comment }}
 {% endif %}
 {% set tool_key = ('"' + tool.name + '"') if ':' in tool.name else tool.name %}
-{% if tool.trust_policy_excludes is defined %}
-{{ tool_key }} = { version = "{{ tool.version }}", trust_policy_excludes = {{ tool.trust_policy_excludes | to_json }} }
+{# Keys other than name, version and comment are mise tool options. #}
+{% set tool_options = tool | dict2items | rejectattr('key', 'in', ['name', 'version', 'comment']) | items2dict %}
+{% if tool_options %}
+{{ tool_key }} = {{ toml({'version': tool.version} | combine(tool_options)) }}
 {% else %}
 {{ tool_key }} = "{{ tool.version }}"
 {% endif %}

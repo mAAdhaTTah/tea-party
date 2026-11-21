@@ -34,6 +34,17 @@ mise_tools:
   # bin= names the binary, which mise would otherwise call `darwin`.
   # renovate: datasource=github-releases depName=github/gh-stack
   - { name: "github:github/gh-stack[bin=gh-stack]", version: "0.3.0", comment: gh extensions }
+  # gt, the Gitea CLI that replaced tea. Homebrew's gitea-cli lags behind
+  # (1.2.0 when gt 2.0.0 shipped), so mise downloads the release binary.
+  # renovate: datasource=gitea-releases depName=gitea/cli
+  - { name: "http:gt", version: "2.0.0", bin: gt, platforms: "{{ mise_gt_platforms }}", comment: Gitea CLI }
+
+# mise fills in {{ version }}, so Ansible must leave it alone (!unsafe).
+mise_gt_platforms:
+  macos-arm64:
+    url: !unsafe "https://dl.gitea.com/gitea-cli/{{ version }}/gitea-cli-{{ version }}-darwin-arm64.xz"
+  macos-x64:
+    url: !unsafe "https://dl.gitea.com/gitea-cli/{{ version }}/gitea-cli-{{ version }}-darwin-amd64.xz"
 
 # Vercel publishes these from a private repo, so npm can't attach the provenance
 # aube's no-downgrade check wants (vercel/vercel#17408). Only the packages the

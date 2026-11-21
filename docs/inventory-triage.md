@@ -25,7 +25,7 @@ Every hand-installed item found on this machine (2026-10-22) that the repo doesn
 | yt-dlp                                       | Video downloader                                             | keep                                | uninstall |
 | findutils                                    | GNU find/xargs (pairs with coreutils)                        | keep                                | keep + put gnubin on PATH |
 | gh                                           | GitHub CLI (also the git credential helper)                  | keep                                | keep |
-| tea                                          | Gitea CLI (used by the claudev skills)                       | keep                                | keep |
+| tea                                          | Gitea CLI (used by the mAAdclanKKer skills)                  | keep                                | uninstall (archived; replaced by gt via mise `http:gt`) |
 | lazygit                                      | Terminal git UI                                              | keep                                | ignore |
 | tmux                                         | Terminal multiplexer                                         | keep                                | uninstall |
 | oh-my-posh (tap `jandedobbeleer/oh-my-posh`) | Prompt theme; your bash-it theme needs it                    | keep                                | keep |
