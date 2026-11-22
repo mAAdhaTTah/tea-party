@@ -26,7 +26,6 @@ homebrew_installed_packages:
   - poppler
   - ripgrep
   - rsync
-  - tea
   - trash
   - wget
 homebrew_cask_apps:
@@ -65,3 +64,5 @@ homebrew_cask_apps:
 homebrew_uninstalled_packages:
   # Now installed by mise as npm:neonctl
   - neonctl
+  # Archived; replaced by gt, which mise installs as http:gt
+  - tea

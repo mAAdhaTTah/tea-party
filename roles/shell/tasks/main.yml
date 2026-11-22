@@ -101,6 +101,8 @@
         fi
         # Load Bash It
         source $BASH_IT/bash_it.sh
+        # bash-it's git aliases define gt as `git tag`, which hides the Gitea CLI
+        unalias gt 2>/dev/null
       fi
 
 # bash-it v3.1.0 moved the battery plugin into lib/, which always loads

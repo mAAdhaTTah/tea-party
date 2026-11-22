@@ -5,6 +5,6 @@
 git_allowed_signers:
   - email: jamesorodig@gmail.com
     key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEBACFG1D3WTj81IMUTdQwBa6LbcY7zGXCau2PYRUfDM
-  # mAAdclanKKer, from `tea api users/mAAdclanKKer/keys`
+  # mAAdclanKKer, from `gt api users/mAAdclanKKer/keys`
   - email: jamesorodig+maadclankker@gmail.com
     key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHPzVrjHQwLZCzRMMok6NWyiPhuXNhF8bveuAvCSJzKO
